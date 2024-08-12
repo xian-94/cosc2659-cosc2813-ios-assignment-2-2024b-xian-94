@@ -32,6 +32,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75942F732C6A01B100A9527F /* Game */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		75942F742C6A01B800A9527F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		75942F752C6A01BD00A9527F /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		75942F762C6A01C200A9527F /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		75942F772C6A01C900A9527F /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
 		75A334362C69203600C65070 = {
 			isa = PBXGroup;
 			children = (
@@ -51,6 +86,11 @@
 		75A334412C69203600C65070 /* SGSplash */ = {
 			isa = PBXGroup;
 			children = (
+				75942F772C6A01C900A9527F /* Assets */,
+				75942F762C6A01C200A9527F /* Data */,
+				75942F752C6A01BD00A9527F /* View */,
+				75942F742C6A01B800A9527F /* Model */,
+				75942F732C6A01B100A9527F /* Game */,
 				75A334422C69203600C65070 /* SGSplashApp.swift */,
 				75A334442C69203600C65070 /* ContentView.swift */,
 				75A334462C69203B00C65070 /* Assets.xcassets */,

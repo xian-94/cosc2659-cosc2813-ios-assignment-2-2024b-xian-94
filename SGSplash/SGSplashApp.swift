@@ -2,7 +2,7 @@
 //  SGSplashApp.swift
 //  SGSplash
 //
-//  Created by Do Le Long An on 11/8/24.
+//  Created by Xian on 11/8/24.
 //
 
 import SwiftUI
