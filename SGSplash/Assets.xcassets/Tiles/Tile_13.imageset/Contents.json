@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "goicuon.png",
+      "filename" : "Tile_13.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "goicuon@2x.png",
+      "filename" : "Tile_13@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "goicuon@3x.png",
+      "filename" : "Tile_13@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
