@@ -6,6 +6,8 @@ let numRows = 9
 class GameScene: SKScene {
     
     var level: Level?
+    // Closure that handle swiping
+    var swipeHandler: ((Swap) -> Void)?
     // Set tile's size
     let elementWidth: CGFloat = 36.0
     let elementHeight: CGFloat = 36.0
@@ -20,6 +22,7 @@ class GameScene: SKScene {
     // Properties for swiping gestures
     private var swipeFromColumn: Int?
     private var swipeFromRow: Int?
+    private var selectedSprite = SKShapeNode()
     
     
     // Constructor
@@ -50,9 +53,14 @@ class GameScene: SKScene {
     
     
     // Convert column and row number into CGPoint
-    private func elementPoint(col: Int, row: Int) -> CGPoint {
+    private func tilePoint(col: Int, row: Int) -> CGPoint {
         return CGPoint(x: (CGFloat(col) * (elementWidth) + elementWidth / 2),
                        y: (CGFloat(row) * (elementHeight) + elementHeight / 2))
+    }
+    
+    private func elementPoint(col: Int, row: Int) -> CGPoint {
+        return CGPoint(x: (CGFloat(col) * (elementWidth + 0.2) + elementWidth / 2),
+                       y: (CGFloat(row) * (elementHeight + 0.2) + elementHeight / 2))
     }
     
     // Convert a CGPoint relative to elements layer to column and row numbers
@@ -87,7 +95,7 @@ class GameScene: SKScene {
                 if level.tileAt(column: col, row: r) != nil {
                     let tileNode = SKSpriteNode(imageNamed: "MaskTile")
                     tileNode.size = CGSize(width: elementWidth, height: elementHeight)
-                    tileNode.position = elementPoint(col: col, row: r)
+                    tileNode.position = tilePoint(col: col, row: r)
                     maskLayer.addChild(tileNode)
                 }
             }
@@ -110,7 +118,7 @@ class GameScene: SKScene {
                     let name = String(format: "Tile_%d", value)
                     let tileNode = SKSpriteNode(imageNamed: name)
                     tileNode.size = CGSize(width: elementWidth, height: elementHeight)
-                    var point = elementPoint(col: col, row: r)
+                    var point = tilePoint(col: col, row: r)
                     point.x -= elementWidth / 2
                     point.y -= elementHeight / 2
                     tileNode.position = point
@@ -133,7 +141,9 @@ class GameScene: SKScene {
         let (success, column, row) = convertPoint(location)
         if success {
             // Find the related element
-            if let element = level?.elementAt(atColumn: column, row: row) {
+            if let element =  level?.elementAt(atColumn: column, row: row) {
+                showSelectionEffect(of: element)
+                print("Touch at \(column) \(row)")
                 swipeFromColumn = column
                 swipeFromRow = row
             }
@@ -142,7 +152,6 @@ class GameScene: SKScene {
     
     // Detect the swipe direction
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
         // Convert the location into valid row and column number
         guard let touch = touches.first else { return }
         let location = touch.location(in: elementsLayer)
@@ -154,6 +163,7 @@ class GameScene: SKScene {
             // Swipe left
             if column < fromColumn {
                 horizontalDiff = -1
+                print("Swipe left")
             }
             // Swipe right
             else if column > fromColumn {
@@ -169,9 +179,11 @@ class GameScene: SKScene {
             }
             if horizontalDiff != 0 || verticalDiff != 0 {
                 trySwap(hDiff: horizontalDiff, vDiff: verticalDiff)
+                hideSelectionEffect()
+                // Ignore the rest of the swipe motion
+                swipeFromColumn = nil
             }
-            // Ignore the rest of the swipe motion
-            swipeFromColumn = nil
+           
         }
         
     }
@@ -180,8 +192,8 @@ class GameScene: SKScene {
     private func trySwap(hDiff: Int, vDiff: Int) {
         // Calculate the destined column or row
         guard let fromColumn = swipeFromColumn, let fromRow = swipeFromRow else { return }
-        let toColumn = fromColumn + vDiff
-        let toRow = fromRow + hDiff
+        let toColumn = fromColumn + hDiff
+        let toRow = fromRow + vDiff
         
         // Verify that the destined row or column is within the grid
         guard toColumn >= 0 && toColumn < numColumns else { return }
@@ -189,18 +201,76 @@ class GameScene: SKScene {
         
         // Check if the destined position contains element
         if let toElement = level?.elementAt(atColumn: toColumn, row: toRow),
-           let fromElement = level?.elementAt(atColumn: toColumn, row: toRow) {
-            print("Swaping \(fromElement) to \(toElement)")
+           let fromElement = level?.elementAt(atColumn: fromColumn, row: fromRow) {
+            if let handler = swipeHandler {
+                // Create swap object 
+                let swap = Swap(elementA: fromElement, elementB: toElement)
+                handler(swap)
+            }
         }
     }
     
     // Gesture ends when user lifts finger from the screen
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // Handle the action of just tapping on the screen
+        if selectedSprite.parent != nil && swipeFromColumn != nil {
+            hideSelectionEffect()
+        }
         swipeFromColumn = nil
         swipeFromRow = nil
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         touchesEnded(touches, with: event)
+    }
+    
+    // Move element A to element B's position
+    func moveElement(_ swap: Swap, completion: @escaping () -> Void) {
+        let spriteA = swap.elementA.sprite
+        let spriteB = swap.elementB.sprite
+        
+        guard let spriteA = spriteA, let spriteB = spriteB else { return }
+        spriteA.zPosition = 100
+        spriteB.zPosition = 90
+        let duration: TimeInterval = 0.3
+        // Move A to B
+        let moveA = SKAction.move(to: spriteB.position, duration: duration)
+        moveA.timingMode = .easeOut
+        
+        // Move B to A
+        let moveB = SKAction.move(to: spriteA.position, duration: duration)
+        moveB.timingMode = .easeOut
+        spriteA.run(moveA)
+        spriteB.run(moveB, completion: completion)
+        
+//        run(swapSound) TODO: Add Sound later
+    }
+    
+    // Highlight the element if it is selected
+    // TODO: Styling the effect later
+    func showSelectionEffect(of element: Element) {
+        // Remove the previously chosen element
+        if selectedSprite.parent != nil {
+            selectedSprite.removeFromParent()
+        }
+        if let sprite = element.sprite {
+            // Create a stroke for the selected element
+            let stroke = SKShapeNode(rectOf: CGSize(width: elementWidth, height: elementHeight))
+            stroke.strokeColor = .yellow
+            stroke.lineWidth = 3.0
+            stroke.alpha = 1.0
+            stroke.zPosition = 100
+            
+            selectedSprite = stroke
+            sprite.addChild(selectedSprite)
+        }
+    }
+    
+    // Hide the stroke when the element is deselected
+    func hideSelectionEffect() {
+        selectedSprite.run(SKAction.sequence([
+            SKAction.fadeOut(withDuration: 0.3),
+            SKAction.removeFromParent()
+        ]))
     }
 }

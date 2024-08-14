@@ -6,6 +6,8 @@ class GameManager: ObservableObject {
     
     @Published var score = 0
     @Published var movesLeft = 0
+    // Manage user interaction 
+    @Published var userInteractionEnabled = true
     
     let scene: GameScene
     private var level: Level
@@ -15,7 +17,11 @@ class GameManager: ObservableObject {
         scene = GameScene(size: viewSize)
         scene.level = level
         scene.scaleMode = .aspectFill
+        scene.swipeHandler = handleSwipe
         scene.addTiles()
+        startGame()
+        
+        
      
         
     }
@@ -27,5 +33,14 @@ class GameManager: ObservableObject {
     func shuffle() {
         let newTiles = level.shuffle()
         scene.addSprites(for: newTiles)
+    }
+    
+    // Perform swiping gesture
+    func handleSwipe(_ swap: Swap) {
+        self.userInteractionEnabled = false
+        level.doSwap(swap)
+        scene.moveElement(swap) {
+            self.userInteractionEnabled = true
+        }
     }
 }

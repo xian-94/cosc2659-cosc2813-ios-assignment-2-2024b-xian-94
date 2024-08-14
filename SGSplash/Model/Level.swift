@@ -77,4 +77,19 @@ class Level {
     func shuffle() -> Set<Element> {
         return createInitialTiles()
     }
+    
+    // Handle swapping elements
+    func doSwap(_ swap: Swap) {
+        let colA = swap.elementA.column
+        let rowA = swap.elementA.row
+        let colB = swap.elementB.column
+        let rowB = swap.elementB.row
+        // Update the elements array
+        elements[colA, rowA] = swap.elementB
+        swap.elementB.column = colA
+        swap.elementB.row = rowA
+        elements[colB, rowB] = swap.elementA
+          swap.elementA.column = colB
+          swap.elementA.row = rowB
+    }
 }

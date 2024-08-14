@@ -14,6 +14,8 @@ struct GameView: View {
         ZStack {
             SpriteView(scene: gameManager.scene)
                 .edgesIgnoringSafeArea(.all)
+            // Prevent user interaction during swapping 
+                .disabled(!gameManager.userInteractionEnabled)
             
             VStack {
                 Spacer()
@@ -39,9 +41,9 @@ struct GameView: View {
                 .padding()
             }
         }
-        .onAppear {
-            gameManager.startGame()
-        }
+//        .onAppear {
+//            gameManager.startGame()
+//        }
     }
 }
 
