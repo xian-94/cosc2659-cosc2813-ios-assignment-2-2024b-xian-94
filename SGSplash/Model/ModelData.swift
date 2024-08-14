@@ -12,7 +12,8 @@ func loadLevels(fileName: String) -> [LevelData] {
         if let data = try? Data(contentsOf: file) {
             do {
                 let decoder = JSONDecoder()
-                let decoded = try decoder.decode(LevelData.self, from: data)
+                let decoded  = try decoder.decode([LevelData].self, from: data)
+                return decoded
             }
             catch {
                 fatalError("Failed to decode JSON: \(error)")
@@ -29,4 +30,4 @@ func loadLevels(fileName: String) -> [LevelData] {
 }
 
 // Import data
-var levels = loadLevels(fileName: "levels.json")
+var levels = loadLevels(fileName: "levels")

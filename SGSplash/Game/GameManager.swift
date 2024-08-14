@@ -8,14 +8,14 @@ class GameManager: ObservableObject {
     @Published var movesLeft = 0
     
     let scene: GameScene
-    var level: Level!
+    private var level: Level
     
     init(viewSize: CGSize) {
+        level = Level(level: 1)
         scene = GameScene(size: viewSize)
-        scene.scaleMode = .aspectFill
         scene.level = level
-        level = Level()
-//        scene.addTiles()
+        scene.scaleMode = .aspectFill
+        scene.addTiles()
      
         
     }
