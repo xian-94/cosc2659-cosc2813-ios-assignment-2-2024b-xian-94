@@ -69,7 +69,7 @@ class Element: CustomStringConvertible, Hashable {
     }
     
     var description: String {
-        return "type: \(self.type) square: (\(self.column), \(self.row)"
+        return "type: \(self.type) square: (\(self.column), \(self.row))"
     }
     
    

@@ -41,9 +41,6 @@ struct GameView: View {
                 .padding()
             }
         }
-//        .onAppear {
-//            gameManager.startGame()
-//        }
     }
 }
 

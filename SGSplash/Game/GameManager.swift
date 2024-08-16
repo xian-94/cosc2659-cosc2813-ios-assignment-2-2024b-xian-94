@@ -38,9 +38,16 @@ class GameManager: ObservableObject {
     // Perform swiping gesture
     func handleSwipe(_ swap: Swap) {
         self.userInteractionEnabled = false
-        level.doSwap(swap)
-        scene.moveElement(swap) {
-            self.userInteractionEnabled = true
+        if level.isPossibleSwap(swap) {
+            level.doSwap(swap)
+            scene.moveElement(swap) {
+                self.userInteractionEnabled = true
+            }
+        }
+        else {
+            scene.moveInvalidSwap(swap) {
+                self.userInteractionEnabled = true
+            }
         }
     }
 }

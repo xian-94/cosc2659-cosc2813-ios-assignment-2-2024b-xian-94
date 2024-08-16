@@ -9,15 +9,14 @@ class GameScene: SKScene {
     // Closure that handle swiping
     var swipeHandler: ((Swap) -> Void)?
     // Set tile's size
-    let elementWidth: CGFloat = 36.0
-    let elementHeight: CGFloat = 36.0
+    let elementWidth: CGFloat = 32.0
+    let elementHeight: CGFloat = 32.0
+    let tileSize: CGFloat = 42
     
     // Set the layers
     let gameLayer = SKNode()
     let elementsLayer = SKNode()
     let tilesLayer = SKNode() // Background square for each element
-    let cropLayer = SKCropNode()
-    let maskLayer = SKNode()
     
     // Properties for swiping gestures
     private var swipeFromColumn: Int?
@@ -32,16 +31,13 @@ class GameScene: SKScene {
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addChild(gameLayer)
         
-        let layerPosition = CGPoint(x: (-elementWidth * CGFloat(numColumns) / 2),
-                                    y: (-elementHeight * CGFloat(numRows) / 2))
+        let layerPosition = CGPoint(x: (-tileSize * CGFloat(numColumns) / 2),
+                                    y: (-tileSize * CGFloat(numRows) / 2))
         
         tilesLayer.position = layerPosition
-        maskLayer.position = layerPosition
-        cropLayer.maskNode = maskLayer
         gameLayer.addChild(tilesLayer)
-        gameLayer.addChild(cropLayer)
         elementsLayer.position = layerPosition
-        cropLayer.addChild(elementsLayer)
+        gameLayer.addChild(elementsLayer)
         
         
         backgroundColor = .white // Set background color for visibility
@@ -54,20 +50,20 @@ class GameScene: SKScene {
     
     // Convert column and row number into CGPoint
     private func tilePoint(col: Int, row: Int) -> CGPoint {
-        return CGPoint(x: (CGFloat(col) * (elementWidth) + elementWidth / 2),
-                       y: (CGFloat(row) * (elementHeight) + elementHeight / 2))
+        return CGPoint(x: (CGFloat(col) * tileSize + tileSize / 2),
+                       y: (CGFloat(row) * tileSize + tileSize / 2))
     }
     
     private func elementPoint(col: Int, row: Int) -> CGPoint {
-        return CGPoint(x: (CGFloat(col) * (elementWidth + 0.2) + elementWidth / 2),
-                       y: (CGFloat(row) * (elementHeight + 0.2) + elementHeight / 2))
+        return CGPoint(x: (CGFloat(col) * tileSize + tileSize / 2),
+                       y: (CGFloat(row) * tileSize + tileSize / 2))
     }
     
     // Convert a CGPoint relative to elements layer to column and row numbers
     private func convertPoint(_ point: CGPoint) -> (success: Bool, column: Int, row: Int) {
         // Check if the point falls outside the grid
-        if point.x >= 0 && point.x < elementWidth * CGFloat(numColumns) && point.y >= 0 && point.y < CGFloat(numRows) * elementHeight {
-            return (true, Int(point.x / elementWidth), Int(point.y / elementHeight))
+        if point.x >= 0 && point.x < tileSize * CGFloat(numColumns) && point.y >= 0 && point.y < CGFloat(numRows) * tileSize {
+            return (true, Int(point.x / tileSize), Int(point.y / tileSize))
         }
         return (false, 0, 0)
     }
@@ -89,42 +85,15 @@ class GameScene: SKScene {
     // Add background tiles
     func addTiles() {
         guard let level = level else { return }
-        // Detect and draw MaskTile on a tile's place
-        for r in 0..<numRows {
+        for row in 0..<numRows {
             for col in 0..<numColumns {
-                if level.tileAt(column: col, row: r) != nil {
-                    let tileNode = SKSpriteNode(imageNamed: "MaskTile")
-                    tileNode.size = CGSize(width: elementWidth, height: elementHeight)
-                    tileNode.position = tilePoint(col: col, row: r)
-                    maskLayer.addChild(tileNode)
-                }
-            }
-        }
-        // Add border tiles
-        for r in 0...numRows {
-            for col in 0...numColumns {
-                // Check the presence of neighboring tiles
-                let topLeft = (col > 0) && (r < numRows) && level.tileAt(column: col - 1, row: r) != nil ? 1 : 0
-                let bottomLeft = (col > 0) && (r > 0) && level.tileAt(column: col - 1, row: r - 1) != nil ? 1 : 0
-                let topRight = (col < numColumns) && (r < numRows) && level.tileAt(column: col, row: r) != nil ? 1: 0
-                let bottomRight = (col < numColumns) && (r > 0) && level.tileAt(column: col, row: r - 1) != nil ? 1: 0
-                
-                // Calculate the bitmask value based on the presence of neighboring tiles
-                let value = topLeft | (topRight << 1) | (bottomLeft << 2) | (bottomRight << 3)
-                
-                
-                // Add tile background based on the value
-                if value != 0 && value != 6 && value != 9 {
-                    let name = String(format: "Tile_%d", value)
-                    let tileNode = SKSpriteNode(imageNamed: name)
-                    tileNode.size = CGSize(width: elementWidth, height: elementHeight)
-                    var point = tilePoint(col: col, row: r)
-                    point.x -= elementWidth / 2
-                    point.y -= elementHeight / 2
-                    tileNode.position = point
+                if level.tileAt(column: col, row: row) != nil {
+                    let tileNode = SKShapeNode(rectOf: CGSize(width: tileSize, height: tileSize))
+                    tileNode.position = tilePoint(col: col, row: row)
+                    tileNode.fillColor = .lightGray
+                    tileNode.alpha = 1.0
                     tilesLayer.addChild(tileNode)
                 }
-                
             }
         }
     }
@@ -183,7 +152,7 @@ class GameScene: SKScene {
                 // Ignore the rest of the swipe motion
                 swipeFromColumn = nil
             }
-           
+            
         }
         
     }
@@ -203,7 +172,7 @@ class GameScene: SKScene {
         if let toElement = level?.elementAt(atColumn: toColumn, row: toRow),
            let fromElement = level?.elementAt(atColumn: fromColumn, row: fromRow) {
             if let handler = swipeHandler {
-                // Create swap object 
+                // Create swap object
                 let swap = Swap(elementA: fromElement, elementB: toElement)
                 handler(swap)
             }
@@ -243,7 +212,25 @@ class GameScene: SKScene {
         spriteA.run(moveA)
         spriteB.run(moveB, completion: completion)
         
-//        run(swapSound) TODO: Add Sound later
+        //        run(swapSound) TODO: Add Sound later
+    }
+    
+    // Animate the invalid swap
+    func moveInvalidSwap(_ swap: Swap, completion: @escaping () -> Void) {
+        guard let spriteA = swap.elementA.sprite, let spriteB = swap.elementB.sprite else { return }
+        spriteA.zPosition = 100
+        spriteB.zPosition = 90
+        
+        let duration: TimeInterval = 0.2
+        let moveA = SKAction.move(to: spriteB.position, duration: duration)
+        let moveB = SKAction.move(to: spriteA.position, duration: duration)
+        moveA.timingMode = .easeOut
+        moveB.timingMode = .easeOut
+        spriteA.run(SKAction.sequence([moveA, moveB]), completion: completion)
+        spriteB.run(SKAction.sequence([moveB, moveA]))
+        
+        // TODO: Add sound later 
+//        run(invalidSwapSound)
     }
     
     // Highlight the element if it is selected
