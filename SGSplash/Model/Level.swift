@@ -92,6 +92,8 @@ class Level {
         return set
     }
     
+    /* Handle swapping element */
+    
     // Handle swapping elements
     func doSwap(_ swap: Swap) {
         let colA = swap.elementA.column
@@ -211,5 +213,146 @@ class Level {
     func isPossibleSwap(_ swap: Swap) -> Bool {
         return possibleSwaps.contains(swap)
     }
+    
+    /* Handle finding and removing matching elements */
+    
+    // Find horitontal chain
+    private func findHorizontalChains() -> Set<Chain> {
+        var set: Set<Chain> = []
+        for r in 0..<numRows {
+            var col = 0
+            while col < numColumns-2 {
+                if let e = elements[col, r] {
+                    let matchType = e.type
+                    // Find the chain
+                    if elements[col + 1, r]?.type == matchType &&
+                        elements[col + 2, r]?.type == matchType {
+                        // Create a chain obj if chain is detected
+                        let chain = Chain(type: .horizontal)
+                        repeat {
+                            // Add elements until no matching type is detected
+                            chain.add(element: elements[col, r]!)
+                            col += 1
+                        }
+                        while col < numColumns && elements[col, r]?.type == matchType
+                                set.insert(chain)
+                                continue
+                    }
+                }
+                col += 1
+            }
+        }
+        return set
+    }
+    
+    // Detect vertical chain
+    private func findVerticalChains() -> Set<Chain> {
+        var set: Set<Chain> = []
+        for col in 0..<numColumns {
+            var r = 0
+            while r < numRows-2 {
+                if let e = elements[col, r] {
+                    let matchType = e.type
+                    // Find the chain
+                    if elements[col, r + 1]?.type == matchType &&
+                        elements[col, r + 2]?.type == matchType {
+                        // Create a chain obj if chain is detected
+                        let chain = Chain(type: .vertical)
+                        repeat {
+                            // Add elements until no matching type is detected
+                            chain.add(element: elements[col, r]!)
+                            r += 1
+                        }
+                        while r < numRows && elements[col, r]?.type == matchType
+                                set.insert(chain)
+                                continue
+                    }
+                }
+                r += 1
+            }
+        }
+        return set
+    }
+    
+    // Find all the chains
+    func findAllChains() -> Set<Chain> {
+        let hChains = findHorizontalChains()
+        let vChains = findVerticalChains()
+        removeChains(in: hChains)
+        removeChains(in: vChains)
+        // Unite 2 sets of chains into 1 single set
+        return hChains.union(vChains)
+    }
+    
+    // Remove the chains
+    private func removeChains(in chains: Set<Chain>) {
+        for chain in chains {
+            for e in chain.elements {
+                elements[e.column, e.row] = nil
+            }
+        }
+    }
+    
+    /* Handle dropping elements into empty holes */
+    func fillHoles() -> [[Element]] {
+        var columns: [[Element]] = []
+        
+        for column in 0..<numColumns {
+            var arr: [Element] = []
+            for row in 0..<numRows {
+                // If a tile has no element
+                if tiles[column, row] != nil && elements[column, row] == nil {
+                    // Find the element that is right above the hole
+                    for examinedRow in (row + 1)..<numRows {
+                        if let element = elements[column, examinedRow] {
+                            // Move the element to the hole
+                            elements[column, examinedRow] = nil
+                            elements[column, row] = element
+                            element.row = row
+                            arr.append(element)
+                            break
+                        }
+                    }
+                }
+            }
+            // Handle column which doesn't have hole 
+            if !arr.isEmpty {
+                columns.append(arr)
+            }
+        }
+        return columns
+    }
+    
+    // Add new elements
+    func topUpElements() -> [[Element]] {
+        var columns: [[Element]] = []
+        var lastType: ElementType = .unknown
+        
+        for col in 0..<numColumns {
+            var arr: [Element] = []
+            var r = numRows - 1
+            while r >= 0 && elements[col, r] == nil {
+                    var newType: ElementType
+                    // The newly create element cannot have the same type with the last new element
+                    repeat {
+                        newType = ElementType.random()
+                    } while newType == lastType
+                    lastType = newType
+                    
+                    // Create new element
+                    let newElement = Element(column: col, row: r, type: newType)
+                    elements[col, r] = newElement
+                    arr.append(newElement)
+                    r -= 1
+                
+            }
+            if !arr.isEmpty {
+                columns.append(arr)
+            }
+        }
+        return columns
+    }
+    
+    
 }
 

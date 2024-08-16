@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "banh mi.png",
+      "filename" : "banh cuon trung.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "banh mi@2x.png",
+      "filename" : "banh cuon trung@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "banh mi@3x.png",
+      "filename" : "banh cuon trung@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

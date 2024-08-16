@@ -9,9 +9,9 @@ class GameScene: SKScene {
     // Closure that handle swiping
     var swipeHandler: ((Swap) -> Void)?
     // Set tile's size
-    let elementWidth: CGFloat = 32.0
-    let elementHeight: CGFloat = 32.0
-    let tileSize: CGFloat = 42
+    let elementWidth: CGFloat = 80.0
+    let elementHeight: CGFloat = 100.0
+    let tileSize: CGFloat = 38
     
     // Set the layers
     let gameLayer = SKNode()
@@ -90,8 +90,8 @@ class GameScene: SKScene {
                 if level.tileAt(column: col, row: row) != nil {
                     let tileNode = SKShapeNode(rectOf: CGSize(width: tileSize, height: tileSize))
                     tileNode.position = tilePoint(col: col, row: row)
-                    tileNode.fillColor = .lightGray
-                    tileNode.alpha = 1.0
+                    tileNode.fillColor = .black
+                    tileNode.alpha = 0.3
                     tilesLayer.addChild(tileNode)
                 }
             }
@@ -260,4 +260,78 @@ class GameScene: SKScene {
             SKAction.removeFromParent()
         ]))
     }
+    
+    /* Handle Removing Chains */
+    // Implement animation for removing chains
+    func animateRemoveChains(for chains: Set<Chain>, completion: @escaping () -> Void) {
+        for chain in chains {
+            for element in chain.elements {
+                if let sprite = element.sprite {
+                    // Trigger animation for each sprite
+                    if sprite.action(forKey: "removing") == nil {
+                        let scaleEffect = SKAction.scale(to: 0.1, duration: 0.3)
+                        scaleEffect.timingMode = .easeOut
+                        sprite.run(SKAction.sequence([scaleEffect, SKAction.removeFromParent()]), withKey: "removing")
+                    }
+                }
+            }
+        }
+//        run(matchSound)
+        // The game will continue after the animation finish 
+        run(SKAction.wait(forDuration: 0.3), completion: completion)
+    }
+    
+    // Add animation for falling elements
+    func animateFallingElements(in columns: [[Element]], completion: @escaping () -> Void) {
+        var longestDuration: TimeInterval = 0
+        for arr in columns {
+            for (i, e) in arr.enumerated() {
+                let newPos = elementPoint(col: e.column, row: e.row)
+                let delay = 0.05 + 0.15 * TimeInterval(i)
+                guard let sprite = e.sprite else {return}
+                
+                // Calculate the duration of the animation
+                let duration = TimeInterval(((sprite.position.y - newPos.y) / elementHeight) * 0.1)
+                longestDuration = max(longestDuration, duration + delay)
+                
+                // Perform the movement
+                let move = SKAction.move(to: newPos, duration: duration)
+                move.timingMode = .easeOut
+                // TODO: Add falling sound later
+                sprite.run(SKAction.sequence([SKAction.wait(forDuration: delay), move]))
+            }
+        }
+        run(SKAction.wait(forDuration: longestDuration), completion: completion)
+    }
+    
+    // Add animation for topping up new elements
+    func animateNewElements(in columns: [[Element]], completion: @escaping () -> Void) {
+        var longestDuration: TimeInterval = 0
+        for arr in columns {
+            let startRow = arr[0].row + 1
+            for (i, e) in arr.enumerated() {
+                let sprite = SKSpriteNode(imageNamed: e.type.spriteName())
+                sprite.size = CGSize(width: elementWidth, height: elementHeight)
+                sprite.position = elementPoint(col: e.column, row: e.row)
+                elementsLayer.addChild(sprite)
+                e.sprite = sprite
+                
+                // Compute the duration
+                let delay = 0.1 + 0.2 * TimeInterval(arr.count - i - 1)
+                let duration = TimeInterval(startRow - e.row) * 0.1
+                longestDuration = max(longestDuration, duration + delay)
+                
+                // Perform animation
+                let newPos = elementPoint(col: e.column, row: e.row)
+                let move = SKAction.move(to: newPos, duration: duration)
+                move.timingMode = .easeOut
+                sprite.alpha = 0
+                // TODO: Add sound later
+                sprite.run(SKAction.sequence([SKAction.wait(forDuration: delay), SKAction.group([SKAction.fadeIn(withDuration: 0.05), move])]))
+            }
+        }
+        run(SKAction.wait(forDuration: longestDuration), completion: completion)
+    }
+    
+    
 }

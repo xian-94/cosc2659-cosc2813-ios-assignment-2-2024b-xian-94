@@ -12,19 +12,31 @@ import SpriteKit
 // TODO: Change the number of cases
 enum ElementType: Int {
     case unknown = 0,
-    aoDai,
-    banhMi,
-    coffee,
-    conicalHat
+         banhxeo,
+         banhcom,
+         banhmi,
+         banhcam,
+         bbq,
+         banhchung,
+         banhdauxanh,
+         springroll,
+         banhdabo,
+         roll
     
     // Find the image name of the tile
     func spriteName() -> String {
         // Names match the order of the declared case
         let spriteNames = [
-            "AoDai",
-            "BanhMi",
-            "Coffee",
-            "ConicalHat"
+            "banhxeo",
+            "banhcom",
+            "banhmi",
+            "banhcam",
+            "bbq",
+            "banhchung",
+            "banhdauxanh",
+            "springroll",
+            "banhdabo",
+            "roll"
         ]
         // Since the raw value is integer
         return spriteNames[rawValue - 1]
@@ -38,7 +50,7 @@ enum ElementType: Int {
     // Randomize the tile type for the newly added tile
     // TODO: Change the number of cases
     static func random() -> ElementType {
-        return ElementType(rawValue: Int.random(in: 1...4))!
+        return ElementType(rawValue: Int.random(in: 1...7))!
     }
 }
 
@@ -72,5 +84,5 @@ class Element: CustomStringConvertible, Hashable {
         return "type: \(self.type) square: (\(self.column), \(self.row))"
     }
     
-   
+    
 }
