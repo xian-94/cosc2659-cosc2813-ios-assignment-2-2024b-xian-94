@@ -14,11 +14,17 @@ let rows = 9
 struct LevelData: Codable {
     var number: Int
     var tiles: [[Int]]
-    var goal: Int
+    var target: String
+    var quantity: Int
     var moves: Int
 }
 
 class Level {
+    // Goal properties
+    var target: ElementType
+    var quantity: Int = 0
+    var moves: Int = 0
+    
     // Create a 2D array that holds the elements
     private var elements = Array2D<Element>(columns: columns, rows: rows)
     private var tiles = Array2D<Tile>(columns: columns, rows: rows)
@@ -27,10 +33,13 @@ class Level {
     private var possibleSwaps: Set<Swap> = []
     
     // Constructor
-    init(level: Int) {
-        // Initialize tiles based on the level
-        // The position of level 1 is index 0
-        for (row, rowArray) in levels[level - 1].tiles.enumerated() {
+    init(level: LevelData) {
+        self.target = ElementType.getType(name: level.target)
+        self.quantity = level.quantity
+        self.moves = level.moves
+        
+        // Initialize tiles based on the level, the position of level 1 is index 0
+        for (row, rowArray) in levels[level.number - 1].tiles.enumerated() {
             let tileRow = rows - row - 1
             for (column, value) in rowArray.enumerated() {
                 // Create tiles for the 2D array positions whose value is 1, not 0
@@ -39,8 +48,6 @@ class Level {
                 }
             }
         }
-        
-        // TODO: Add moves and goals for init later
     }
     
     // Get a element based on position
@@ -315,7 +322,7 @@ class Level {
                     }
                 }
             }
-            // Handle column which doesn't have hole 
+            // Handle column which doesn't have hole
             if !arr.isEmpty {
                 columns.append(arr)
             }
@@ -332,18 +339,18 @@ class Level {
             var arr: [Element] = []
             var r = numRows - 1
             while r >= 0 && elements[col, r] == nil {
-                    var newType: ElementType
-                    // The newly create element cannot have the same type with the last new element
-                    repeat {
-                        newType = ElementType.random()
-                    } while newType == lastType
-                    lastType = newType
-                    
-                    // Create new element
-                    let newElement = Element(column: col, row: r, type: newType)
-                    elements[col, r] = newElement
-                    arr.append(newElement)
-                    r -= 1
+                var newType: ElementType
+                // The newly create element cannot have the same type with the last new element
+                repeat {
+                    newType = ElementType.random()
+                } while newType == lastType
+                lastType = newType
+                
+                // Create new element
+                let newElement = Element(column: col, row: r, type: newType)
+                elements[col, r] = newElement
+                arr.append(newElement)
+                r -= 1
                 
             }
             if !arr.isEmpty {
@@ -351,6 +358,19 @@ class Level {
             }
         }
         return columns
+    }
+    
+    /* Level target management */
+    func updateQuantity(for chains: Set<Chain>) -> Int {
+        var reduction = 0
+        for chain in chains {
+            // Check if an element in the chain has the same type with the target
+            if chain.elements[0].type == self.target {
+                // Reduce the target quantity by the chain length
+                reduction += chain.length
+            }
+        }
+        return reduction
     }
     
     

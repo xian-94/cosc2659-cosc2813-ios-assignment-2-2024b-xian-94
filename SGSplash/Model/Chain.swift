@@ -22,7 +22,6 @@ enum ChainType: CustomStringConvertible {
 class Chain: Hashable, CustomStringConvertible {
     var elements: [Element] = []
     var type: ChainType
-    
     init(type: ChainType) {
         self.type = type
     }

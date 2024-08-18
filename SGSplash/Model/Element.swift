@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-// MARK: - ElementType
+
 // TODO: Change the number of cases
 enum ElementType: Int {
     case unknown = 0,
@@ -26,6 +26,7 @@ enum ElementType: Int {
     // Find the image name of the tile
     func spriteName() -> String {
         // Names match the order of the declared case
+        // Server for random tile purpose
         let spriteNames = [
             "banhxeo",
             "banhcom",
@@ -41,14 +42,19 @@ enum ElementType: Int {
         // Since the raw value is integer
         return spriteNames[rawValue - 1]
     }
-    
-    // Find the image name of the highlighted sprite
-    func highlightedSprite() -> String {
-        return spriteName() + "-Highlighted"
+    // TODO: Change case later
+    static func getType(name: String) -> ElementType {
+        switch name.lowercased() {
+        case "bbq":
+            return .bbq
+        default:
+            return .unknown
+        }
+        
     }
     
+    
     // Randomize the tile type for the newly added tile
-    // TODO: Change the number of cases
     static func random() -> ElementType {
         return ElementType(rawValue: Int.random(in: 1...7))!
     }

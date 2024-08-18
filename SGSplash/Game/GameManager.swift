@@ -4,16 +4,18 @@ import AVFoundation
 
 class GameManager: ObservableObject {
     
-    @Published var score = 0
-    @Published var movesLeft = 0
     // Manage user interaction
     @Published var userInteractionEnabled = true
+    // Manange level goals
+    @Published var target: ElementType = .unknown
+    @Published var quantity: Int = 0
+    @Published var moves: Int = 0
     
     let scene: GameScene
     private var level: Level
     
     init(viewSize: CGSize) {
-        level = Level(level: 1)
+        level = Level(level: levels[0])
         scene = GameScene(size: viewSize)
         scene.level = level
         scene.scaleMode = .aspectFill
@@ -23,6 +25,10 @@ class GameManager: ObservableObject {
     }
     
     func startGame() {
+        self.target = level.target
+        self.moves = level.moves
+        self.quantity = level.quantity
+//        updateGoals()
         shuffle()
     }
     
@@ -54,6 +60,9 @@ class GameManager: ObservableObject {
             return
         }
         scene.animateRemoveChains(for: chains) {
+            // Update the target quantity 
+            let reduction = self.level.updateQuantity(for: chains)
+            self.quantity -= reduction
             let columns = self.level.fillHoles()
             self.scene.animateFallingElements(in: columns) {
                 let topUpColumns = self.level.topUpElements()
@@ -68,5 +77,9 @@ class GameManager: ObservableObject {
     func nextTurn() {
         level.detectPossibleSwaps()
         self.userInteractionEnabled = true
+        self.moves -= 1
     }
+    
+    
+    
 }

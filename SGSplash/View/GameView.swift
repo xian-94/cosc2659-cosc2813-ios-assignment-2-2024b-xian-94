@@ -20,10 +20,13 @@ struct GameView: View {
             VStack {
                 Spacer()
                 HStack {
-                    Text("Score: \(gameManager.score)")
+                    Image("\(gameManager.target)")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                    Text("\(gameManager.quantity)")
                         .font(.title)
                     Spacer()
-                    Text("Moves Left: \(gameManager.movesLeft)")
+                    Text("Moves Left: \(gameManager.moves)")
                         .font(.title)
                 }
                 .padding()
