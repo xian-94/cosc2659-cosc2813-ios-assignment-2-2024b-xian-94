@@ -28,7 +28,6 @@ class GameManager: ObservableObject {
         self.target = level.target
         self.moves = level.moves
         self.quantity = level.quantity
-//        updateGoals()
         shuffle()
     }
     

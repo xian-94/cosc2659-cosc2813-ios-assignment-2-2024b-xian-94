@@ -16,6 +16,7 @@ struct GameView: View {
                 .edgesIgnoringSafeArea(.all)
             // Prevent user interaction during swapping 
                 .disabled(!gameManager.userInteractionEnabled)
+                
             
             VStack {
                 Spacer()
@@ -30,18 +31,7 @@ struct GameView: View {
                         .font(.title)
                 }
                 .padding()
-                
-                Button(action: {
-                    gameManager.shuffle()
-                }) {
-                    Text("Shuffle")
-                        .font(.title)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                }
-                .padding()
+            
             }
         }
     }

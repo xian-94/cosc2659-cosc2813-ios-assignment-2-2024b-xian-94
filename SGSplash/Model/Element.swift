@@ -12,32 +12,26 @@ import SpriteKit
 // TODO: Change the number of cases
 enum ElementType: Int {
     case unknown = 0,
-         banhxeo,
-         banhcom,
+         dragon,
+         hat,
          banhmi,
-         banhcam,
-         bbq,
-         banhchung,
-         banhdauxanh,
-         springroll,
-         banhdabo,
-         roll
+         lantern,
+         noodle,
+         coffee,
+         motorbike
     
     // Find the image name of the tile
     func spriteName() -> String {
         // Names match the order of the declared case
         // Server for random tile purpose
         let spriteNames = [
-            "banhxeo",
-            "banhcom",
+            "dragon",
+            "hat",
             "banhmi",
-            "banhcam",
-            "bbq",
-            "banhchung",
-            "banhdauxanh",
-            "springroll",
-            "banhdabo",
-            "roll"
+            "lantern",
+            "noodle",
+            "coffee",
+            "motorbike"
         ]
         // Since the raw value is integer
         return spriteNames[rawValue - 1]
@@ -45,8 +39,8 @@ enum ElementType: Int {
     // TODO: Change case later
     static func getType(name: String) -> ElementType {
         switch name.lowercased() {
-        case "bbq":
-            return .bbq
+        case "banhmi":
+            return .banhmi
         default:
             return .unknown
         }

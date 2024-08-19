@@ -7,12 +7,11 @@
 
 import Foundation
 
-let columns = 9
-let rows = 9
-
 // Struct to decode JSON file
 struct LevelData: Codable {
     var number: Int
+    var columns: Int
+    var rows: Int
     var tiles: [[Int]]
     var target: String
     var quantity: Int
@@ -25,9 +24,13 @@ class Level {
     var quantity: Int = 0
     var moves: Int = 0
     
+    // Tile properties
+    var columns: Int
+    var rows: Int
+    
     // Create a 2D array that holds the elements
-    private var elements = Array2D<Element>(columns: columns, rows: rows)
-    private var tiles = Array2D<Tile>(columns: columns, rows: rows)
+    private var elements: [[Element?]]
+    private var tiles: [[Tile?]]
     
     // Store the possible swaps in a level
     private var possibleSwaps: Set<Swap> = []
@@ -37,14 +40,18 @@ class Level {
         self.target = ElementType.getType(name: level.target)
         self.quantity = level.quantity
         self.moves = level.moves
+        self.columns = level.columns
+        self.rows = level.rows
+        self.elements = Array(repeating: Array(repeating: nil, count: self.rows), count: self.columns)
+        self.tiles = Array(repeating: Array(repeating: nil, count: self.rows), count: self.columns)
         
         // Initialize tiles based on the level, the position of level 1 is index 0
         for (row, rowArray) in levels[level.number - 1].tiles.enumerated() {
-            let tileRow = rows - row - 1
+            let tileRow = self.rows - row - 1
             for (column, value) in rowArray.enumerated() {
                 // Create tiles for the 2D array positions whose value is 1, not 0
                 if value == 1 {
-                    tiles[column, tileRow] = Tile()
+                    tiles[column][tileRow] = Tile()
                 }
             }
         }
@@ -52,16 +59,16 @@ class Level {
     
     // Get a element based on position
     func elementAt(atColumn column: Int, row: Int) -> Element? {
-        if column >= 0 && column < columns && row >= 0 && row < rows {
-            return elements[column, row]
+        if column >= 0 && column < self.columns && row >= 0 && row < self.rows {
+            return elements[column][row]
         }
         return nil
     }
     
     // Get the tile based on position
     func tileAt(column: Int, row: Int) -> Tile? {
-        if column >= 0 && column < columns && row >= 0 && row < rows {
-            return tiles[column, row]
+        if column >= 0 && column < self.columns && row >= 0 && row < self.rows {
+            return tiles[column][row]
         }
         return nil
         
@@ -70,10 +77,10 @@ class Level {
     private func createInitialTiles() -> Set<Element> {
         // Use Set for unordered unique list of elements
         var set: Set<Element> = []
-        for row in 0..<rows {
-            for col in 0..<columns {
+        for row in 0..<self.rows {
+            for col in 0..<self.columns {
                 
-                if tiles[col, row] != nil {
+                if tiles[col][row] != nil {
                     
                     var type: ElementType
                     // Ensure that no element chain exists on the initial board
@@ -82,16 +89,16 @@ class Level {
                     }
                     while (col >= 2 &&
                            // Check the adjacent elements in a row
-                           elements[col - 1, row]?.type == type &&
-                           elements[col - 2, row]?.type == type) ||
+                           elements[col - 1][row]?.type == type &&
+                           elements[col - 2][row]?.type == type) ||
                             // Check the adjacent elements in a column
                             (row >= 2 &&
-                             elements[col, row - 1]?.type == type &&
-                             elements[col, row - 2]?.type == type)
+                             elements[col][row - 1]?.type == type &&
+                             elements[col][row - 2]?.type == type)
                             
                             // Add new tile to the array
                             let newTile = Element(column: col, row: row, type: type)
-                            elements[col, row] = newTile
+                            elements[col][row] = newTile
                             set.insert(newTile)
                 }
             }
@@ -108,28 +115,28 @@ class Level {
         let colB = swap.elementB.column
         let rowB = swap.elementB.row
         // Update the elements array
-        elements[colA, rowA] = swap.elementB
+        elements[colA][rowA] = swap.elementB
         swap.elementB.column = colA
         swap.elementB.row = rowA
-        elements[colB, rowB] = swap.elementA
+        elements[colB][rowB] = swap.elementA
         swap.elementA.column = colB
         swap.elementA.row = rowB
     }
     
     // Determine if an element is a part of the element chain
     private func hasChain(atColumn column: Int, row: Int) -> Bool {
-        let type = elements[column, row]?.type
+        let type = elements[column][row]?.type
         // Check horizontal chain
         var hChainLength = 1
         // On the left side
         var i = column - 1
-        while i >= 0 && elements[i, row]?.type == type {
+        while i >= 0 && elements[i][row]?.type == type {
             i -= 1
             hChainLength += 1
         }
         // On the right side
         i = column + 1
-        while i < columns && elements[i, row]?.type == type {
+        while i < columns && elements[i][row]?.type == type {
             i += 1
             hChainLength += 1
         }
@@ -142,13 +149,13 @@ class Level {
         var vChainLength = 1
         // Chain from the element to below
         i = row - 1
-        while i >= 0 && elements[column, i]?.type == type {
+        while i >= 0 && elements[column][i]?.type == type {
             i -= 1
             vChainLength += 1
         }
         // Chain from the element to above
         i = row + 1
-        while i < rows && elements[column, i]?.type == type {
+        while i < rows && elements[column][i]?.type == type {
             i += 1
             vChainLength += 1
         }
@@ -161,43 +168,43 @@ class Level {
         var set: Set<Swap> = []
         for r in 0..<rows {
             for col in 0..<columns {
-                if let e = elements[col, r] {
+                if let e = elements[col][r] {
                     // Try swapping the element horizontally
-                    if col < columns - 1, let e2 = elements[col + 1, r] {
-                        elements[col, r] = e2
-                        elements[col + 1, r] = e
+                    if col < columns - 1, let e2 = elements[col + 1][r] {
+                        elements[col][r] = e2
+                        elements[col + 1][r] = e
                         // See if either element is a part of a chain
                         if hasChain(atColumn: col + 1, row: r) || hasChain(atColumn: col, row: r) {
                             // Swap either way
                             set.insert(Swap(elementA: e, elementB: e2))
                         }
                         // Swap back
-                        elements[col, r] = e
-                        elements[col + 1, r] = e2
+                        elements[col][r] = e
+                        elements[col + 1][r] = e2
                     }
                     // Try swapping the elment vertically
-                    if r < rows - 1, let e2 = elements[col, r + 1] {
-                        elements[col, r] = e2
-                        elements[col, r + 1] = e
+                    if r < rows - 1, let e2 = elements[col][r + 1] {
+                        elements[col][r] = e2
+                        elements[col][r + 1] = e
                         if hasChain(atColumn: col, row: r + 1) || hasChain(atColumn: col, row: r) {
                             set.insert(Swap(elementA: e, elementB: e2))
                         }
-                        elements[col, r] = e
-                        elements[col, r + 1] = e2
+                        elements[col][r] = e
+                        elements[col][r + 1] = e2
                     }
                 }
                 // Try swapping vertically in the last column
-                else if col == columns - 1, let e = elements[col, r] {
+                else if col == columns - 1, let e = elements[col][r] {
                     if r < rows - 1,
-                       let e2 = elements[col, r + 1] {
-                        elements[col, r] = e2
-                        elements[col, r + 1] = e
+                       let e2 = elements[col][r + 1] {
+                        elements[col][r] = e2
+                        elements[col][r + 1] = e
                         if hasChain(atColumn: col, row: r + 1) ||
                             hasChain(atColumn: col, row: r) {
                             set.insert(Swap(elementA: e, elementB: e2))
                         }
-                        elements[col, r] = e
-                        elements[col, r + 1] = e2
+                        elements[col][r] = e
+                        elements[col][r + 1] = e2
                     }
                 }
             }
@@ -226,22 +233,22 @@ class Level {
     // Find horitontal chain
     private func findHorizontalChains() -> Set<Chain> {
         var set: Set<Chain> = []
-        for r in 0..<numRows {
+        for r in 0..<self.rows {
             var col = 0
-            while col < numColumns-2 {
-                if let e = elements[col, r] {
+            while col < self.columns-2 {
+                if let e = elements[col][r] {
                     let matchType = e.type
                     // Find the chain
-                    if elements[col + 1, r]?.type == matchType &&
-                        elements[col + 2, r]?.type == matchType {
+                    if elements[col + 1][r]?.type == matchType &&
+                        elements[col + 2][r]?.type == matchType {
                         // Create a chain obj if chain is detected
                         let chain = Chain(type: .horizontal)
                         repeat {
                             // Add elements until no matching type is detected
-                            chain.add(element: elements[col, r]!)
+                            chain.add(element: elements[col][r]!)
                             col += 1
                         }
-                        while col < numColumns && elements[col, r]?.type == matchType
+                        while col < self.columns && elements[col][r]?.type == matchType
                                 set.insert(chain)
                                 continue
                     }
@@ -255,22 +262,22 @@ class Level {
     // Detect vertical chain
     private func findVerticalChains() -> Set<Chain> {
         var set: Set<Chain> = []
-        for col in 0..<numColumns {
+        for col in 0..<self.columns {
             var r = 0
-            while r < numRows-2 {
-                if let e = elements[col, r] {
+            while r < self.rows-2 {
+                if let e = elements[col][r] {
                     let matchType = e.type
                     // Find the chain
-                    if elements[col, r + 1]?.type == matchType &&
-                        elements[col, r + 2]?.type == matchType {
+                    if elements[col][r + 1]?.type == matchType &&
+                        elements[col][r + 2]?.type == matchType {
                         // Create a chain obj if chain is detected
                         let chain = Chain(type: .vertical)
                         repeat {
                             // Add elements until no matching type is detected
-                            chain.add(element: elements[col, r]!)
+                            chain.add(element: elements[col][r]!)
                             r += 1
                         }
-                        while r < numRows && elements[col, r]?.type == matchType
+                        while r < self.rows && elements[col][r]?.type == matchType
                                 set.insert(chain)
                                 continue
                     }
@@ -295,7 +302,7 @@ class Level {
     private func removeChains(in chains: Set<Chain>) {
         for chain in chains {
             for e in chain.elements {
-                elements[e.column, e.row] = nil
+                elements[e.column][e.row] = nil
             }
         }
     }
@@ -304,17 +311,17 @@ class Level {
     func fillHoles() -> [[Element]] {
         var columns: [[Element]] = []
         
-        for column in 0..<numColumns {
+        for column in 0..<self.columns {
             var arr: [Element] = []
-            for row in 0..<numRows {
+            for row in 0..<self.rows {
                 // If a tile has no element
-                if tiles[column, row] != nil && elements[column, row] == nil {
+                if tiles[column][row] != nil && elements[column][row] == nil {
                     // Find the element that is right above the hole
-                    for examinedRow in (row + 1)..<numRows {
-                        if let element = elements[column, examinedRow] {
+                    for examinedRow in (row + 1)..<self.rows {
+                        if let element = elements[column][examinedRow] {
                             // Move the element to the hole
-                            elements[column, examinedRow] = nil
-                            elements[column, row] = element
+                            elements[column][examinedRow] = nil
+                            elements[column][row] = element
                             element.row = row
                             arr.append(element)
                             break
@@ -335,10 +342,10 @@ class Level {
         var columns: [[Element]] = []
         var lastType: ElementType = .unknown
         
-        for col in 0..<numColumns {
+        for col in 0..<self.columns {
             var arr: [Element] = []
-            var r = numRows - 1
-            while r >= 0 && elements[col, r] == nil {
+            var r = self.rows - 1
+            while r >= 0 && elements[col][r] == nil {
                 var newType: ElementType
                 // The newly create element cannot have the same type with the last new element
                 repeat {
@@ -348,7 +355,7 @@ class Level {
                 
                 // Create new element
                 let newElement = Element(column: col, row: r, type: newType)
-                elements[col, r] = newElement
+                elements[col][r] = newElement
                 arr.append(newElement)
                 r -= 1
                 

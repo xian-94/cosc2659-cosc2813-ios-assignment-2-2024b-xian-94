@@ -1,7 +1,5 @@
 import SpriteKit
 
-let numColumns = 9
-let numRows = 9
 
 class GameScene: SKScene {
     
@@ -9,9 +7,10 @@ class GameScene: SKScene {
     // Closure that handle swiping
     var swipeHandler: ((Swap) -> Void)?
     // Set tile's size
-    let elementWidth: CGFloat = 80.0
-    let elementHeight: CGFloat = 100.0
-    let tileSize: CGFloat = 38
+    let elementWidth: CGFloat = 44.0
+    let elementHeight: CGFloat = 46.0
+    let tileWidth: CGFloat = 48
+    let tileHeight: CGFloat = 50.0
     
     // Set the layers
     let gameLayer = SKNode()
@@ -31,16 +30,14 @@ class GameScene: SKScene {
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         addChild(gameLayer)
         
-        let layerPosition = CGPoint(x: (-tileSize * CGFloat(numColumns) / 2),
-                                    y: (-tileSize * CGFloat(numRows) / 2))
+        let layerPosition = CGPoint(x: (-tileWidth * CGFloat(level?.columns ?? 7) / 2),
+                                    y: (-tileHeight * CGFloat(level?.rows ?? 9) / 2))
         
         tilesLayer.position = layerPosition
         gameLayer.addChild(tilesLayer)
         elementsLayer.position = layerPosition
         gameLayer.addChild(elementsLayer)
-        
-        
-        backgroundColor = .white // Set background color for visibility
+        backgroundColor = .black
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,20 +47,20 @@ class GameScene: SKScene {
     
     // Convert column and row number into CGPoint
     private func tilePoint(col: Int, row: Int) -> CGPoint {
-        return CGPoint(x: (CGFloat(col) * tileSize + tileSize / 2),
-                       y: (CGFloat(row) * tileSize + tileSize / 2))
+        return CGPoint(x: (CGFloat(col) * tileWidth + tileWidth / 2),
+                       y: (CGFloat(row) * tileHeight + tileHeight / 2))
     }
     
     private func elementPoint(col: Int, row: Int) -> CGPoint {
-        return CGPoint(x: (CGFloat(col) * tileSize + tileSize / 2),
-                       y: (CGFloat(row) * tileSize + tileSize / 2))
+        return CGPoint(x: (CGFloat(col) * tileWidth + tileWidth / 2),
+                       y: (CGFloat(row) * tileHeight + tileHeight / 2))
     }
     
     // Convert a CGPoint relative to elements layer to column and row numbers
     private func convertPoint(_ point: CGPoint) -> (success: Bool, column: Int, row: Int) {
         // Check if the point falls outside the grid
-        if point.x >= 0 && point.x < tileSize * CGFloat(numColumns) && point.y >= 0 && point.y < CGFloat(numRows) * tileSize {
-            return (true, Int(point.x / tileSize), Int(point.y / tileSize))
+        if point.x >= 0 && point.x < tileWidth * CGFloat(level?.columns ?? 7) && point.y >= 0 && point.y < CGFloat(level?.rows ?? 9) * tileHeight {
+            return (true, Int(point.x / tileWidth), Int(point.y / tileHeight))
         }
         return (false, 0, 0)
     }
@@ -85,12 +82,12 @@ class GameScene: SKScene {
     // Add background tiles
     func addTiles() {
         guard let level = level else { return }
-        for row in 0..<numRows {
-            for col in 0..<numColumns {
+        for row in 0..<level.rows {
+            for col in 0..<level.columns {
                 if level.tileAt(column: col, row: row) != nil {
-                    let tileNode = SKShapeNode(rectOf: CGSize(width: tileSize, height: tileSize))
+                    let tileNode = SKSpriteNode(imageNamed: "lightTile")
                     tileNode.position = tilePoint(col: col, row: row)
-                    tileNode.fillColor = .black
+                    tileNode.size = CGSize(width: tileWidth, height: tileHeight)
                     tileNode.alpha = 0.3
                     tilesLayer.addChild(tileNode)
                 }
@@ -160,17 +157,17 @@ class GameScene: SKScene {
     // Handle swaping
     private func trySwap(hDiff: Int, vDiff: Int) {
         // Calculate the destined column or row
-        guard let fromColumn = swipeFromColumn, let fromRow = swipeFromRow else { return }
+        guard let fromColumn = swipeFromColumn, let fromRow = swipeFromRow, let level = level else { return }
         let toColumn = fromColumn + hDiff
         let toRow = fromRow + vDiff
         
         // Verify that the destined row or column is within the grid
-        guard toColumn >= 0 && toColumn < numColumns else { return }
-        guard toRow >= 0 && toRow < numRows else { return }
+        guard toColumn >= 0 && toColumn < level.columns else { return }
+        guard toRow >= 0 && toRow < level.rows else { return }
         
         // Check if the destined position contains element
-        if let toElement = level?.elementAt(atColumn: toColumn, row: toRow),
-           let fromElement = level?.elementAt(atColumn: fromColumn, row: fromRow) {
+        if let toElement = level.elementAt(atColumn: toColumn, row: toRow),
+           let fromElement = level.elementAt(atColumn: fromColumn, row: fromRow) {
             if let handler = swipeHandler {
                 // Create swap object
                 let swap = Swap(elementA: fromElement, elementB: toElement)

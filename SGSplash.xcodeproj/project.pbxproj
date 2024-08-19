@@ -11,7 +11,6 @@
 		75942F792C6A031B00A9527F /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75942F782C6A031B00A9527F /* Element.swift */; };
 		75942F7B2C6A0B0000A9527F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75942F7A2C6A0B0000A9527F /* GameScene.swift */; };
 		75942F7D2C6A0BB300A9527F /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75942F7C2C6A0BB300A9527F /* Level.swift */; };
-		75942F7F2C6A0EC600A9527F /* Array2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75942F7E2C6A0EC600A9527F /* Array2D.swift */; };
 		75942F812C6A148E00A9527F /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75942F802C6A148E00A9527F /* GameView.swift */; };
 		75942F842C6A164200A9527F /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75942F832C6A164200A9527F /* GameManager.swift */; };
 		75970A2B2C6B638E005A98E6 /* levels.json in Resources */ = {isa = PBXBuildFile; fileRef = 75970A2A2C6B638E005A98E6 /* levels.json */; };
@@ -29,7 +28,6 @@
 		75942F782C6A031B00A9527F /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
 		75942F7A2C6A0B0000A9527F /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		75942F7C2C6A0BB300A9527F /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
-		75942F7E2C6A0EC600A9527F /* Array2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array2D.swift; sourceTree = "<group>"; };
 		75942F802C6A148E00A9527F /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
 		75942F832C6A164200A9527F /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		75970A2A2C6B638E005A98E6 /* levels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = levels.json; sourceTree = "<group>"; };
@@ -68,7 +66,6 @@
 			children = (
 				75942F782C6A031B00A9527F /* Element.swift */,
 				75942F7C2C6A0BB300A9527F /* Level.swift */,
-				75942F7E2C6A0EC600A9527F /* Array2D.swift */,
 				75970A2C2C6B6833005A98E6 /* ModelData.swift */,
 				75970A2E2C6B6AA6005A98E6 /* Tile.swift */,
 				758FF0662C6C8018005EB21F /* Swap.swift */,
@@ -224,7 +221,6 @@
 				75942F842C6A164200A9527F /* GameManager.swift in Sources */,
 				75970A2D2C6B6833005A98E6 /* ModelData.swift in Sources */,
 				75A334452C69203600C65070 /* ContentView.swift in Sources */,
-				75942F7F2C6A0EC600A9527F /* Array2D.swift in Sources */,
 				75942F7B2C6A0B0000A9527F /* GameScene.swift in Sources */,
 				75942F7D2C6A0BB300A9527F /* Level.swift in Sources */,
 				75970A2F2C6B6AA6005A98E6 /* Tile.swift in Sources */,
