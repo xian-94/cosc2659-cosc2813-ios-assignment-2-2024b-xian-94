@@ -1,16 +1,18 @@
 import SpriteKit
+import SwiftUI
 
 
 class GameScene: SKScene {
     
+    // TODO: set responsive for board later
     var level: Level?
     // Closure that handle swiping
     var swipeHandler: ((Swap) -> Void)?
     // Set tile's size
-    let elementWidth: CGFloat = 44.0
-    let elementHeight: CGFloat = 46.0
-    let tileWidth: CGFloat = 48
-    let tileHeight: CGFloat = 50.0
+    var elementWidth: CGFloat = 44.0
+    var elementHeight: CGFloat = 46.0
+    var tileWidth: CGFloat = 48
+    var tileHeight: CGFloat = 50.0
     
     // Set the layers
     let gameLayer = SKNode()
@@ -26,24 +28,32 @@ class GameScene: SKScene {
     // Constructor
     override init(size: CGSize) {
         super.init(size: size)
-        // Center the game scene
-        anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        addChild(gameLayer)
+                // Center the game scene
+        anchorPoint = CGPoint(x: 0.5, y: 0.45)
+        
         
         let layerPosition = CGPoint(x: (-tileWidth * CGFloat(level?.columns ?? 7) / 2),
                                     y: (-tileHeight * CGFloat(level?.rows ?? 9) / 2))
-        
+        // Load the background image
+        let background = SKSpriteNode(imageNamed: "lightBackground")
+        background.size = size
+        background.zPosition = -100
+        background.alpha = 0.2
+        // Set the background node size to match the scene size
+        addChild(gameLayer)
+        gameLayer.addChild(background)
+        // Add the background node to the scene
         tilesLayer.position = layerPosition
         gameLayer.addChild(tilesLayer)
         elementsLayer.position = layerPosition
         gameLayer.addChild(elementsLayer)
-        backgroundColor = .black
+        
+    
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     // Convert column and row number into CGPoint
     private func tilePoint(col: Int, row: Int) -> CGPoint {
@@ -78,7 +88,6 @@ class GameScene: SKScene {
         }
     }
     
-    
     // Add background tiles
     func addTiles() {
         guard let level = level else { return }
@@ -88,7 +97,6 @@ class GameScene: SKScene {
                     let tileNode = SKSpriteNode(imageNamed: "lightTile")
                     tileNode.position = tilePoint(col: col, row: row)
                     tileNode.size = CGSize(width: tileWidth, height: tileHeight)
-                    tileNode.alpha = 0.3
                     tilesLayer.addChild(tileNode)
                 }
             }

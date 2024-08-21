@@ -12,17 +12,19 @@ class GameManager: ObservableObject {
     @Published var moves: Int = 0
     
     let scene: GameScene
-    private var level: Level
+    var level: Level
     
     init(viewSize: CGSize) {
         level = Level(level: levels[0])
         scene = GameScene(size: viewSize)
         scene.level = level
         scene.scaleMode = .aspectFill
+        scene.backgroundColor = .clear
         scene.swipeHandler = handleSwipe
         scene.addTiles()
         startGame()
     }
+    
     
     func startGame() {
         self.target = level.target

@@ -20,6 +20,7 @@ struct LevelData: Codable {
 
 class Level {
     // Goal properties
+    var number: Int = 0
     var target: ElementType
     var quantity: Int = 0
     var moves: Int = 0
@@ -37,6 +38,7 @@ class Level {
     
     // Constructor
     init(level: LevelData) {
+        self.number = level.number
         self.target = ElementType.getType(name: level.target)
         self.quantity = level.quantity
         self.moves = level.moves
