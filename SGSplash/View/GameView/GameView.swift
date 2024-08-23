@@ -4,6 +4,7 @@ import SpriteKit
 struct GameView: View {
     
     @StateObject private var gameManager: GameManager
+    let midY = UIScreen.main.bounds.height / 2
     
     init(levelNumber: Int) {
         let viewSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -14,6 +15,20 @@ struct GameView: View {
             Image("lightBackground")
                 .resizable()
                 .ignoresSafeArea(.all)
+            if gameManager.isComplete {
+                LevelComplete()
+                    .shadow(radius: 10)
+                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                    .transition(.scale)
+                    .zIndex(10)
+            }
+            else if gameManager.isGameOver {
+                GameOver()
+                    .shadow(radius: 10)
+                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                    .transition(.scale)
+                    .zIndex(10)
+            }
             VStack(spacing: 5) {
                 HStack {
                     ZStack {
@@ -46,9 +61,13 @@ struct GameView: View {
                     .ignoresSafeArea(.all)
                 // Prevent user interaction during swapping
                     .disabled(!gameManager.userInteractionEnabled)
+                
             }
+
+            
         }
         .navigationBarBackButtonHidden(true)
+        .animation(.easeInOut, value: gameManager.isGameOver || gameManager.isComplete)
     }
 }
 

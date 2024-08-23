@@ -8,39 +8,49 @@
 import Foundation
 import SpriteKit
 
-
-// TODO: Change the number of cases
 enum ElementType: Int {
     case unknown = 0,
-         dragon,
-         hat,
-         banhmi,
-         lantern,
-         noodle,
-         coffee,
-         motorbike
+         apple,
+         bread,
+         coconut,
+         flower,
+         veggie,
+         milk,
+         orange
+    
     
     // Find the image name of the tile
     func spriteName() -> String {
         // Names match the order of the declared case
         // Server for random tile purpose
         let spriteNames = [
-            "dragon",
-            "hat",
-            "banhmi",
-            "lantern",
-            "noodle",
-            "coffee",
-            "motorbike"
+            "apple",
+            "bread",
+            "coconut",
+            "flower",
+            "veggie",
+            "milk",
+            "orange"
         ]
         // Since the raw value is integer
         return spriteNames[rawValue - 1]
     }
-    // TODO: Change case later
     static func getType(name: String) -> ElementType {
         switch name.lowercased() {
-        case "banhmi":
-            return .banhmi
+        case "apple":
+            return .apple
+        case "bread":
+            return .bread
+        case "coconut":
+            return .coconut
+        case "flower":
+            return .flower
+        case "veggie":
+            return .veggie
+        case "milk":
+            return .milk
+        case "orange":
+            return .orange
         default:
             return .unknown
         }
@@ -54,7 +64,7 @@ enum ElementType: Int {
     }
 }
 
-// MARK: - Element
+// MARK: Element
 class Element: CustomStringConvertible, Hashable {
     
     // 2D position of the tile

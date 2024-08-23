@@ -11,7 +11,7 @@ import SwiftUI
 struct CircleButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .foregroundColor(.primaryPink)
+            .foregroundColor(.second)
             .font(.title)
             .frame(minWidth: UIScreen.main.bounds.width * 0.1, minHeight: UIScreen.main.bounds.height * 0.1)
             .background(Color.background)

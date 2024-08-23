@@ -8,7 +8,7 @@ struct LevelView: View {
         let midX = width / 2
         let spacing = size.height / CGFloat(numLevels) // Evenly space levels vertically
         
-        let x = midX + (sin(CGFloat(level) * .pi * 2 / CGFloat(numLevels)) * width * 0.3)
+        let x = midX + (sin(CGFloat(level) * .pi * 1.5 / CGFloat(numLevels)) * width * 0.3)
         let y = spacing * CGFloat(level)
         
         return CGPoint(x: x, y: y)
@@ -16,7 +16,7 @@ struct LevelView: View {
     
     // Main body
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Image("lightBackground")
                     .resizable()
@@ -25,9 +25,6 @@ struct LevelView: View {
                 GeometryReader { geometry in
                     ScrollView {
                         VStack {
-                            Text("Let's Explore our emotional friends")
-                                .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                            Spacer()
                             ZStack {
                                 // Create a custom path for the levels
                                 Path { path in
