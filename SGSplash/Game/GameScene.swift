@@ -75,7 +75,7 @@ class GameScene: SKScene {
         return (false, 0, 0)
     }
     
-    /* Game board construction methods */
+    // MARK: Game board construction
     
     // Add sprite nodes into the tiles layer
     func addSprites(for elements: Set<Element>) {
@@ -86,6 +86,10 @@ class GameScene: SKScene {
             elementsLayer.addChild(sprite)
             e.sprite = sprite
         }
+    }
+    
+    func removeSprites() {
+        self.elementsLayer.removeAllChildren()
     }
     
     // Add background tiles
@@ -103,7 +107,7 @@ class GameScene: SKScene {
         }
     }
     
-    /* Swiping gestures methods */
+    // MARK: Handle swiping
     
     // Detect the first touch of user on the screen
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -198,6 +202,7 @@ class GameScene: SKScene {
         touchesEnded(touches, with: event)
     }
     
+    // MARK: Animations during game play
     // Move element A to element B's position
     func moveElement(_ swap: Swap, completion: @escaping () -> Void) {
         let spriteA = swap.elementA.sprite

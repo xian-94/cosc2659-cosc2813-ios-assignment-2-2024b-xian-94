@@ -10,12 +10,15 @@ class GameManager: ObservableObject {
     @Published var target: ElementType = .unknown
     @Published var quantity: Int = 0
     @Published var moves: Int = 0
+    // Manage winning or losing
+    @Published var isGameOver: Bool = false
+    @Published var isComplete: Bool = false
     
     let scene: GameScene
     var level: Level
     
-    init(viewSize: CGSize) {
-        level = Level(level: levels[0])
+    init(viewSize: CGSize, levelNumber: Int) {
+        level = Level(level: levels[levelNumber])
         scene = GameScene(size: viewSize)
         scene.level = level
         scene.scaleMode = .aspectFill
@@ -34,6 +37,7 @@ class GameManager: ObservableObject {
     }
     
     func shuffle() {
+        scene.removeSprites()
         let newTiles = level.shuffle()
         scene.addSprites(for: newTiles)
     }
@@ -77,8 +81,31 @@ class GameManager: ObservableObject {
     // Update the list of possible swaps before granting player control
     func nextTurn() {
         level.detectPossibleSwaps()
-        self.userInteractionEnabled = true
+        // Shuffle if no possible moves found
+        if level.getPossibleSwaps().isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.shuffle()
+            }
+            
+        }
+        // Make sure quantity and move are not negative
+        if self.quantity < 0 {
+            self.quantity = 0
+        }
         self.moves -= 1
+        if self.moves < 0 {
+            self.moves = 0
+        }
+        if self.moves >= 0 && self.quantity == 0 {
+            isComplete = true
+        }
+        else if self.moves <= 0 {
+            isGameOver = true
+        }
+        else {
+            self.userInteractionEnabled = true 
+        }
+        
     }
     
     

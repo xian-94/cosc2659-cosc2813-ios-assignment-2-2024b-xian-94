@@ -4,16 +4,31 @@ import SpriteKit
 struct GameView: View {
     
     @StateObject private var gameManager: GameManager
+    let midY = UIScreen.main.bounds.height / 2
     
-    init() {
+    init(levelNumber: Int) {
         let viewSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize))
+        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize, levelNumber: levelNumber))
     }
     var body: some View {
         ZStack {
             Image("lightBackground")
                 .resizable()
                 .ignoresSafeArea(.all)
+            if gameManager.isComplete {
+                LevelComplete()
+                    .shadow(radius: 10)
+                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                    .transition(.scale)
+                    .zIndex(10)
+            }
+            else if gameManager.isGameOver {
+                GameOver()
+                    .shadow(radius: 10)
+                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                    .transition(.scale)
+                    .zIndex(10)
+            }
             VStack(spacing: 5) {
                 HStack {
                     ZStack {
@@ -46,14 +61,19 @@ struct GameView: View {
                     .ignoresSafeArea(.all)
                 // Prevent user interaction during swapping
                     .disabled(!gameManager.userInteractionEnabled)
+                
             }
+
+            
         }
+        .navigationBarBackButtonHidden(true)
+        .animation(.easeInOut, value: gameManager.isGameOver || gameManager.isComplete)
     }
 }
 
 
 struct GameView_Preview: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(levelNumber: 0)
     }
 }

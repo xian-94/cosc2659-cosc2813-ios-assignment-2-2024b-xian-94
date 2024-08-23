@@ -59,6 +59,10 @@ class Level {
         }
     }
     
+    func getPossibleSwaps() -> Set<Swap> {
+        return self.possibleSwaps
+    }
+    
     // Get a element based on position
     func elementAt(atColumn column: Int, row: Int) -> Element? {
         if column >= 0 && column < self.columns && row >= 0 && row < self.rows {
@@ -108,7 +112,18 @@ class Level {
         return set
     }
     
-    /* Handle swapping element */
+    func shuffle() -> Set<Element> {
+        var set: Set<Element>
+        repeat {
+            set = createInitialTiles()
+            detectPossibleSwaps()
+            print("Possible swaps: \(possibleSwaps)")
+        } while possibleSwaps.count == 0
+        
+        return set
+    }
+    
+    // MARK: Handle swiping
     
     // Handle swapping elements
     func doSwap(_ swap: Swap) {
@@ -164,7 +179,6 @@ class Level {
         return vChainLength >= 3
     }
     
-    // TODO: BUG can only swipe right to left and down to up
     // Detect possible swaps in a board of a level
     func detectPossibleSwaps() {
         var set: Set<Swap> = []
@@ -213,24 +227,14 @@ class Level {
             possibleSwaps = set
         }
     }
-    
-    func shuffle() -> Set<Element> {
-        var set: Set<Element>
-        repeat {
-            set = createInitialTiles()
-            detectPossibleSwaps()
-            print("Possible swaps: \(possibleSwaps)")
-        } while possibleSwaps.count == 0
-        
-        return set
-    }
+   
     
     // Check possible swaps
     func isPossibleSwap(_ swap: Swap) -> Bool {
         return possibleSwaps.contains(swap)
     }
     
-    /* Handle finding and removing matching elements */
+    // MARK: Find and remove matching elements
     
     // Find horitontal chain
     private func findHorizontalChains() -> Set<Chain> {
@@ -309,7 +313,7 @@ class Level {
         }
     }
     
-    /* Handle dropping elements into empty holes */
+    // MARK: Fill empty holes with elements
     func fillHoles() -> [[Element]] {
         var columns: [[Element]] = []
         
@@ -369,7 +373,7 @@ class Level {
         return columns
     }
     
-    /* Level target management */
+    // MARK: Target management
     func updateQuantity(for chains: Set<Chain>) -> Int {
         var reduction = 0
         for chain in chains {
