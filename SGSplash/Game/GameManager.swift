@@ -14,8 +14,8 @@ class GameManager: ObservableObject {
     let scene: GameScene
     var level: Level
     
-    init(viewSize: CGSize) {
-        level = Level(level: levels[0])
+    init(viewSize: CGSize, levelNumber: Int) {
+        level = Level(level: levels[levelNumber])
         scene = GameScene(size: viewSize)
         scene.level = level
         scene.scaleMode = .aspectFill

@@ -5,9 +5,9 @@ struct GameView: View {
     
     @StateObject private var gameManager: GameManager
     
-    init() {
+    init(levelNumber: Int) {
         let viewSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize))
+        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize, levelNumber: levelNumber))
     }
     var body: some View {
         ZStack {
@@ -48,12 +48,13 @@ struct GameView: View {
                     .disabled(!gameManager.userInteractionEnabled)
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 
 
 struct GameView_Preview: PreviewProvider {
     static var previews: some View {
-        GameView()
+        GameView(levelNumber: 0)
     }
 }

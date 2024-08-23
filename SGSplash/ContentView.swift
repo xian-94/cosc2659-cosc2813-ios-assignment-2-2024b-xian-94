@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
 //        ZStack {
-            GameView()
+            GameView(levelNumber: 0)
 //        }
        
 //        VStack {

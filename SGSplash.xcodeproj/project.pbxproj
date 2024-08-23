@@ -17,6 +17,8 @@
 		75970A2B2C6B638E005A98E6 /* levels.json in Resources */ = {isa = PBXBuildFile; fileRef = 75970A2A2C6B638E005A98E6 /* levels.json */; };
 		75970A2D2C6B6833005A98E6 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75970A2C2C6B6833005A98E6 /* ModelData.swift */; };
 		75970A2F2C6B6AA6005A98E6 /* Tile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75970A2E2C6B6AA6005A98E6 /* Tile.swift */; };
+		7597B3252C78717400049DC0 /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597B3242C78717400049DC0 /* LevelView.swift */; };
+		7597B3272C78A6AB00049DC0 /* LevelOverviewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597B3262C78A6AB00049DC0 /* LevelOverviewModal.swift */; };
 		75A01F452C75A1850056EA80 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A01F442C75A1850056EA80 /* Modifiers.swift */; };
 		75A01F492C75A43B0056EA80 /* TargetBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A01F482C75A43B0056EA80 /* TargetBox.swift */; };
 		75A334432C69203600C65070 /* SGSplashApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A334422C69203600C65070 /* SGSplashApp.swift */; };
@@ -37,6 +39,8 @@
 		75970A2A2C6B638E005A98E6 /* levels.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = levels.json; sourceTree = "<group>"; };
 		75970A2C2C6B6833005A98E6 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		75970A2E2C6B6AA6005A98E6 /* Tile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tile.swift; sourceTree = "<group>"; };
+		7597B3242C78717400049DC0 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
+		7597B3262C78A6AB00049DC0 /* LevelOverviewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelOverviewModal.swift; sourceTree = "<group>"; };
 		75A01F442C75A1850056EA80 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		75A01F482C75A43B0056EA80 /* TargetBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetBox.swift; sourceTree = "<group>"; };
 		75A3343F2C69203600C65070 /* SGSplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGSplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,6 +66,8 @@
 			isa = PBXGroup;
 			children = (
 				758A6AD02C75F6FA00E22DB3 /* LevelButton.swift */,
+				7597B3242C78717400049DC0 /* LevelView.swift */,
+				7597B3262C78A6AB00049DC0 /* LevelOverviewModal.swift */,
 			);
 			path = LevelView;
 			sourceTree = "<group>";
@@ -245,6 +251,7 @@
 				758FF0672C6C8018005EB21F /* Swap.swift in Sources */,
 				75942F842C6A164200A9527F /* GameManager.swift in Sources */,
 				75970A2D2C6B6833005A98E6 /* ModelData.swift in Sources */,
+				7597B3252C78717400049DC0 /* LevelView.swift in Sources */,
 				75A01F452C75A1850056EA80 /* Modifiers.swift in Sources */,
 				75A01F492C75A43B0056EA80 /* TargetBox.swift in Sources */,
 				75A334452C69203600C65070 /* ContentView.swift in Sources */,
@@ -255,6 +262,7 @@
 				75ADC7442C6F5C8C0045A0F4 /* Chain.swift in Sources */,
 				75A334432C69203600C65070 /* SGSplashApp.swift in Sources */,
 				75942F812C6A148E00A9527F /* GameView.swift in Sources */,
+				7597B3272C78A6AB00049DC0 /* LevelOverviewModal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
