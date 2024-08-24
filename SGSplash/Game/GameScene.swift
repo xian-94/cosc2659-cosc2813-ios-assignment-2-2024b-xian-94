@@ -24,6 +24,11 @@ class GameScene: SKScene {
     private var swipeFromRow: Int?
     private var selectedSprite = SKShapeNode()
     
+    // Sound effect for game play
+    let disappearSound = SKAction.playSoundFileNamed("disappear.mp3", waitForCompletion: false)
+    let invalidSwapSound = SKAction.playSoundFileNamed("invalid-swap.mp3", waitForCompletion: false)
+    let swapSound = SKAction.playSoundFileNamed("swap.mp3", waitForCompletion: false)
+    let chooseSound = SKAction.playSoundFileNamed("tap.wav", waitForCompletion: false)
     
     // Constructor
     override init(size: CGSize) {
@@ -76,7 +81,6 @@ class GameScene: SKScene {
     }
     
     // MARK: Game board construction
-    
     // Add sprite nodes into the tiles layer
     func addSprites(for elements: Set<Element>) {
         for e in elements {
@@ -108,7 +112,6 @@ class GameScene: SKScene {
     }
     
     // MARK: Handle swiping
-    
     // Detect the first touch of user on the screen
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         // Convert the touch location to the point relative to elements layer
@@ -118,6 +121,7 @@ class GameScene: SKScene {
         // Covert into column and row number
         let (success, column, row) = convertPoint(location)
         if success {
+            run(chooseSound)
             // Find the related element
             if let element =  level?.elementAt(atColumn: column, row: row) {
                 showSelectionEffect(of: element)
@@ -219,10 +223,10 @@ class GameScene: SKScene {
         // Move B to A
         let moveB = SKAction.move(to: spriteA.position, duration: duration)
         moveB.timingMode = .easeOut
-        spriteA.run(moveA)
+        spriteA.run(SKAction.group([moveA, swapSound]))
         spriteB.run(moveB, completion: completion)
         
-        //        run(swapSound) TODO: Add Sound later
+//        run(swapSound)
     }
     
     // Animate the invalid swap
@@ -239,12 +243,10 @@ class GameScene: SKScene {
         spriteA.run(SKAction.sequence([moveA, moveB]), completion: completion)
         spriteB.run(SKAction.sequence([moveB, moveA]))
         
-        // TODO: Add sound later 
-//        run(invalidSwapSound)
+        spriteA.run(invalidSwapSound)
     }
     
     // Highlight the element if it is selected
-    // TODO: Styling the effect later
     func showSelectionEffect(of element: Element) {
         // Remove the previously chosen element
         if selectedSprite.parent != nil {
@@ -281,13 +283,16 @@ class GameScene: SKScene {
                     if sprite.action(forKey: "removing") == nil {
                         let scaleEffect = SKAction.scale(to: 0.1, duration: 0.3)
                         scaleEffect.timingMode = .easeOut
-                        sprite.run(SKAction.sequence([scaleEffect, SKAction.removeFromParent()]), withKey: "removing")
+                        sprite.run(SKAction.group([
+                            SKAction.sequence([scaleEffect, SKAction.removeFromParent()]),
+                            disappearSound
+                        ]), withKey: "removing")
                     }
                 }
             }
         }
-//        run(matchSound)
-        // The game will continue after the animation finish 
+//        run(disappearSound)
+        // The game will continue after the animation finish
         run(SKAction.wait(forDuration: 0.3), completion: completion)
     }
     
@@ -307,7 +312,6 @@ class GameScene: SKScene {
                 // Perform the movement
                 let move = SKAction.move(to: newPos, duration: duration)
                 move.timingMode = .easeOut
-                // TODO: Add falling sound later
                 sprite.run(SKAction.sequence([SKAction.wait(forDuration: delay), move]))
             }
         }
@@ -336,7 +340,6 @@ class GameScene: SKScene {
                 let move = SKAction.move(to: newPos, duration: duration)
                 move.timingMode = .easeOut
                 sprite.alpha = 0
-                // TODO: Add sound later
                 sprite.run(SKAction.sequence([SKAction.wait(forDuration: delay), SKAction.group([SKAction.fadeIn(withDuration: 0.05), move])]))
             }
         }

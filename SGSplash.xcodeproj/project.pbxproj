@@ -27,6 +27,14 @@
 		75A334472C69203B00C65070 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75A334462C69203B00C65070 /* Assets.xcassets */; };
 		75A3344A2C69203B00C65070 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75A334492C69203B00C65070 /* Preview Assets.xcassets */; };
 		75ADC7442C6F5C8C0045A0F4 /* Chain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ADC7432C6F5C8C0045A0F4 /* Chain.swift */; };
+		75B73B972C79914C0011F873 /* tap.wav in Resources */ = {isa = PBXBuildFile; fileRef = 75B73B962C79914C0011F873 /* tap.wav */; };
+		75ECC5572C78FEBC007416EC /* PlaySound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ECC5562C78FEBC007416EC /* PlaySound.swift */; };
+		75ECC55F2C79002B007416EC /* level-complete.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75ECC5592C790029007416EC /* level-complete.mp3 */; };
+		75ECC5612C79002B007416EC /* background-music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75ECC55B2C79002A007416EC /* background-music.mp3 */; };
+		75ECC5622C79002B007416EC /* swap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75ECC55C2C79002A007416EC /* swap.mp3 */; };
+		75ECC5632C79002B007416EC /* disappear.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75ECC55D2C79002A007416EC /* disappear.mp3 */; };
+		75ECC5642C79002B007416EC /* game-over.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75ECC55E2C79002B007416EC /* game-over.mp3 */; };
+		75ECC5662C79018B007416EC /* invalid-swap.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 75ECC5652C79018B007416EC /* invalid-swap.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +59,14 @@
 		75A334462C69203B00C65070 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		75A334492C69203B00C65070 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		75ADC7432C6F5C8C0045A0F4 /* Chain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chain.swift; sourceTree = "<group>"; };
+		75B73B962C79914C0011F873 /* tap.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = tap.wav; sourceTree = "<group>"; };
+		75ECC5562C78FEBC007416EC /* PlaySound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySound.swift; sourceTree = "<group>"; };
+		75ECC5592C790029007416EC /* level-complete.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "level-complete.mp3"; sourceTree = "<group>"; };
+		75ECC55B2C79002A007416EC /* background-music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "background-music.mp3"; sourceTree = "<group>"; };
+		75ECC55C2C79002A007416EC /* swap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = swap.mp3; sourceTree = "<group>"; };
+		75ECC55D2C79002A007416EC /* disappear.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = disappear.mp3; sourceTree = "<group>"; };
+		75ECC55E2C79002B007416EC /* game-over.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "game-over.mp3"; sourceTree = "<group>"; };
+		75ECC5652C79018B007416EC /* invalid-swap.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "invalid-swap.mp3"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +103,6 @@
 			children = (
 				75942F782C6A031B00A9527F /* Element.swift */,
 				75942F7C2C6A0BB300A9527F /* Level.swift */,
-				75970A2C2C6B6833005A98E6 /* ModelData.swift */,
 				75970A2E2C6B6AA6005A98E6 /* Tile.swift */,
 				758FF0662C6C8018005EB21F /* Swap.swift */,
 				75ADC7432C6F5C8C0045A0F4 /* Chain.swift */,
@@ -122,7 +137,9 @@
 		75942F822C6A162A00A9527F /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				75970A2C2C6B6833005A98E6 /* ModelData.swift */,
 				75A01F442C75A1850056EA80 /* Modifiers.swift */,
+				75ECC5562C78FEBC007416EC /* PlaySound.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -157,6 +174,7 @@
 		75A334412C69203600C65070 /* SGSplash */ = {
 			isa = PBXGroup;
 			children = (
+				75ECC5582C78FECA007416EC /* Sounds */,
 				75942F822C6A162A00A9527F /* Helpers */,
 				75942F772C6A01C900A9527F /* Assets */,
 				75942F762C6A01C200A9527F /* Data */,
@@ -177,6 +195,20 @@
 				75A334492C69203B00C65070 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		75ECC5582C78FECA007416EC /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				75B73B962C79914C0011F873 /* tap.wav */,
+				75ECC55B2C79002A007416EC /* background-music.mp3 */,
+				75ECC55C2C79002A007416EC /* swap.mp3 */,
+				75ECC55D2C79002A007416EC /* disappear.mp3 */,
+				75ECC55E2C79002B007416EC /* game-over.mp3 */,
+				75ECC5652C79018B007416EC /* invalid-swap.mp3 */,
+				75ECC5592C790029007416EC /* level-complete.mp3 */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,9 +269,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75ECC5662C79018B007416EC /* invalid-swap.mp3 in Resources */,
 				75A3344A2C69203B00C65070 /* Preview Assets.xcassets in Resources */,
 				75970A2B2C6B638E005A98E6 /* levels.json in Resources */,
+				75ECC5622C79002B007416EC /* swap.mp3 in Resources */,
+				75B73B972C79914C0011F873 /* tap.wav in Resources */,
+				75ECC55F2C79002B007416EC /* level-complete.mp3 in Resources */,
+				75ECC5642C79002B007416EC /* game-over.mp3 in Resources */,
+				75ECC5632C79002B007416EC /* disappear.mp3 in Resources */,
 				75A334472C69203B00C65070 /* Assets.xcassets in Resources */,
+				75ECC5612C79002B007416EC /* background-music.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +297,7 @@
 				75A01F452C75A1850056EA80 /* Modifiers.swift in Sources */,
 				75A01F492C75A43B0056EA80 /* TargetBox.swift in Sources */,
 				7595CBC42C78EBA0004E4EC0 /* LevelComplete.swift in Sources */,
+				75ECC5572C78FEBC007416EC /* PlaySound.swift in Sources */,
 				75A334452C69203600C65070 /* ContentView.swift in Sources */,
 				75942F7B2C6A0B0000A9527F /* GameScene.swift in Sources */,
 				7595CBC22C78E5D4004E4EC0 /* GameOver.swift in Sources */,
