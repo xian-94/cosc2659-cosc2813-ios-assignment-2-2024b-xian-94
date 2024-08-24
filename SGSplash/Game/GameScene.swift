@@ -4,7 +4,6 @@ import SwiftUI
 
 class GameScene: SKScene {
     
-    // TODO: set responsive for board later
     var level: Level?
     // Closure that handle swiping
     var swipeHandler: ((Swap) -> Void)?
@@ -33,29 +32,34 @@ class GameScene: SKScene {
     // Constructor
     override init(size: CGSize) {
         super.init(size: size)
+        print("\(size)")
+        
+        // Make sure the the game board adapts with different screen sizes
+        elementWidth = size.width / 9
+        elementHeight = size.height / 18
+        tileWidth = elementWidth + 4
+        tileHeight = elementHeight + 4
+        
         // Center the game scene
         anchorPoint = CGPoint(x: 0.5, y: 0.45)
-        
-        
         let layerPosition = CGPoint(x: (-tileWidth * CGFloat(level?.columns ?? 7) / 2),
                                     y: (-tileHeight * CGFloat(level?.rows ?? 9) / 2))
+        
         // Load the background image
         let background = SKSpriteNode(imageNamed: "lightBackground")
         background.size = size
         background.zPosition = -100
         background.alpha = 0.2
+        
         // Set the background node size to match the scene size
         addChild(gameLayer)
         gameLayer.addChild(background)
+        
         // Add the background node to the scene
         tilesLayer.position = layerPosition
         gameLayer.addChild(tilesLayer)
         elementsLayer.position = layerPosition
         gameLayer.addChild(elementsLayer)
-        
-        // Load font style for label node
-        let _ = SKLabelNode(fontNamed: "Helvetica")
-
     }
     
     required init?(coder aDecoder: NSCoder) {
