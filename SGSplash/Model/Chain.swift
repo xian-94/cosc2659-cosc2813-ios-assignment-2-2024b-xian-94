@@ -22,6 +22,7 @@ enum ChainType: CustomStringConvertible {
 class Chain: Hashable, CustomStringConvertible {
     var elements: [Element] = []
     var type: ChainType
+    var score = 0
     init(type: ChainType) {
         self.type = type
     }
@@ -55,4 +56,5 @@ class Chain: Hashable, CustomStringConvertible {
     static func == (obj1: Chain, obj2: Chain) -> Bool {
         return obj1.elements == obj2.elements
     }
+    
 }

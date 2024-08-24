@@ -24,6 +24,8 @@ class Level {
     var target: ElementType
     var quantity: Int = 0
     var moves: Int = 0
+    // Count the number of chain combos
+    private var combo = 0
     
     // Tile properties
     var columns: Int
@@ -300,6 +302,10 @@ class Level {
         let vChains = findVerticalChains()
         removeChains(in: hChains)
         removeChains(in: vChains)
+        
+        // Calculate the scores
+        calcScore(for: hChains)
+        calcScore(for: vChains)
         // Unite 2 sets of chains into 1 single set
         return hChains.union(vChains)
     }
@@ -384,6 +390,22 @@ class Level {
             }
         }
         return reduction
+    }
+    
+    // MARK: Score calculation
+    // Calculate score gained from the chain
+    private func calcScore(for chains: Set<Chain>) {
+        for chain in chains {
+            // 3-element chain is 60 pts.
+            // Each more chain is worth another 60 pts
+            // In combo scenario, the second chain is worth twice the score and so on
+            chain.score = 60 * (chain.length - 2) * combo
+            combo += 1
+        }
+    }
+    
+    func resetCombo() {
+        self.combo = 1
     }
     
     

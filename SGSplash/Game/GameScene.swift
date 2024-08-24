@@ -33,7 +33,7 @@ class GameScene: SKScene {
     // Constructor
     override init(size: CGSize) {
         super.init(size: size)
-                // Center the game scene
+        // Center the game scene
         anchorPoint = CGPoint(x: 0.5, y: 0.45)
         
         
@@ -53,7 +53,9 @@ class GameScene: SKScene {
         elementsLayer.position = layerPosition
         gameLayer.addChild(elementsLayer)
         
-    
+        // Load font style for label node
+        let _ = SKLabelNode(fontNamed: "Helvetica")
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -226,7 +228,6 @@ class GameScene: SKScene {
         spriteA.run(SKAction.group([moveA, swapSound]))
         spriteB.run(moveB, completion: completion)
         
-//        run(swapSound)
     }
     
     // Animate the invalid swap
@@ -277,6 +278,7 @@ class GameScene: SKScene {
     // Implement animation for removing chains
     func animateRemoveChains(for chains: Set<Chain>, completion: @escaping () -> Void) {
         for chain in chains {
+            animateScore(for: chain)
             for element in chain.elements {
                 if let sprite = element.sprite {
                     // Trigger animation for each sprite
@@ -291,7 +293,6 @@ class GameScene: SKScene {
                 }
             }
         }
-//        run(disappearSound)
         // The game will continue after the animation finish
         run(SKAction.wait(forDuration: 0.3), completion: completion)
     }
@@ -345,6 +346,32 @@ class GameScene: SKScene {
         }
         run(SKAction.wait(forDuration: longestDuration), completion: completion)
     }
+    
+    // Add animation for scoring points
+    func animateScore(for chain: Chain) {
+        // Calculate the middle point of the chain
+        guard let first  = chain.firstElement().sprite, let last = chain.lastElement().sprite else { 
+            print("No sprite ")
+            return }
+        let centerPosition = CGPoint(
+            x: (first.position.x + last.position.x)/2,
+            y: (first.position.y + last.position.y)/2 - 8)
+        
+        // Add a label for the score
+        let scoreLabel = SKLabelNode(fontNamed: "Helvetica-BoldOblique")
+        scoreLabel.fontSize = 20
+        scoreLabel.text = String(format: "%d", chain.score)
+        scoreLabel.position = centerPosition
+        print("Position of score: \(centerPosition)")
+        scoreLabel.zPosition = 300
+        elementsLayer.addChild(scoreLabel)
+        
+        // Start the animation
+        let moveAction = SKAction.move(by: CGVector(dx: 0, dy: 3), duration: 1)
+        moveAction.timingMode = .easeOut
+        scoreLabel.run(SKAction.sequence([moveAction, SKAction.removeFromParent()]))
+    }
+    
     
     
 }

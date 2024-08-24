@@ -10,6 +10,7 @@ class GameManager: ObservableObject {
     @Published var target: ElementType = .unknown
     @Published var quantity: Int = 0
     @Published var moves: Int = 0
+    @Published var score: Int = 0
     // Manage winning or losing
     @Published var isGameOver: Bool = false
     @Published var isComplete: Bool = false
@@ -32,7 +33,9 @@ class GameManager: ObservableObject {
     func startGame() {
         self.target = level.target
         self.moves = level.moves
+        self.score = 0
         self.quantity = level.quantity
+        level.resetCombo()
         shuffle()
     }
     
@@ -67,7 +70,16 @@ class GameManager: ObservableObject {
         scene.animateRemoveChains(for: chains) {
             // Update the target quantity 
             let reduction = self.level.updateQuantity(for: chains)
-            self.quantity -= reduction
+            if (self.quantity - reduction == 0) {
+                self.quantity = 0
+            }
+            else {
+                self.quantity -= reduction
+            }
+            // Update the scores
+            for chain in chains {
+                self.score += chain.score
+            }
             let columns = self.level.fillHoles()
             self.scene.animateFallingElements(in: columns) {
                 let topUpColumns = self.level.topUpElements()
@@ -80,6 +92,7 @@ class GameManager: ObservableObject {
     
     // Update the list of possible swaps before granting player control
     func nextTurn() {
+        level.resetCombo()
         level.detectPossibleSwaps()
         // Shuffle if no possible moves found
         if level.getPossibleSwaps().isEmpty {
