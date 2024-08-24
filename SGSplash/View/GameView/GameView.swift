@@ -21,6 +21,9 @@ struct GameView: View {
                     .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
                     .transition(.scale)
                     .zIndex(10)
+                    .onAppear() {
+                        playSound(name: "level-complete", type: "mp3")
+                    }
             }
             else if gameManager.isGameOver {
                 GameOver()
@@ -28,6 +31,9 @@ struct GameView: View {
                     .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
                     .transition(.scale)
                     .zIndex(10)
+                    .onAppear() {
+                        playSound(name: "game-over", type: "mp3")
+                    }
             }
             VStack(spacing: 5) {
                 HStack {
