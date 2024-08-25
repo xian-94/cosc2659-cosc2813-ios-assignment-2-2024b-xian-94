@@ -22,6 +22,10 @@
 		7597B3252C78717400049DC0 /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597B3242C78717400049DC0 /* LevelView.swift */; };
 		7597C5A62C7A50F800437B5D /* PlayerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597C5A52C7A50F800437B5D /* PlayerRow.swift */; };
 		7597C5A82C7A55C600437B5D /* TopPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597C5A72C7A55C600437B5D /* TopPlayerView.swift */; };
+		759AD4A52C7AE365002140D1 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759AD4A42C7AE365002140D1 /* Player.swift */; };
+		759AD4A72C7AE58C002140D1 /* LeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759AD4A62C7AE58C002140D1 /* LeaderboardView.swift */; };
+		759AD4A92C7AECE6002140D1 /* CustomUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759AD4A82C7AECE6002140D1 /* CustomUserDefaults.swift */; };
+		759AD4AC2C7AF43F002140D1 /* PlayerScoresBarChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759AD4AB2C7AF43F002140D1 /* PlayerScoresBarChart.swift */; };
 		75A01F452C75A1850056EA80 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A01F442C75A1850056EA80 /* Modifiers.swift */; };
 		75A01F492C75A43B0056EA80 /* TargetBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A01F482C75A43B0056EA80 /* TargetBox.swift */; };
 		75A334432C69203600C65070 /* SGSplashApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A334422C69203600C65070 /* SGSplashApp.swift */; };
@@ -56,6 +60,10 @@
 		7597B3242C78717400049DC0 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
 		7597C5A52C7A50F800437B5D /* PlayerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRow.swift; sourceTree = "<group>"; };
 		7597C5A72C7A55C600437B5D /* TopPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPlayerView.swift; sourceTree = "<group>"; };
+		759AD4A42C7AE365002140D1 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		759AD4A62C7AE58C002140D1 /* LeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardView.swift; sourceTree = "<group>"; };
+		759AD4A82C7AECE6002140D1 /* CustomUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUserDefaults.swift; sourceTree = "<group>"; };
+		759AD4AB2C7AF43F002140D1 /* PlayerScoresBarChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoresBarChart.swift; sourceTree = "<group>"; };
 		75A01F442C75A1850056EA80 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		75A01F482C75A43B0056EA80 /* TargetBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetBox.swift; sourceTree = "<group>"; };
 		75A3343F2C69203600C65070 /* SGSplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGSplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -112,6 +120,7 @@
 				75970A2E2C6B6AA6005A98E6 /* Tile.swift */,
 				758FF0662C6C8018005EB21F /* Swap.swift */,
 				75ADC7432C6F5C8C0045A0F4 /* Chain.swift */,
+				759AD4A42C7AE365002140D1 /* Player.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -147,6 +156,7 @@
 				75970A2C2C6B6833005A98E6 /* ModelData.swift */,
 				75A01F442C75A1850056EA80 /* Modifiers.swift */,
 				75ECC5562C78FEBC007416EC /* PlaySound.swift */,
+				759AD4A82C7AECE6002140D1 /* CustomUserDefaults.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -210,6 +220,8 @@
 				75A34BCD2C79F2B4008617E3 /* TopThreeView.swift */,
 				7597C5A52C7A50F800437B5D /* PlayerRow.swift */,
 				7597C5A72C7A55C600437B5D /* TopPlayerView.swift */,
+				759AD4A62C7AE58C002140D1 /* LeaderboardView.swift */,
+				759AD4AB2C7AF43F002140D1 /* PlayerScoresBarChart.swift */,
 			);
 			path = Leaderboard;
 			sourceTree = "<group>";
@@ -306,6 +318,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				759AD4AC2C7AF43F002140D1 /* PlayerScoresBarChart.swift in Sources */,
+				759AD4A52C7AE365002140D1 /* Player.swift in Sources */,
 				75942F792C6A031B00A9527F /* Element.swift in Sources */,
 				758FF0672C6C8018005EB21F /* Swap.swift in Sources */,
 				75942F842C6A164200A9527F /* GameManager.swift in Sources */,
@@ -320,11 +334,13 @@
 				75942F7B2C6A0B0000A9527F /* GameScene.swift in Sources */,
 				7595CBC22C78E5D4004E4EC0 /* GameOver.swift in Sources */,
 				758A6AD12C75F6FA00E22DB3 /* LevelButton.swift in Sources */,
+				759AD4A72C7AE58C002140D1 /* LeaderboardView.swift in Sources */,
 				75A34BCE2C79F2B4008617E3 /* TopThreeView.swift in Sources */,
 				75942F7D2C6A0BB300A9527F /* Level.swift in Sources */,
 				75970A2F2C6B6AA6005A98E6 /* Tile.swift in Sources */,
 				7597C5A82C7A55C600437B5D /* TopPlayerView.swift in Sources */,
 				75ADC7442C6F5C8C0045A0F4 /* Chain.swift in Sources */,
+				759AD4A92C7AECE6002140D1 /* CustomUserDefaults.swift in Sources */,
 				75A334432C69203600C65070 /* SGSplashApp.swift in Sources */,
 				75942F812C6A148E00A9527F /* GameView.swift in Sources */,
 			);

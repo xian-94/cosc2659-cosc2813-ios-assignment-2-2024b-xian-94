@@ -9,37 +9,26 @@ import Foundation
 import SwiftUI
 
 struct TopPlayerView: View {
+    @Binding var topPlayers: [Player]
     var body: some View {
-        ZStack {
-            LinearGradient(colors: [Color.background, Color.lightPink, Color.second], startPoint: .topLeading, endPoint: .bottomTrailing)
-                .ignoresSafeArea()
-            VStack {
-                Text("Leaderboard")
-                Spacer()
-                HStack(spacing: 15) {
-                    TopThreeView()
-                        .offset(x: -20, y: -30)
-                    TopThreeView()
-                        .scaleEffect(CGSize(width: 1.3, height: 1.3))
-                    TopThreeView()
-                        .offset(x: 20, y: -30)
-                }
-                VStack(spacing: -35) {
-                    PlayerRow()
-                    PlayerRow()
-                    PlayerRow()
-                    PlayerRow()
-                    PlayerRow()
+        VStack {
+            HStack(spacing: UIScreen.main.bounds.width * 0.08) {
+                TopThreeView(player: topPlayers[1], rank: "secondRank")
+                    .offset(x: -20, y: -30)
+                TopThreeView(player: topPlayers[0], rank: "firstRank")
+                    .scaleEffect(CGSize(width: 1.3, height: 1.3))
+                TopThreeView(player: topPlayers[2], rank: "thirdRank")
+                    .offset(x: 20, y: -30)
+            }
+            VStack(spacing: -20) {
+                if topPlayers.count > 3 {
+                    ForEach(3..<min(topPlayers.count, 10), id: \.self) { i in
+                            PlayerRow(player: topPlayers[i])
+                    }
                 }
             }
-            .padding()
         }
-       
+        .padding()
     }
 }
 
-struct TopPlayerView_Preview: PreviewProvider {
-    static var previews: some View {
-        TopPlayerView()
-    }
-}
