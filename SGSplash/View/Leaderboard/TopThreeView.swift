@@ -23,7 +23,6 @@ struct TopThreeView: View {
             }
             Text(player.username)
                 .font(.headline)
-                .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
         }
     }
 }

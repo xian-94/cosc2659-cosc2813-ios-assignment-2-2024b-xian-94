@@ -10,6 +10,7 @@ import SwiftUI
 
 // TODO: Add data and modify font later
 struct PlayerRow: View {
+    var rank: Int
     var player: Player
     var body: some View {
         ZStack {
@@ -24,7 +25,7 @@ struct PlayerRow: View {
                         .stroke(Color.accentGreen, lineWidth: 4)
                 }
             HStack(spacing: UIScreen.main.bounds.width * 0.08) {
-                Text("4")
+                Text("\(rank)")
                 Text(player.username)
                         .font(.subheadline)
                 Text("\(player.totalScore)")
@@ -43,6 +44,6 @@ struct PlayerRow: View {
 
 struct PlayerRow_Preview: PreviewProvider {
     static var previews: some View {
-        PlayerRow(player: leaderboard[0])
+        PlayerRow(rank: 4, player: leaderboard[0])
     }
 }

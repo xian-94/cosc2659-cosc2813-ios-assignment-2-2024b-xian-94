@@ -14,7 +14,23 @@ struct LeaderboardView: View {
 //    @State private var currentPlayerRank: Int?
     
     var body: some View {
-        TopPlayerView(topPlayers: $topPlayers)
+        ZStack {
+            Image("lightBackground")
+                .resizable()
+                .ignoresSafeArea()
+                .opacity(0.5)
+            ScrollView {
+                Text("Leaderboard")
+                    .font(.largeTitle)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                VStack {
+                    TopPlayerView(topPlayers: $topPlayers)
+                    PlayerScoresBarChart(topPlayers: $topPlayers)
+                }
+                
+            }
+        }
+        
     }
 }
 

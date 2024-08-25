@@ -23,7 +23,7 @@ struct TopPlayerView: View {
             VStack(spacing: -20) {
                 if topPlayers.count > 3 {
                     ForEach(3..<min(topPlayers.count, 10), id: \.self) { i in
-                            PlayerRow(player: topPlayers[i])
+                        PlayerRow(rank: i + 1, player: topPlayers[i])
                     }
                 }
             }
