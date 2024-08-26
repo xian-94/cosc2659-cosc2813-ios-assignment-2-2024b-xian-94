@@ -12,8 +12,9 @@ import SwiftUI
 struct WelcomeView: View {
     @State private var showRegistrationModal = false
     @State private var username: String = ""
-
     @State private var navigateToLevel: Bool = false
+    // Show sheet of Setting view
+    @State private var showSetting: Bool = false
     
     // TODO: Check if the user exists in the list
     
@@ -32,6 +33,7 @@ struct WelcomeView: View {
                 {
                     if !username.isEmpty {
                         Text("Hello, \(username)")
+
                     }
                     // Play button
                     Button(action: {
@@ -57,7 +59,6 @@ struct WelcomeView: View {
                     }) {
                         Text("How To Play")
                             .padding()
-//                            .frame(maxWidth: UIScreen.main.bounds.width * 0.6)
                     }
                     .modifier(SecondaryCapsulePButtonStyle())
                     Button(action: {
@@ -69,7 +70,7 @@ struct WelcomeView: View {
                     .modifier(SecondaryCapsulePButtonStyle())
                     // Setting button
                     Button(action: {
-                        
+                        showSetting = true
                     }) {
                         Text("Setting")
                             .padding()
@@ -134,6 +135,9 @@ struct WelcomeView: View {
                     }
                 }
             }
+        }
+        .sheet(isPresented: $showSetting) {
+            SettingView()
         }
     }
 }

@@ -27,15 +27,7 @@ struct LevelView: View {
                     ScrollView {
                         VStack {
                             HStack {
-                                Button(action: {
-                                    navigateBack.toggle()
-                                }) {
-                                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
-                                }
-                                .navigationDestination(isPresented: $navigateBack) {
-                                    WelcomeView()
-                                }
-                                Text("Hello, \(username)")
+                                Text("Let's begin our adventure, \(username)")
                             }
                             ZStack {
                                 // Create a custom path for the levels
