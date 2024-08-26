@@ -20,3 +20,31 @@ struct CircleButtonStyle: ViewModifier {
     }
 }
 
+struct PrimaryCapsulePButtonStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(minWidth: UIScreen.main.bounds.width * 0.4, maxWidth: UIScreen.main.bounds.width * 0.6)
+            .foregroundColor(.black)
+            .font(.title)
+            .background(Color.primaryPink)
+            .clipShape(Capsule())
+            .shadow(color: .lightPink, radius: 1, y: 10)
+            .transition(.opacity)
+            .controlSize(.large)
+    }
+}
+
+struct SecondaryCapsulePButtonStyle: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .frame(minWidth: UIScreen.main.bounds.width * 0.4, maxWidth: UIScreen.main.bounds.width * 0.6)
+            .foregroundColor(.black)
+            .font(.title)
+            .background(Color.lightPink)
+            .clipShape(Capsule())
+            .shadow(color: .primaryPink, radius: 1, y: 10)
+            .transition(.opacity)
+            .controlSize(.large)
+    }
+}
+

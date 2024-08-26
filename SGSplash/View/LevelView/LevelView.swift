@@ -1,14 +1,15 @@
 import SwiftUI
 
 struct LevelView: View {
-    private var numLevels = levels.count
+    @Binding var username: String
+    @State private var navigateBack: Bool = false
     // Calculate the position of a level button along the path
     private func position(for level: Int, in size: CGSize) -> CGPoint {
         let width = size.width
         let midX = width / 2
-        let spacing = size.height / CGFloat(numLevels) // Evenly space levels vertically
+        let spacing = size.height / CGFloat(levels.count) // Evenly space levels vertically
         
-        let x = midX + (sin(CGFloat(level) * .pi * 1.5 / CGFloat(numLevels)) * width * 0.3)
+        let x = midX + (sin(CGFloat(level) * .pi * 1.5 / CGFloat(levels.count)) * width * 0.3)
         let y = spacing * CGFloat(level)
         
         return CGPoint(x: x, y: y)
@@ -25,11 +26,22 @@ struct LevelView: View {
                 GeometryReader { geometry in
                     ScrollView {
                         VStack {
+                            HStack {
+                                Button(action: {
+                                    navigateBack.toggle()
+                                }) {
+                                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+                                }
+                                .navigationDestination(isPresented: $navigateBack) {
+                                    WelcomeView()
+                                }
+                                Text("Hello, \(username)")
+                            }
                             ZStack {
                                 // Create a custom path for the levels
                                 Path { path in
                                     let width = geometry.size.width
-                                    let height = CGFloat(numLevels) * geometry.size.height
+                                    let height = CGFloat(levels.count) * geometry.size.height
                                     let midX = width / 2
                                     
                                     // Create path
@@ -42,26 +54,21 @@ struct LevelView: View {
                                 .stroke(lineWidth: 0)
                                 
                                 // Position the level buttons
-                                ForEach(0..<numLevels, id: \.self) { index in
-                                    let position = self.position(for: index, in: CGSize(width: geometry.size.width, height: CGFloat(numLevels) * UIScreen.main.bounds.height * 0.15))
+                                ForEach(0..<levels.count, id: \.self) { index in
+                                    let position = self.position(for: index, in: CGSize(width: geometry.size.width, height: CGFloat(levels.count) * UIScreen.main.bounds.height * 0.15))
                                     LevelButton(level: index)
                                         .position(position)
                                 }
                             }
-                            .frame(minHeight: CGFloat(numLevels) * UIScreen.main.bounds.height * 0.15, maxHeight: CGFloat(numLevels) * UIScreen.main.bounds.height * 0.17)
+                            .frame(minHeight: CGFloat(levels.count) * UIScreen.main.bounds.height * 0.15, maxHeight: CGFloat(levels.count) * UIScreen.main.bounds.height * 0.17)
                             .offset(y: UIScreen.main.bounds.height * 0.1)
                         }
                     }
                 }
             }
         }
+//        .navigationBarBackButtonHidden(true)
         
     }
 }
 
-
-struct LevelView_Preview: PreviewProvider {
-    static var previews: some View {
-        LevelView()
-    }
-}
