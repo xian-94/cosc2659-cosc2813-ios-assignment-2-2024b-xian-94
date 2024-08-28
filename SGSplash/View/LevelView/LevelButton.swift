@@ -15,14 +15,14 @@ struct LevelButton: View {
             Text("\(level + 1)")
                 .font(.largeTitle)
                 .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                .foregroundStyle(Color.background)
+                .foregroundColor(.background)
         }
         .foregroundColor(.black)
         .font(.title)
-        .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.24, minHeight: UIScreen.main.bounds.height * 0.2, maxHeight: UIScreen.main.bounds.height * 0.24)
-        .background(Color.accentGreen)
+        .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.22, minHeight: UIScreen.main.bounds.height * 0.15, maxHeight: UIScreen.main.bounds.height * 0.2)
+        .background(Color.appAccent)
         .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-        .shadow(color: .second, radius: 1, y: 10)
+        .shadow(color: .appSecondary, radius: 1, y: 10)
         .transition(.slide)
     }
 }

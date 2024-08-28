@@ -23,9 +23,6 @@ enum Theme: String, CaseIterable {
     }
 }
 
-
-
-
 struct ToggleThemeView: View {
     var scheme: ColorScheme
     @AppStorage("user_theme") private var theme: Theme = .light
@@ -44,7 +41,7 @@ struct ToggleThemeView: View {
                             ZStack {
                                 if theme == th {
                                     Capsule()
-                                        .fill(Color("background"))
+                                        .fill(Color.background)
                                         .matchedGeometryEffect(id: "ACTIVE", in: animation)
                                 }
                             }

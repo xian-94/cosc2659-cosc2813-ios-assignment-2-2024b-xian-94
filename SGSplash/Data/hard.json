@@ -12,9 +12,18 @@
             [1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1],
         ],
-        "target": "milk",
-        "quantity": 10,
-        "moves": 25
+        "goals": [
+            {
+                "target": "milk",
+                "quantity": 10
+            },
+            {
+                "target": "flower",
+                "quantity": 15
+            }
+        ],
+        "moves": 20,
+        "timeLimit": 180
     },
     {
         "number": 2,
@@ -29,9 +38,18 @@
             [1, 1, 1, 1, 1, 1, 1],
             [0, 1, 1, 1, 1, 1, 0],
         ],
-        "target": "flower",
-        "quantity": 20,
-        "moves": 30
+        "goals": [
+            {
+                "target": "orange",
+                "quantity": 20
+            },
+            {
+                "target": "apple",
+                "quantity": 24
+            }
+        ],
+        "moves": 30,
+        "timeLimit": 240
     },
     {
         "number": 3,
@@ -46,9 +64,18 @@
             [1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1],
         ],
-        "target": "orange",
-        "quantity": 25,
-        "moves": 35
+        "goals": [
+            {
+                "target": "coconut",
+                "quantity": 20
+            },
+            {
+                "target": "veggie",
+                "quantity": 20
+            }
+        ],
+        "moves": 35,
+        "timeLimit": 300
     },
     {
         "number": 4,
@@ -63,9 +90,18 @@
             [1, 1, 1, 1, 1, 1, 1],
             [0, 1, 1, 1, 1, 1, 0],
         ],
-        "target": "bread",
-        "quantity": 25,
-        "moves": 30
+        "goals": [
+            {
+                "target": "bread",
+                "quantity": 25
+            },
+            {
+                "target": "flower",
+                "quantity": 30
+            }
+        ],
+        "moves": 30,
+        "timeLimit": 270
     },
     {
         "number": 5,
@@ -80,9 +116,19 @@
             [1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1],
         ],
-        "target": "coconut",
-        "quantity": 40,
-        "moves": 38
+        "goals": [
+            {
+                "target": "orange",
+                "quantity": 40
+            },
+            {
+                "target": "veggie",
+                "quantity": 20
+            }
+        ],
+        "moves": 38,
+        "timeLimit": 300
     }
 ]
  
+

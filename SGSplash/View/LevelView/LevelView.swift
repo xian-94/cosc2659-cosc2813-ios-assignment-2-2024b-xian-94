@@ -3,13 +3,14 @@ import SwiftUI
 struct LevelView: View {
     @Binding var username: String
     @State private var navigateBack: Bool = false
+    @AppStorage("user_theme") private var theme: Theme = .light
     // Calculate the position of a level button along the path
     private func position(for level: Int, in size: CGSize) -> CGPoint {
         let width = size.width
         let midX = width / 2
-        let spacing = size.height / CGFloat(levels.count) // Evenly space levels vertically
+        let spacing = size.height / CGFloat(easyLevels.count) // Evenly space levels vertically
         
-        let x = midX + (sin(CGFloat(level) * .pi * 1.5 / CGFloat(levels.count)) * width * 0.3)
+        let x = midX + (sin(CGFloat(level) * .pi * 1.5 / CGFloat(easyLevels.count)) * width * 0.3)
         let y = spacing * CGFloat(level)
         
         return CGPoint(x: x, y: y)
@@ -19,7 +20,7 @@ struct LevelView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Image("lightBackground")
+                Image(theme == .light ? "lightBackground" : "darkbg")
                     .resizable()
                     .ignoresSafeArea()
                 
@@ -28,12 +29,13 @@ struct LevelView: View {
                         VStack {
                             HStack {
                                 Text("Let's begin our adventure, \(username)")
+                                    .foregroundStyle(Color.appText)
                             }
                             ZStack {
                                 // Create a custom path for the levels
                                 Path { path in
                                     let width = geometry.size.width
-                                    let height = CGFloat(levels.count) * geometry.size.height
+                                    let height = CGFloat(easyLevels.count) * geometry.size.height
                                     let midX = width / 2
                                     
                                     // Create path
@@ -46,13 +48,13 @@ struct LevelView: View {
                                 .stroke(lineWidth: 0)
                                 
                                 // Position the level buttons
-                                ForEach(0..<levels.count, id: \.self) { index in
-                                    let position = self.position(for: index, in: CGSize(width: geometry.size.width, height: CGFloat(levels.count) * UIScreen.main.bounds.height * 0.15))
+                                ForEach(0..<easyLevels.count, id: \.self) { index in
+                                    let position = self.position(for: index, in: CGSize(width: geometry.size.width, height: CGFloat(easyLevels.count) * UIScreen.main.bounds.height * 0.15))
                                     LevelButton(level: index)
                                         .position(position)
                                 }
                             }
-                            .frame(minHeight: CGFloat(levels.count) * UIScreen.main.bounds.height * 0.15, maxHeight: CGFloat(levels.count) * UIScreen.main.bounds.height * 0.17)
+                            .frame(minHeight: CGFloat(easyLevels.count) * UIScreen.main.bounds.height * 0.15, maxHeight: CGFloat(easyLevels.count) * UIScreen.main.bounds.height * 0.17)
                             .offset(y: UIScreen.main.bounds.height * 0.1)
                         }
                     }

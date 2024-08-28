@@ -14,6 +14,7 @@ struct TargetBox: View {
     var body: some View {
         VStack {
             Text("Score: \(gameManager.score)")
+                .foregroundColor(.appText)
                 .font(.title2)
                 .frame(maxWidth: .infinity, alignment: .trailing)
             ZStack {
@@ -29,9 +30,10 @@ struct TargetBox: View {
                             ZStack {
                                 Rectangle()
                                     .cornerRadius(20)
-                                    .foregroundColor(Color.lightPink)
+                                    .foregroundColor(Color.appTertiary)
                                     .frame(minWidth: UIScreen.main.bounds.width * 0.2 ,maxWidth: UIScreen.main.bounds.width * 0.3, maxHeight: UIScreen.main.bounds.height * 0.13)
                                 Text("\(gameManager.moves)")
+                                    .foregroundColor(.appText)
                                     .font(.title)
                                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                             }
@@ -39,11 +41,12 @@ struct TargetBox: View {
                                 Rectangle()
                                     .cornerRadius(20)
                                     .frame(minWidth: UIScreen.main.bounds.width * 0.1, maxWidth: UIScreen.main.bounds.width * 0.2, maxHeight: UIScreen.main.bounds.height * 0.05)
-                                    .foregroundColor(Color.accentGreen)
+                                    .foregroundColor(Color.appAccent)
                                     .offset(y: -55)
                                 Text("Moves")
                                     .offset(y: -55)
                                     .font(.title2)
+                                    .foregroundColor(.appText)
                             }
                         }
                         // Target box
@@ -51,21 +54,24 @@ struct TargetBox: View {
                             ZStack {
                                 Rectangle()
                                     .cornerRadius(20)
-                                    .foregroundColor(Color.lightPink)
+                                    .foregroundColor(Color.appTertiary)
                                     .frame(minWidth: UIScreen.main.bounds.width * 0.3 ,maxWidth: UIScreen.main.bounds.width * 0.5, maxHeight: UIScreen.main.bounds.height * 0.13)
                                 HStack {
-                                    Image("\(gameManager.target)")
-                                        .resizable()
-                                        .frame(minWidth: UIScreen.main.bounds.width * 0.06, maxWidth: UIScreen.main.bounds.width * 0.12, minHeight: UIScreen.main.bounds.width * 0.06, maxHeight: UIScreen.main.bounds.height * 0.07)
-                                    Text("\(gameManager.quantity)")
-                                        .font(.title2)
+                                    ForEach(gameManager.goals, id: \.self) { goal in
+                                        Image("\(ElementType.getType(name: goal.target))")
+                                            .resizable()
+                                            .frame(minWidth: UIScreen.main.bounds.width * 0.06, maxWidth: UIScreen.main.bounds.width * 0.12, minHeight: UIScreen.main.bounds.width * 0.06, maxHeight: UIScreen.main.bounds.height * 0.07)
+                                        Text("\(goal.quantity)")
+                                            .foregroundColor(.appText)
+                                            .font(.title2)
+                                    }
                                 }
                             }
                             ZStack {
                                 Rectangle()
                                     .cornerRadius(20)
                                     .frame(maxWidth: UIScreen.main.bounds.width * 0.3, maxHeight: UIScreen.main.bounds.height * 0.05)
-                                    .foregroundColor(Color.accentGreen)
+                                    .foregroundColor(Color.appAccent)
                                     .offset(y: -55)
                                 Text("Goals")
                                     .offset(y: -55)
