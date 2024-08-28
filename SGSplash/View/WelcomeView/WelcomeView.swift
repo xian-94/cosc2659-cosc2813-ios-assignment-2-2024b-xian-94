@@ -145,5 +145,6 @@ struct WelcomeView: View {
 struct WelcomeView_Preview: PreviewProvider {
     static var previews: some View {
         WelcomeView()
+            .environmentObject(LanguageManager())
     }
 }

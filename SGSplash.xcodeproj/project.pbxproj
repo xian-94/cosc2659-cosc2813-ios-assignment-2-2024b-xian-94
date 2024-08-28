@@ -22,6 +22,7 @@
 		7597B3252C78717400049DC0 /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597B3242C78717400049DC0 /* LevelView.swift */; };
 		7597C5A62C7A50F800437B5D /* PlayerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597C5A52C7A50F800437B5D /* PlayerRow.swift */; };
 		7597C5A82C7A55C600437B5D /* TopPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597C5A72C7A55C600437B5D /* TopPlayerView.swift */; };
+		759A69872C7DA0C700E28C65 /* ToggleThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A69862C7DA0C700E28C65 /* ToggleThemeView.swift */; };
 		759AD32D2C7CBF70000231E6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 759AD32C2C7CBF70000231E6 /* Localizable.xcstrings */; };
 		759AD3302C7CC438000231E6 /* LanguagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759AD32F2C7CC438000231E6 /* LanguagePicker.swift */; };
 		759AD3322C7CD175000231E6 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759AD3312C7CD175000231E6 /* SettingView.swift */; };
@@ -67,6 +68,7 @@
 		7597B3242C78717400049DC0 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
 		7597C5A52C7A50F800437B5D /* PlayerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRow.swift; sourceTree = "<group>"; };
 		7597C5A72C7A55C600437B5D /* TopPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPlayerView.swift; sourceTree = "<group>"; };
+		759A69862C7DA0C700E28C65 /* ToggleThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleThemeView.swift; sourceTree = "<group>"; };
 		759AD32C2C7CBF70000231E6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		759AD32F2C7CC438000231E6 /* LanguagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePicker.swift; sourceTree = "<group>"; };
 		759AD3312C7CD175000231E6 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				759AD32F2C7CC438000231E6 /* LanguagePicker.swift */,
 				759AD3312C7CD175000231E6 /* SettingView.swift */,
 				759AD3372C7CEAA0000231E6 /* MuteBackgroundMusic.swift */,
+				759A69862C7DA0C700E28C65 /* ToggleThemeView.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -360,6 +363,7 @@
 				759AD4AC2C7AF43F002140D1 /* PlayerScoresBarChart.swift in Sources */,
 				759AD3342C7CE042000231E6 /* LanguageManager.swift in Sources */,
 				759AD4A52C7AE365002140D1 /* Player.swift in Sources */,
+				759A69872C7DA0C700E28C65 /* ToggleThemeView.swift in Sources */,
 				75942F792C6A031B00A9527F /* Element.swift in Sources */,
 				758FF0672C6C8018005EB21F /* Swap.swift in Sources */,
 				75942F842C6A164200A9527F /* GameManager.swift in Sources */,

@@ -366,10 +366,12 @@ class Level {
                 lastType = newType
                 
                 // Create new element
-                let newElement = Element(column: col, row: r, type: newType)
-                elements[col][r] = newElement
-                arr.append(newElement)
-                r -= 1
+                if tiles[col][r] != nil {
+                    let newElement = Element(column: col, row: r, type: newType)
+                    elements[col][r] = newElement
+                    arr.append(newElement)
+                    r -= 1
+                }
                 
             }
             if !arr.isEmpty {
