@@ -2,17 +2,19 @@ import SwiftUI
 import SpriteKit
 
 struct GameView: View {
-    
+    @AppStorage("user_theme") private var theme: Theme = .light
+//    @AppStorage("diffMode") private var diffMode: String = "easy"
     @StateObject private var gameManager: GameManager
+//    var levelNumber: Int
     let midY = UIScreen.main.bounds.height / 2
     
     init(levelNumber: Int) {
         let viewSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize, levelNumber: levelNumber))
+        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize, mode: UserDefaults.standard.string(forKey: "diffMode") ?? "easy", levelNumber: levelNumber))
     }
     var body: some View {
         ZStack {
-            Image("lightBackground")
+            Image(theme == .light ? "lightBackground" : "darkbg")
                 .resizable()
                 .ignoresSafeArea(.all)
             if gameManager.isComplete {
@@ -40,11 +42,11 @@ struct GameView: View {
                     ZStack {
                         UnevenRoundedRectangle( topLeadingRadius: 100, bottomLeadingRadius: 0, bottomTrailingRadius: 100, topTrailingRadius: 100, style: .continuous)
                             .frame(minWidth: UIScreen.main.bounds.width * 0.1, maxWidth: UIScreen.main.bounds.width * 0.3, maxHeight: UIScreen.main.bounds.height * 0.1)
-                            .foregroundColor(.primaryPink)
+                            .foregroundColor(.appPrimary)
                             .shadow(radius: 5, y: 5)
                         Text("Level \(gameManager.level.number)")
                             .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                            .foregroundColor(.background)
+                            .foregroundColor(.appText)
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     }
                     .offset(x: -50, y: -20)
@@ -52,10 +54,12 @@ struct GameView: View {
                     HStack {
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                             Image(systemName: "gearshape.fill")
+                                .foregroundStyle(Color.appSecondary)
                         }
                         .modifier(CircleButtonStyle())
                         Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
                             Image(systemName: "pause.fill")
+                                .foregroundStyle(Color.appSecondary)
                         }
                         .modifier(CircleButtonStyle())
                     }

@@ -23,6 +23,8 @@ struct LeaderboardView: View {
                 Text("Leaderboard")
                     .font(.largeTitle)
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .foregroundStyle(Color.appPrimary)
+                    .shadow(radius: 5, y: 5)
                 VStack {
                     TopPlayerView(topPlayers: $topPlayers)
                     PlayerScoresBarChart(topPlayers: $topPlayers)

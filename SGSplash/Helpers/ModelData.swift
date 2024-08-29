@@ -29,5 +29,8 @@ func loadLevels(fileName: String) -> [LevelData] {
     return []
 }
 
-// Import data
-var levels = loadLevels(fileName: "levels")
+// Import levels data
+var easyLevels = loadLevels(fileName: "easy")
+var medLevels = loadLevels(fileName: "medium")
+var hardLevels = loadLevels(fileName: "hard")
+

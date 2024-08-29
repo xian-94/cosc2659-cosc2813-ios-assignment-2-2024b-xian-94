@@ -14,11 +14,13 @@ struct LevelComplete: View {
         ZStack {
             Rectangle()
                 .frame(maxWidth: .infinity, minHeight: UIScreen.main.bounds.height * 0.15, maxHeight: UIScreen.main.bounds.height * 0.2)
-                .foregroundColor(Color.lightPink)
+                .foregroundColor(Color.appTertiary)
             VStack {
                 Text("Level Complete!")
                     .italic()
                     .font(.largeTitle)
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .foregroundStyle(Color.appText)
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 })  {

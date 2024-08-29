@@ -22,13 +22,18 @@ struct PlayerRow: View {
                 .opacity(0.3)
                 .overlay {
                     RoundedRectangle(cornerRadius: 30)
-                        .stroke(Color.accentGreen, lineWidth: 4)
+                        .stroke(Color.appAccent, lineWidth: 4)
                 }
             HStack(spacing: UIScreen.main.bounds.width * 0.08) {
                 Text("\(rank)")
+                    .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
+                    .foregroundColor(.appText)
+                    .shadow(radius: 5, y: 5)
                 Text(player.username)
+                    .foregroundColor(.appText)
                         .font(.subheadline)
                 Text("\(player.totalScore)")
+                    .foregroundColor(.appText)
                 Image(player.achievementBadge)
                     .resizable()
                     .frame(minWidth: UIScreen.main.bounds.width * 0.08, maxWidth: UIScreen.main.bounds.width * 0.1, minHeight: UIScreen.main.bounds.height * 0.06, maxHeight: UIScreen.main.bounds.height * 0.08)

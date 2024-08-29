@@ -13,19 +13,22 @@ struct LevelData: Codable {
     var columns: Int
     var rows: Int
     var tiles: [[Int]]
-    var target: String
-    var quantity: Int
+    var goals: [Goal]
     var moves: Int
+    // For hard mode
+    var timeLimit: Int?
 }
 
 class Level {
     // Goal properties
     var number: Int = 0
-    var target: ElementType
-    var quantity: Int = 0
     var moves: Int = 0
+    
+    var goals: [Goal] = []
     // Count the number of chain combos
     private var combo = 0
+    // For hard mode
+    var timeLimit: Int?
     
     // Tile properties
     var columns: Int
@@ -39,18 +42,18 @@ class Level {
     private var possibleSwaps: Set<Swap> = []
     
     // Constructor
-    init(level: LevelData) {
-        self.number = level.number
-        self.target = ElementType.getType(name: level.target)
-        self.quantity = level.quantity
-        self.moves = level.moves
-        self.columns = level.columns
-        self.rows = level.rows
+    init(levelPack: [LevelData], levelNumber: Int) {
+        self.number = levelPack[levelNumber].number
+        self.moves = levelPack[levelNumber].moves
+        self.columns = levelPack[levelNumber].columns
+        self.rows = levelPack[levelNumber].rows
+        self.goals = levelPack[levelNumber].goals
+        self.combo = 0
+        self.timeLimit = levelPack[levelNumber].timeLimit
         self.elements = Array(repeating: Array(repeating: nil, count: self.rows), count: self.columns)
         self.tiles = Array(repeating: Array(repeating: nil, count: self.rows), count: self.columns)
-        
         // Initialize tiles based on the level, the position of level 1 is index 0
-        for (row, rowArray) in levels[level.number - 1].tiles.enumerated() {
+        for (row, rowArray) in levelPack[self.number - 1].tiles.enumerated() {
             let tileRow = self.rows - row - 1
             for (column, value) in rowArray.enumerated() {
                 // Create tiles for the 2D array positions whose value is 1, not 0
@@ -229,7 +232,7 @@ class Level {
             possibleSwaps = set
         }
     }
-   
+    
     
     // Check possible swaps
     func isPossibleSwap(_ swap: Swap) -> Bool {
@@ -366,10 +369,12 @@ class Level {
                 lastType = newType
                 
                 // Create new element
-                let newElement = Element(column: col, row: r, type: newType)
-                elements[col][r] = newElement
-                arr.append(newElement)
-                r -= 1
+                if tiles[col][r] != nil {
+                    let newElement = Element(column: col, row: r, type: newType)
+                    elements[col][r] = newElement
+                    arr.append(newElement)
+                    r -= 1
+                }
                 
             }
             if !arr.isEmpty {
@@ -380,13 +385,24 @@ class Level {
     }
     
     // MARK: Target management
-    func updateQuantity(for chains: Set<Chain>) -> Int {
-        var reduction = 0
+    func updateQuantity(for chains: Set<Chain>) -> [String: Int] {
+        // Dictionary to store the target with the reduced quantity, setting initial value to 0
+        var reduction: [String: Int] = goals.reduce(into: [String: Int]()) { dict, goal in
+            dict[goal.target] = 0
+        }
         for chain in chains {
             // Check if an element in the chain has the same type with the target
-            if chain.elements[0].type == self.target {
-                // Reduce the target quantity by the chain length
-                reduction += chain.length
+            for i in 0..<goals.count {
+                if chain.elements[0].type == ElementType.getType(name: goals[i].target) {
+                    // If the key exists, add the reduced quantity
+                    if reduction.keys.contains(goals[i].target) {
+                        reduction[goals[i].target]! += chain.length
+                    }
+                    else {
+                        reduction[goals[i].target]! = chain.length
+                    }
+                    
+                }
             }
         }
         return reduction

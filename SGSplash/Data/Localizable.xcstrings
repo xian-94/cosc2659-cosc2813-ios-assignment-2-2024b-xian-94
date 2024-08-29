@@ -1,0 +1,99 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%lld" : {
+
+    },
+    "Button" : {
+
+    },
+    "Enter your username" : {
+
+    },
+    "Exit" : {
+
+    },
+    "Game over!" : {
+
+    },
+    "Goals" : {
+
+    },
+    "Hello, %@" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào bạn, %@"
+          }
+        }
+      }
+    },
+    "How To Play" : {
+
+    },
+    "Language" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ngôn ngữ"
+          }
+        }
+      }
+    },
+    "Leaderboard" : {
+
+    },
+    "Let's begin our adventure, %@" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hãy bắt đầu hành trình nào, %@"
+          }
+        }
+      }
+    },
+    "Let's play" : {
+
+    },
+    "Level %lld" : {
+
+    },
+    "Level Complete!" : {
+
+    },
+    "Moves" : {
+
+    },
+    "Music" : {
+
+    },
+    "Play" : {
+
+    },
+    "Player" : {
+
+    },
+    "Register username" : {
+
+    },
+    "Score" : {
+
+    },
+    "Score: %lld" : {
+
+    },
+    "Setting" : {
+
+    },
+    "Theme" : {
+
+    },
+    "Top 5 Players scores" : {
+
+    }
+  },
+  "version" : "1.0"
+}
