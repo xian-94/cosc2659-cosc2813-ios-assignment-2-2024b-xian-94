@@ -14,11 +14,11 @@ struct TopPlayerView: View {
         VStack {
             HStack(spacing: UIScreen.main.bounds.width * 0.08) {
                 TopThreeView(player: topPlayers[1], rank: "secondRank")
-                    .offset(x: -20, y: -30)
+                    .offset(x: -20, y: -20)
                 TopThreeView(player: topPlayers[0], rank: "firstRank")
                     .scaleEffect(CGSize(width: 1.3, height: 1.3))
                 TopThreeView(player: topPlayers[2], rank: "thirdRank")
-                    .offset(x: 20, y: -30)
+                    .offset(x: 20, y: -20)
             }
             VStack(spacing: -20) {
                 if topPlayers.count > 3 {

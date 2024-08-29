@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "thirdRank.png",
+      "filename" : "Badge 07 (2).png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "thirdRank@2x.png",
+      "filename" : "Badge 07 (2)@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "thirdRank@3x.png",
+      "filename" : "Badge 07 (2)@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
