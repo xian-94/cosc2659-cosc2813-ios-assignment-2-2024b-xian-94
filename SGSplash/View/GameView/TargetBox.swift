@@ -13,10 +13,19 @@ struct TargetBox: View {
     @ObservedObject var gameManager: GameManager
     var body: some View {
         VStack {
-            Text("Score: \(gameManager.score)")
-                .foregroundColor(.appText)
-                .font(.title2)
-                .frame(maxWidth: .infinity, alignment: .trailing)
+            HStack {
+                Image(systemName: "clock.circle")
+                    .foregroundColor(.appAccent)
+                    .font(.largeTitle)
+                Text("\(gameManager.timeRemaning)")
+                    .foregroundStyle(Color.appText)
+                    .font(.title2)
+                Spacer()
+                Text("Score: \(gameManager.score)")
+                    .foregroundColor(.appText)
+                    .font(.title2)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+            }
             ZStack {
                 Rectangle()
                     .cornerRadius(10)

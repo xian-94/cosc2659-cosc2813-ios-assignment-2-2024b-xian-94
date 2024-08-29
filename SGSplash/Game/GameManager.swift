@@ -53,7 +53,6 @@ class GameManager: ObservableObject {
             // Game over when the timer stops
             timer?.invalidate()
             isGameOver = true
-            playSound(name: "alarm", type: "mp3")
             
         }
     }
@@ -74,6 +73,7 @@ class GameManager: ObservableObject {
         if let limit = level.timeLimit {
             self.timeRemaning = limit
         }
+        startTimer()
         
         level.resetCombo()
         shuffle()

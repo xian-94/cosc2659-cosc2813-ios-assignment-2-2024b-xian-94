@@ -3,12 +3,14 @@ import SpriteKit
 
 struct GameView: View {
     @AppStorage("user_theme") private var theme: Theme = .light
+//    @AppStorage("diffMode") private var diffMode: String = "easy"
     @StateObject private var gameManager: GameManager
+//    var levelNumber: Int
     let midY = UIScreen.main.bounds.height / 2
     
     init(levelNumber: Int) {
         let viewSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize, mode: "easy", levelNumber: levelNumber))
+        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize, mode: UserDefaults.standard.string(forKey: "diffMode") ?? "easy", levelNumber: levelNumber))
     }
     var body: some View {
         ZStack {

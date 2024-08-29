@@ -17,6 +17,7 @@ struct SettingView: View {
             ToggleThemeView(scheme: scheme)
             MuteBackgroundMusic(isPlaying: $isMusicPlaying)
             LanguagePicker()
+            ModePicker()
         }
         .padding()
         .preferredColorScheme(theme.colorScheme)
