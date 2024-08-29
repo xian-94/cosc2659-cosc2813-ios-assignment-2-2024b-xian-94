@@ -14,12 +14,14 @@ struct TargetBox: View {
     var body: some View {
         VStack {
             HStack {
+                if gameManager.timeLimit != nil {
                 Image(systemName: "clock.circle")
                     .foregroundColor(.appAccent)
                     .font(.largeTitle)
-                Text("\(gameManager.timeRemaning)")
-                    .foregroundStyle(Color.appText)
-                    .font(.title2)
+                    Text("\(gameManager.timeRemaning)")
+                        .foregroundStyle(Color.appText)
+                        .font(.title2)
+                }
                 Spacer()
                 Text("Score: \(gameManager.score)")
                     .foregroundColor(.appText)
