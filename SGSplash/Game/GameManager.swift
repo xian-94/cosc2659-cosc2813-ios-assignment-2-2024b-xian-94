@@ -15,6 +15,7 @@ class GameManager: ObservableObject {
     @Published var isComplete: Bool = false
     // Manage countdown timer
     @Published var timeRemaning: Int = 0
+    var timeLimit: Int?
     var timer: Timer?
     
     let scene: GameScene
@@ -71,9 +72,11 @@ class GameManager: ObservableObject {
         self.moves = level.moves
         self.score = 0
         if let limit = level.timeLimit {
+            self.timeLimit = limit
             self.timeRemaning = limit
+            startTimer()
         }
-        startTimer()
+        
         
         level.resetCombo()
         shuffle()
