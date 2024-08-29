@@ -13,14 +13,13 @@ struct TopThreeView: View {
     var rank: String
     var body: some View {
         VStack {
-            ZStack {
                 Image(rank)
                     .resizable()
-                    .frame(minWidth: UIScreen.main.bounds.width * 0.18, maxWidth: UIScreen.main.bounds.width * 0.2, minHeight: UIScreen.main.bounds.height * 0.13, maxHeight: UIScreen.main.bounds.height * 0.15)
-            }
+                    .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.22, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.12)
             Text(player.username)
                 .foregroundColor(.appText)
                 .font(.headline)
+                .offset(y: -10)
         }
     }
 }

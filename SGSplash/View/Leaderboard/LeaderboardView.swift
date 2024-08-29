@@ -28,6 +28,7 @@ struct LeaderboardView: View {
                 VStack {
                     TopPlayerView(topPlayers: $topPlayers)
                     PlayerScoresBarChart(topPlayers: $topPlayers)
+                    PlayerScoreLineChart(players: $topPlayers)
                 }
                 
             }
