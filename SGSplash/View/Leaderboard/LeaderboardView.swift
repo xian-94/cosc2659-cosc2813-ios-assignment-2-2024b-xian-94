@@ -12,10 +12,11 @@ struct LeaderboardView: View {
     @State private var topPlayers: [Player] = UserDefaults.standard.players(forKey: "leaderboard") ?? leaderboard
 //    @State private var currentPlayer: Player?
 //    @State private var currentPlayerRank: Int?
+    @AppStorage("user_theme") private var theme: Theme = .light
     
     var body: some View {
         ZStack {
-            Image("lightBackground")
+            Image(theme == .light ? "lightBackground": "darkbg")
                 .resizable()
                 .ignoresSafeArea()
                 .opacity(0.5)
@@ -25,11 +26,7 @@ struct LeaderboardView: View {
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .foregroundStyle(Color.appPrimary)
                     .shadow(radius: 5, y: 5)
-                VStack {
-                    TopPlayerView(topPlayers: $topPlayers)
-                    PlayerScoresBarChart(topPlayers: $topPlayers)
-                    PlayerScoreLineChart(players: $topPlayers)
-                }
+                Tabs(players: $topPlayers)
                 
             }
         }

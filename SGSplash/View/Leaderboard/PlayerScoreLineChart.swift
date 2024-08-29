@@ -88,10 +88,10 @@ struct PlayerScoreLineChart: View {
                 .chartYAxis {
                     AxisMarks(position: .leading)
                 }
-                .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.4)
                 .padding()
-                .background(Color.background)
-                .cornerRadius(5)
+                .background(Color(.background))
+                .cornerRadius(10)
+                .frame(width: UIScreen.main.bounds.width * 0.9, height: UIScreen.main.bounds.height * 0.4)
                 
                 // Overlay for the tap gesture to display the information
                 .overlay(
