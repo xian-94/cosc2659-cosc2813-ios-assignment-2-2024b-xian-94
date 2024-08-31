@@ -3,15 +3,23 @@ import SpriteKit
 
 struct GameView: View {
     @AppStorage("user_theme") private var theme: Theme = .light
-//    @AppStorage("diffMode") private var diffMode: String = "easy"
     @StateObject private var gameManager: GameManager
-//    var levelNumber: Int
+    @Environment(\.dismiss) var dismiss
+
     let midY = UIScreen.main.bounds.height / 2
     
-    init(levelNumber: Int) {
-        let viewSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-        _gameManager = StateObject(wrappedValue: GameManager(viewSize: viewSize, mode: UserDefaults.standard.string(forKey: "diffMode") ?? "easy", levelNumber: levelNumber))
-    }
+    // Initialization with or without saved game 
+    init(savedGame: GameState? = nil, levelNumber: Int) {
+        let mode = UserDefaults.standard.string(forKey: "diffMode") ?? "easy"
+            
+        _gameManager = StateObject(wrappedValue: GameManager(
+               viewSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height),
+               mode: mode,
+               levelNumber: levelNumber,
+               savedGame: savedGame
+           ))
+        }
+   
     var body: some View {
         ZStack {
             Image(theme == .light ? "lightBackground" : "darkbg")
@@ -57,7 +65,9 @@ struct GameView: View {
                                 .foregroundStyle(Color.appSecondary)
                         }
                         .modifier(CircleButtonStyle())
-                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
+                        Button(action: {
+                            dismiss()
+                        }) {
                             Image(systemName: "pause.fill")
                                 .foregroundStyle(Color.appSecondary)
                         }
@@ -78,6 +88,17 @@ struct GameView: View {
         }
         .navigationBarBackButtonHidden(true)
         .animation(.easeInOut, value: gameManager.isGameOver || gameManager.isComplete)
+        .onAppear {
+            if GameManager.loadSavedGame() == nil {
+                gameManager.startGame()
+            }
+            else {
+                gameManager.resumeGame()
+            }
+        }
+        .onDisappear {
+            gameManager.saveGame()
+        }
     }
 }
 

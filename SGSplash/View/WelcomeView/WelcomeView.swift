@@ -13,6 +13,11 @@ struct WelcomeView: View {
     @State private var showRegistrationModal = false
     @State private var username: String = ""
     @State private var navigateToLevel: Bool = false
+    // Show the resume game button 
+    @State private var showResume: Bool = false
+    @State private var hasSavedGame: Bool = false
+    @State private var savedGame: GameState?
+    
     // Show sheet of Setting view
     @State private var showSetting: Bool = false
     @AppStorage("user_theme") private var theme: Theme = .light
@@ -21,9 +26,29 @@ struct WelcomeView: View {
     
     // Save new user to the UserDefault
     private func register() {
-        UserDefaults.standard.set(username, forKey: "currentUser")
-        // TODO: Add new player to the player list later
+        let newPlayer = Player(username: username, totalScore: 0, scoreByLevel: [:], achievementBadge: [])  
+        // Save to UserDefaults
+        newPlayer.saveToUserDefaults()
+        // Add to the player list
+
+        if var players = UserDefaults.standard.players(forKey: "players") {
+            players.append(newPlayer)
+            UserDefaults.standard.setPlayers(players, forKey: "players")
+        }
     }
+    
+    // Check if there is any current gameplay
+    func checkSavedGame() {
+        savedGame = GameManager.loadSavedGame()
+        if savedGame != nil {
+            hasSavedGame = true
+        }
+        else {
+            hasSavedGame = false
+        }
+        }
+
+
     var body: some View {
         NavigationStack {
             ZStack {
@@ -34,13 +59,37 @@ struct WelcomeView: View {
                     .ignoresSafeArea(.all)
                 VStack(alignment: .center, spacing: 20)
                 {
+                    Button(action: {
+                        UserDefaults.standard.removeObject(forKey: "savedGame")
+                    }) {
+                        Text("Reset")
+                    }
                     if !username.isEmpty {
                         Text("Hello, \(username)")
                             .foregroundStyle(Color.appText)
 
                     }
+                    if hasSavedGame {
+                        Button(action: {
+                            showResume = true
+                        }
+                        ) {
+                            Text("Resume")
+                                .foregroundStyle(Color.appText)
+                                .padding()
+
+                               
+                        }
+                        .modifier(PrimaryCapsulePButtonStyle())
+                        .navigationDestination(isPresented: $showResume) { 
+                            if let gameState = savedGame {
+                                GameView(savedGame: gameState, levelNumber: gameState.level)
+                            }
+                        }
+                    }
                     // Play button
                     Button(action: {
+                        UserDefaults.standard.removeObject(forKey: "savedGame")
                         if username.isEmpty {
                             showRegistrationModal = true
                         }
@@ -148,6 +197,9 @@ struct WelcomeView: View {
         }
         .sheet(isPresented: $showSetting) {
             SettingView()
+        }
+        .onAppear {
+            checkSavedGame()
         }
     }
 }

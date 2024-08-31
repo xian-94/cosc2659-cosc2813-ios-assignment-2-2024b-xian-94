@@ -17,9 +17,24 @@ struct LevelData: Codable {
     var moves: Int
     // For hard mode
     var timeLimit: Int?
+    
+    static func getLevelPack(for mode: String) -> [LevelData] {
+        // Set the level with chosen mode
+        switch mode {
+        case "easy":
+            return easyLevels
+        case "medium":
+            return medLevels
+        case "hard":
+            return hardLevels
+        default:
+            return []
+        }
+    }
 }
 
 class Level {
+    
     // Goal properties
     var number: Int = 0
     var moves: Int = 0
@@ -35,7 +50,7 @@ class Level {
     var rows: Int
     
     // Create a 2D array that holds the elements
-    private var elements: [[Element?]]
+    var elements: [[Element?]]
     private var tiles: [[Tile?]]
     
     // Store the possible swaps in a level
@@ -63,6 +78,25 @@ class Level {
             }
         }
     }
+    
+    func getElements() -> [[Element?]] {
+        return self.elements
+    }
+    
+    func getElementTypes() -> [[ElementType?]] {
+        return self.elements.map { row in
+            row.map { element in
+                element?.type
+            }
+        }
+    }
+    
+    // Helper for save and resume, set the level elements as the current saved elements' positions
+    func setElements(_ elements: [[Element?]]) {
+        self.elements = elements
+        detectPossibleSwaps()
+    }
+
     
     func getPossibleSwaps() -> Set<Swap> {
         return self.possibleSwaps
@@ -423,7 +457,6 @@ class Level {
     func resetCombo() {
         self.combo = 1
     }
-    
     
 }
 
