@@ -41,9 +41,9 @@ class GameScene: SKScene {
         tileHeight = elementHeight + 4
         
         // Center the game scene
-        anchorPoint = CGPoint(x: 0.5, y: 0.45)
+        anchorPoint = CGPoint(x: 0.5, y: 0.5)
         let layerPosition = CGPoint(x: (-tileWidth * CGFloat(level?.columns ?? 7) / 2),
-                                    y: (-tileHeight * CGFloat(level?.rows ?? 9) / 2))
+                                    y: (-tileHeight * CGFloat(level?.rows ?? 7) / 2))
         
         // Load the background image
         let background = SKSpriteNode(imageNamed: "lightBackground")
@@ -80,7 +80,7 @@ class GameScene: SKScene {
     // Convert a CGPoint relative to elements layer to column and row numbers
     private func convertPoint(_ point: CGPoint) -> (success: Bool, column: Int, row: Int) {
         // Check if the point falls outside the grid
-        if point.x >= 0 && point.x < tileWidth * CGFloat(level?.columns ?? 7) && point.y >= 0 && point.y < CGFloat(level?.rows ?? 9) * tileHeight {
+        if point.x >= 0 && point.x < tileWidth * CGFloat(level?.columns ?? 7) && point.y >= 0 && point.y < CGFloat(level?.rows ?? 7) * tileHeight {
             return (true, Int(point.x / tileWidth), Int(point.y / tileHeight))
         }
         return (false, 0, 0)

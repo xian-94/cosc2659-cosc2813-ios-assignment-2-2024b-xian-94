@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-enum ElementType: Int {
+enum ElementType: Int, Codable {
     case unknown = 0,
          apple,
          bread,

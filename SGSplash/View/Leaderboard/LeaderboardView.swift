@@ -9,9 +9,7 @@ import Foundation
 import SwiftUI
 
 struct LeaderboardView: View {
-    @State private var topPlayers: [Player] = UserDefaults.standard.players(forKey: "leaderboard") ?? leaderboard
-//    @State private var currentPlayer: Player?
-//    @State private var currentPlayerRank: Int?
+    @State private var players: [Player] = UserDefaults.standard.players(forKey: "players") ?? leaderboard
     @AppStorage("user_theme") private var theme: Theme = .light
     
     var body: some View {
@@ -26,7 +24,7 @@ struct LeaderboardView: View {
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .foregroundStyle(Color.appPrimary)
                     .shadow(radius: 5, y: 5)
-                Tabs(players: $topPlayers)
+                Tabs(players: $players)
                 
             }
         }

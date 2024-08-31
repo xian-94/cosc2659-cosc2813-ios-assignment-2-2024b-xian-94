@@ -3,7 +3,7 @@ import SpriteKit
 import AVFoundation
 
 class GameManager: ObservableObject {
-    
+    // MARK: Game Manager properties and initialization
     // Manage user interaction
     @Published var userInteractionEnabled = true
     // Manange level goals
@@ -17,34 +17,44 @@ class GameManager: ObservableObject {
     @Published var timeRemaning: Int = 0
     var timeLimit: Int?
     var timer: Timer?
+    // Handle save and resume game
+    @Published var gameState: GameState
+    private var elements : [[Element?]]
     
     let scene: GameScene
     var level: Level
     
-    init(viewSize: CGSize, mode: String, levelNumber: Int) {
-        // Initialization
-        self.level = Level(levelPack: easyLevels, levelNumber: levelNumber)
+    init(viewSize: CGSize, mode: String, levelNumber: Int, savedGame: GameState? = nil) {
         
-        // Set the level with chosen mode
-            switch mode {
-            case "easy":
-                self.level = Level(levelPack: easyLevels, levelNumber: levelNumber)
-            case "medium":
-                self.level = Level(levelPack: medLevels, levelNumber: levelNumber)
-            case "hard":
-                self.level = Level(levelPack: hardLevels, levelNumber: levelNumber)
-            default:
-                break
-            }
+        // Initialization
+        if let savedGame = savedGame {
+            self.gameState = savedGame
+            self.level = Level(levelPack: LevelData.getLevelPack(for: mode), levelNumber: savedGame.level)
+            self.elements =  Array(repeating: Array(repeating: nil, count: 7), count: 7)
+            
+        } else {
+            self.level = Level(levelPack: LevelData.getLevelPack(for: mode), levelNumber: levelNumber)
+            self.gameState = GameState(level: levelNumber, score: 0, movesLeft: self.level.moves, goals: self.level.goals, timeRemaining: self.level.timeLimit ?? 0, elements: level.getElementTypes())
+            self.elements = level.getElements()
+        }
+        
+        
         scene = GameScene(size: viewSize)
         scene.level = self.level
         scene.scaleMode = .aspectFill
         scene.backgroundColor = .clear
         scene.swipeHandler = handleSwipe
         scene.addTiles()
-        startGame()
+        // Intialize based on the saved game
+        if savedGame == nil {
+            startGame()
+        } else {
+            resumeGame()
+        }
     }
     
+    
+    // MARK: Timer management
     // Count down the time
     func countdown() {
         if timeRemaning > 0 {
@@ -67,6 +77,7 @@ class GameManager: ObservableObject {
         }
     }
     
+    // MARK: Start and resume game logic
     func startGame() {
         self.goals = level.goals
         self.moves = level.moves
@@ -76,8 +87,6 @@ class GameManager: ObservableObject {
             self.timeRemaning = limit
             startTimer()
         }
-        
-        
         level.resetCombo()
         shuffle()
     }
@@ -88,6 +97,36 @@ class GameManager: ObservableObject {
         scene.addSprites(for: newTiles)
     }
     
+    func resumeGame() {
+        self.timeRemaning = gameState.timeRemaining
+        self.goals = gameState.goals
+        self.moves = gameState.movesLeft
+        self.score = gameState.score
+        // Recreate the level's tiles from the saved ElementTypes
+        for r in 0..<level.rows {
+            for c in 0..<level.columns {
+                if let type = gameState.elements[c][r] {
+                    let e = Element(column: c, row: r, type: type)
+                    self.elements[c][r] = e
+                }
+            }
+        }
+        scene.removeSprites()
+        scene.addSprites(for: Set(self.elements.flatMap { $0 }.compactMap { $0 }))
+        scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        // Restart the timer if there's time remaining
+        if timeRemaning > 0 {
+            startTimer()
+        }
+        
+        level.resetCombo()
+        level.detectPossibleSwaps()
+        
+        userInteractionEnabled = true
+        
+    }
+    
+    // MARK: Manage swipe gestures and chains
     // Perform swiping gesture
     func handleSwipe(_ swap: Swap) {
         self.userInteractionEnabled = false
@@ -102,6 +141,20 @@ class GameManager: ObservableObject {
         }
     }
     
+    private func updateGoals(with reduction: [String: Int]) {
+        for i in 0..<gameState.goals.count {
+            if let reductionAmount = reduction[gameState.goals[i].target] {
+                gameState.goals[i].quantity = max(0, gameState.goals[i].quantity - reductionAmount)
+            }
+        }
+    }
+    
+    private func updateScore(for chains: Set<Chain>) {
+        for chain in chains {
+            gameState.score += chain.score
+        }
+    }
+    
     // Handle removing chains
     func handleChains() {
         let chains = level.findAllChains()
@@ -113,21 +166,8 @@ class GameManager: ObservableObject {
         scene.animateRemoveChains(for: chains) {
             // Update the target quantity
             let reduction = self.level.updateQuantity(for: chains)
-            // Quantity = 0 if it is < 0
-            for i in 0..<self.goals.count {
-                if reduction.keys.contains(self.goals[i].target) {
-                    // Make sure that the quantity is not negative
-                    if self.goals[i].quantity - reduction[self.goals[i].target]! <= 0 {
-                        self.goals[i].quantity = 0
-                    } else {
-                        self.goals[i].quantity -= reduction[self.goals[i].target]!
-                    }
-                }
-            }
-            // Update the scores
-            for chain in chains {
-                self.score += chain.score
-            }
+            self.updateGoals(with: reduction)
+            self.updateScore(for: chains)
             let columns = self.level.fillHoles()
             self.scene.animateFallingElements(in: columns) {
                 let topUpColumns = self.level.topUpElements()
@@ -138,6 +178,7 @@ class GameManager: ObservableObject {
         }
     }
     
+    // MARK: Level accomplishment and game over logic
     // Check if all the targets are accomplished
     private func isAccomplished(goals: [Goal]) -> Bool {
         var count = 0
@@ -165,21 +206,21 @@ class GameManager: ObservableObject {
             
         }
         // Ensure the quantity is not negative
-        for i in 0..<goals.count{
-            if goals[i].quantity < 0 {
-                goals[i].quantity = 0
+        for i in 0..<gameState.goals.count{
+            if gameState.goals[i].quantity < 0 {
+                gameState.goals[i].quantity = 0
             }
         }
-        self.moves -= 1
-        if self.moves < 0 {
-            self.moves = 0
+        gameState.movesLeft -= 1
+        if gameState.movesLeft < 0 {
+            gameState.movesLeft = 0
         }
-        if self.moves >= 0 && isAccomplished(goals: goals){
+        if gameState.movesLeft >= 0 && isAccomplished(goals: gameState.goals){
             isComplete = true
             // Stop timer when complete ahead of time
             timer?.invalidate()
         }
-        else if self.moves <= 0 {
+        else if gameState.movesLeft <= 0 {
             isGameOver = true
             // Stop the timer when out of moves
             timer?.invalidate()
@@ -189,6 +230,36 @@ class GameManager: ObservableObject {
         }
         
     }
+    
+    // MARK: Save and load game state
+    func saveGame() {
+        // Convert the current level's elements to ElementType
+        let elementTypes = level.getElements().map { column in
+            column.map { element in
+                element?.type
+            }
+        }
+        gameState.elements = elementTypes
+        if let encoded = try? JSONEncoder().encode(gameState) {
+            UserDefaults.standard.set(encoded, forKey: "savedGame")
+            print("Game saved")
+        }
+    }
+    
+    static func loadSavedGame() -> GameState? {
+        if let savedGameState = UserDefaults.standard.data(forKey: "savedGame"),
+           let decodedState = try? JSONDecoder().decode(GameState.self, from: savedGameState) {
+            return decodedState
+        }
+        return nil
+    }
+    
+    // Remove game state when starting a new game
+    func resetGame() {
+        UserDefaults.standard.removeObject(forKey: "savedGame")
+        gameState = GameState(level: level.number, score: 0, movesLeft: level.moves, goals: level.goals, timeRemaining: level.timeLimit ?? 0, elements: Array(repeating: Array(repeating: nil, count: 7), count: 7))
+    }
+    
     
     
     

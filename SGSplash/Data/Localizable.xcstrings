@@ -4,7 +4,13 @@
     "%lld" : {
 
     },
+    "Beat the level by fulfilling two targets within time limit" : {
+
+    },
     "Button" : {
+
+    },
+    "Diffculty" : {
 
     },
     "Enter your username" : {
@@ -14,6 +20,9 @@
 
     },
     "Game over!" : {
+
+    },
+    "Get more serious! Beat the level by fulfilling two targets." : {
 
     },
     "Goals" : {
@@ -58,10 +67,16 @@
     "Let's play" : {
 
     },
+    "Level" : {
+
+    },
     "Level %lld" : {
 
     },
     "Level Complete!" : {
+
+    },
+    "Level: %@" : {
 
     },
     "Moves" : {
@@ -76,7 +91,19 @@
     "Player" : {
 
     },
+    "Player's score by Level" : {
+
+    },
     "Register username" : {
+
+    },
+    "Relax and chill while accoplishing one goal for each level." : {
+
+    },
+    "Reset" : {
+
+    },
+    "Resume" : {
 
     },
     "Score" : {
@@ -85,13 +112,19 @@
     "Score: %lld" : {
 
     },
+    "Select a Player" : {
+
+    },
     "Setting" : {
+
+    },
+    "Tap a point to view more details" : {
 
     },
     "Theme" : {
 
     },
-    "Top 5 Players scores" : {
+    "Top 5 players scores" : {
 
     }
   },

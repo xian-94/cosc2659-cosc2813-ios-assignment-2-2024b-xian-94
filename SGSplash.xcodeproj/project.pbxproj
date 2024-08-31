@@ -29,6 +29,7 @@
 		7597B3252C78717400049DC0 /* LevelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597B3242C78717400049DC0 /* LevelView.swift */; };
 		7597C5A62C7A50F800437B5D /* PlayerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597C5A52C7A50F800437B5D /* PlayerRow.swift */; };
 		7597C5A82C7A55C600437B5D /* TopPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7597C5A72C7A55C600437B5D /* TopPlayerView.swift */; };
+		759921E92C81D99500EA795C /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759921E82C81D99500EA795C /* GameState.swift */; };
 		759A69872C7DA0C700E28C65 /* ToggleThemeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759A69862C7DA0C700E28C65 /* ToggleThemeView.swift */; };
 		759AD32D2C7CBF70000231E6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 759AD32C2C7CBF70000231E6 /* Localizable.xcstrings */; };
 		759AD3302C7CC438000231E6 /* LanguagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 759AD32F2C7CC438000231E6 /* LanguagePicker.swift */; };
@@ -82,6 +83,7 @@
 		7597B3242C78717400049DC0 /* LevelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelView.swift; sourceTree = "<group>"; };
 		7597C5A52C7A50F800437B5D /* PlayerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRow.swift; sourceTree = "<group>"; };
 		7597C5A72C7A55C600437B5D /* TopPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopPlayerView.swift; sourceTree = "<group>"; };
+		759921E82C81D99500EA795C /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		759A69862C7DA0C700E28C65 /* ToggleThemeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleThemeView.swift; sourceTree = "<group>"; };
 		759AD32C2C7CBF70000231E6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		759AD32F2C7CC438000231E6 /* LanguagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguagePicker.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				75942F782C6A031B00A9527F /* Element.swift */,
 				75942F7C2C6A0BB300A9527F /* Level.swift */,
 				75970A2E2C6B6AA6005A98E6 /* Tile.swift */,
+				759921E82C81D99500EA795C /* GameState.swift */,
 				758FF0662C6C8018005EB21F /* Swap.swift */,
 				75ADC7432C6F5C8C0045A0F4 /* Chain.swift */,
 				759AD4A42C7AE365002140D1 /* Player.swift */,
@@ -400,6 +403,7 @@
 				759AD3362C7CE5FB000231E6 /* BackgroundMusicManager.swift in Sources */,
 				75A01F492C75A43B0056EA80 /* TargetBox.swift in Sources */,
 				7595CBC42C78EBA0004E4EC0 /* LevelComplete.swift in Sources */,
+				759921E92C81D99500EA795C /* GameState.swift in Sources */,
 				75ECC5572C78FEBC007416EC /* PlaySound.swift in Sources */,
 				7597B2942C7F85C900314ADD /* ModePicker.swift in Sources */,
 				75A334452C69203600C65070 /* ContentView.swift in Sources */,

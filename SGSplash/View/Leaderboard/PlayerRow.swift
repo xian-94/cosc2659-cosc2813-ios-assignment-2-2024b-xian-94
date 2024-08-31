@@ -34,7 +34,7 @@ struct PlayerRow: View {
                         .font(.subheadline)
                 Text("\(player.totalScore)")
                     .foregroundColor(.appText)
-                Image(player.achievementBadge)
+                Image(player.achievementBadge[player.achievementBadge.count - 1])
                     .resizable()
                     .frame(minWidth: UIScreen.main.bounds.width * 0.08, maxWidth: UIScreen.main.bounds.width * 0.1, minHeight: UIScreen.main.bounds.height * 0.06, maxHeight: UIScreen.main.bounds.height * 0.08)
                 
