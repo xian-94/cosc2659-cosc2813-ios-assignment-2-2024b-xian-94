@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "firstStep.png",
+      "filename" : "First step badge.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "firstStep@2x.png",
+      "filename" : "First step badge@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "firstStep@3x.png",
+      "filename" : "First step badge@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

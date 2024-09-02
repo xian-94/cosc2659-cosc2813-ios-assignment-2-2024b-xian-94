@@ -2,37 +2,127 @@
   "sourceLanguage" : "en",
   "strings" : {
     "%lld" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
     },
-    "Back" : {
-
+    "Achievements" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thành tựu"
+          }
+        }
+      }
+    },
+    "Back to Level" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quay lại vòng chơi"
+          }
+        }
+      }
     },
     "Beat the level by fulfilling two targets within time limit" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đánh bại mỗi vòng bằng cách hoàn thành hai mục tiêu trong thời gian giới hạn"
+          }
+        }
+      }
     },
-    "Button" : {
-
+    "Characters" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhân vật"
+          }
+        }
+      }
     },
-    "Complete your targets to win!" : {
+    "Combos" : {
 
     },
     "Diffculty" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Độ khó"
+          }
+        }
+      }
+    },
+    "Earn your score by making a move!" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kiếm điểm bằng cách hành động!"
+          }
+        }
+      }
     },
     "Enter your username" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhập tên của bạn"
+          }
+        }
+      }
     },
     "Exit" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thoát"
+          }
+        }
+      }
     },
     "Game over!" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vòng chơi kết thúc!"
+          }
+        }
+      }
     },
     "Get more serious! Beat the level by fulfilling two targets." : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hãy nghiêm túc lên nào! Chúng ta cần hoàn thành 2 mục tiêu."
+          }
+        }
+      }
     },
     "Goals" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mục tiêu"
+          }
+        }
+      }
     },
     "Hello, %@" : {
       "localizations" : {
@@ -44,11 +134,15 @@
         }
       }
     },
-    "Here's your first possible swap. Try it out!" : {
-
-    },
     "How To Play" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cách chơi"
+          }
+        }
+      }
     },
     "Language" : {
       "localizations" : {
@@ -61,7 +155,14 @@
       }
     },
     "Leaderboard" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bảng xếp hạng"
+          }
+        }
+      }
     },
     "Let's begin our adventure, %@" : {
       "localizations" : {
@@ -74,76 +175,254 @@
       }
     },
     "Let's play" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chơi thôi"
+          }
+        }
+      }
     },
     "Level" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vòng "
+          }
+        }
+      }
     },
     "Level %lld" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vòng %lld"
+          }
+        }
+      }
     },
     "Level Complete!" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hoàn Thành!"
+          }
+        }
+      }
     },
     "Level: %@" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vòng: %@"
+          }
+        }
+      }
     },
     "Moves" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bước"
+          }
+        }
+      }
     },
     "Music" : {
-
-    },
-    "Next" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhạc"
+          }
+        }
+      }
     },
     "Play" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chơi"
+          }
+        }
+      }
     },
     "Player" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Người chơi"
+          }
+        }
+      }
     },
     "Player's score by Level" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điểm của người chơi theo vòng"
+          }
+        }
+      }
     },
     "Register username" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đăng kí tên"
+          }
+        }
+      }
     },
     "Relax and chill while accoplishing one goal for each level." : {
-
-    },
-    "Reset" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thư giãn khi hoàn thành 1 mục tiêu cho 1 vòng."
+          }
+        }
+      }
     },
     "Resume" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tiếp tục"
+          }
+        }
+      }
     },
     "Score" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điểm"
+          }
+        }
+      }
     },
     "Score: %lld" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điểm: %lld"
+          }
+        }
+      }
     },
     "Select a Player" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn người chơi"
+          }
+        }
+      }
     },
     "Setting" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cài đặt"
+          }
+        }
+      }
     },
-    "Start Playing" : {
-
+    "Swipe bottom up and from left to right. Try to complete the goals!" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vuốt từ dưới lên hoặc từ trái sang phải. Hãy cố gắng hoàn thành các mục tiêu!"
+          }
+        }
+      }
     },
     "Tap a point to view more details" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn 1 điểm để biết thêm thông tin"
+          }
+        }
+      }
     },
     "Theme" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chủ đề"
+          }
+        }
+      }
     },
     "These are your moves. Use them wisely!" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đây là số bước đi của bạn. Hãy dùng chúng thật sáng suốt!"
+          }
+        }
+      }
+    },
+    "These are your targets. Complete them to win!" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Đây là những mục tiêu của bạn. Hãy hoàn thành nó để thắng!"
+          }
+        }
+      }
     },
     "Top 5 players scores" : {
-
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Điểm của 5 người chơi đứng đầu"
+          }
+        }
+      }
+    },
+    "Username existed. Please try another name!" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tên đã tồn tại. Hãy thử tên khác!"
+          }
+        }
+      }
+    },
+    "Welcome!" : {
+      "localizations" : {
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chào mừng!"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

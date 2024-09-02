@@ -25,13 +25,15 @@ struct LanguagePicker: View {
     var body: some View {
         HStack {
             Text("Language")
-                .font(.headline)
+                .modifier(NormalTextSizeModifier())
             // Pick to choose language
             Picker("Language", selection: $languageManager.selectedLanguage) {
                 // Loop through the language list
                 ForEach(Array(languages.enumerated()), id: \.element) { index, language in
                     Text(language)
+                        .modifier(NormalTextSizeModifier())
                         .tag(langCodes[index])
+                        
                 }
             }
             .padding()

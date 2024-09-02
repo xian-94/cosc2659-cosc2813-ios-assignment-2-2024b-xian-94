@@ -16,7 +16,7 @@ struct PlayerScoresBarChart: View {
     var body: some View {
         VStack {
             Text("Top 5 players scores")
-                .font(.headline)
+                .modifier(MediumTextSizeModifier())
                 .foregroundStyle(Color.appText)
             Chart(topPlayers.prefix(5)) { player in
                 BarMark(
@@ -41,7 +41,9 @@ struct PlayerScoresBarChart: View {
                                         .foregroundStyle(.appText)
                                     HStack {
                                         Text("Score")
+                                            .modifier(NormalTextSizeModifier())
                                         Text("\(player.totalScore)")
+                                            .modifier(NormalTextSizeModifier())
                                     }
                                 }
                                 .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.3, minHeight: UIScreen.main.bounds.height * 0.05, maxHeight: UIScreen.main.bounds.height * 0.1)

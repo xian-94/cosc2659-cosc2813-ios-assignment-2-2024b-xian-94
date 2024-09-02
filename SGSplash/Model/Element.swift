@@ -8,6 +8,7 @@
 import Foundation
 import SpriteKit
 
+
 enum ElementType: Int, Codable {
     case unknown = 0,
          apple,
@@ -16,7 +17,14 @@ enum ElementType: Int, Codable {
          flower,
          veggie,
          milk,
-         orange
+         orange,
+         rabbit,
+         lamb,
+         chick,
+         pig,
+         buffalo,
+         cow,
+         chicken
     
     
     // Find the image name of the tile
@@ -30,7 +38,14 @@ enum ElementType: Int, Codable {
             "flower",
             "veggie",
             "milk",
-            "orange"
+            "orange",
+            "rabbit",
+            "lamb",
+            "pig",
+            "chick",
+            "buffalo",
+            "cow",
+            "chicken"
         ]
         // Since the raw value is integer
         return spriteNames[rawValue - 1]
@@ -51,6 +66,20 @@ enum ElementType: Int, Codable {
             return .milk
         case "orange":
             return .orange
+        case "rabbit":
+            return .rabbit
+        case "lamb":
+            return .lamb
+        case "chick":
+            return .chick
+        case "pig":
+            return .pig
+        case "buffalo":
+            return .buffalo
+        case "cow":
+            return .cow
+        case "chicken":
+            return .chicken
         default:
             return .unknown
         }
@@ -58,10 +87,17 @@ enum ElementType: Int, Codable {
     }
     
     
-    // Randomize the tile type for the newly added tile
-    static func random() -> ElementType {
+    // Randomize the tile type for the newly added tile, character set 1
+    static func random1() -> ElementType {
         return ElementType(rawValue: Int.random(in: 1...7))!
     }
+    
+    // Randomize the tile type for the newly added tile, character set 2
+    static func random2() -> ElementType {
+        return ElementType(rawValue: Int.random(in: 8...13))!
+    }
+    
+    
 }
 
 // MARK: Element

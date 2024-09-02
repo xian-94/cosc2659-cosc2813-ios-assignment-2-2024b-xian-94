@@ -30,18 +30,21 @@ struct ToggleThemeView: View {
     var body: some View {
         HStack(spacing: UIScreen.main.bounds.width * 0.1) {
             Text("Theme")
-                .font(.headline)
+                .modifier(NormalTextSizeModifier())
             HStack {
+                // Display the theme for user to choose
                 ForEach(Theme.allCases, id: \.rawValue) {
                     th in
                     Text(th.rawValue)
+                        .modifier(NormalTextSizeModifier())
                         .padding(.vertical, 10)
                         .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
                         .background {
                             ZStack {
+                                // Highlight the chosen theme 
                                 if theme == th {
                                     Capsule()
-                                        .fill(Color.background)
+                                        .fill(Color.secondBg)
                                         .matchedGeometryEffect(id: "ACTIVE", in: animation)
                                 }
                             }

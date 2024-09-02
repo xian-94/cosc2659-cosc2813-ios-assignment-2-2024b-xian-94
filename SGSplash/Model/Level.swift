@@ -18,23 +18,39 @@ struct LevelData: Codable {
     // For hard mode
     var timeLimit: Int?
     
-    static func getLevelPack(for mode: String) -> [LevelData] {
+    static func getLevelPack(mode: String, cSet: String) -> [LevelData] {
         // Set the level with chosen mode
-        switch mode {
-        case "easy":
-            return easyLevels
-        case "medium":
-            return medLevels
-        case "hard":
-            return hardLevels
-        case "tutorial":
-            return tutorial
-        default:
-            return []
+        if cSet == "food" {
+            switch mode {
+            case "easy":
+                return easyLevels
+            case "medium":
+                return medLevels
+            case "hard":
+                return hardLevels
+            case "tutorial":
+                return tutorial
+            default:
+                return []
+            }
         }
+        else if cSet == "animal" {
+            switch mode {
+            case "easy":
+                return easyAnimalLevels
+            case "medium":
+                return mediumAnimalLevels
+            case "hard":
+                return hardAnimalLevels
+            case "tutorial":
+                return tutorial
+            default:
+                return []
+            }
+        }
+        return []
     }
 }
-
 class Level {
     
     // Goal properties
@@ -50,6 +66,7 @@ class Level {
     // Tile properties
     var columns: Int
     var rows: Int
+    var characters: String
     
     // Create a 2D array that holds the elements
     var elements: [[Element?]]
@@ -59,7 +76,8 @@ class Level {
     private var possibleSwaps: Set<Swap> = []
     
     // Constructor
-    init(levelPack: [LevelData], levelNumber: Int) {
+    init(levelPack: [LevelData], levelNumber: Int, characterSet: String) {
+        self.characters = characterSet
         self.number = levelPack[levelNumber].number
         self.moves = levelPack[levelNumber].moves
         self.columns = levelPack[levelNumber].columns
@@ -98,7 +116,7 @@ class Level {
         self.elements = elements
         detectPossibleSwaps()
     }
-
+    
     
     func getPossibleSwaps() -> Set<Swap> {
         return self.possibleSwaps
@@ -128,11 +146,16 @@ class Level {
             for col in 0..<self.columns {
                 
                 if tiles[col][row] != nil {
-                    
                     var type: ElementType
                     // Ensure that no element chain exists on the initial board
                     repeat {
-                        type = ElementType.random()
+                        // Randomize based on chosen character set
+                        if self.characters == "food" {
+                            type = ElementType.random1()
+                        }
+                        else {
+                            type = ElementType.random2()
+                        }
                     }
                     while (col >= 2 &&
                            // Check the adjacent elements in a row
@@ -148,6 +171,8 @@ class Level {
                             elements[col][row] = newTile
                             set.insert(newTile)
                 }
+                
+                
             }
         }
         return set
@@ -400,7 +425,12 @@ class Level {
                 var newType: ElementType
                 // The newly create element cannot have the same type with the last new element
                 repeat {
-                    newType = ElementType.random()
+                    if self.characters == "food" {
+                        newType = ElementType.random1()
+                    }
+                    else {
+                        newType = ElementType.random2()
+                    }
                 } while newType == lastType
                 lastType = newType
                 
@@ -460,5 +490,10 @@ class Level {
         self.combo = 1
     }
     
+    func getCombo() -> Int {
+        return self.combo
+    }
+    
 }
+
 

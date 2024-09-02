@@ -16,7 +16,7 @@ struct PlayerRow: View {
         ZStack {
             Rectangle()
                 .cornerRadius(30)
-                .frame(width: .infinity)
+                .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
                 .frame(minHeight: UIScreen.main.bounds.height * 0.05, maxHeight: UIScreen.main.bounds.height * 0.1)
                 .foregroundStyle(Color.background)
                 .opacity(0.3)
@@ -26,14 +26,16 @@ struct PlayerRow: View {
                 }
             HStack(spacing: UIScreen.main.bounds.width * 0.08) {
                 Text("\(rank)")
+                    .modifier(MediumTextSizeModifier())
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    .foregroundColor(.appText)
+                    .foregroundColor(.appAccent)
                     .shadow(radius: 5, y: 5)
                 Text(player.username)
                     .foregroundColor(.appText)
-                        .font(.subheadline)
+                    .modifier(NormalTextSizeModifier())
                 Text("\(player.totalScore)")
                     .foregroundColor(.appText)
+                    .modifier(NormalTextSizeModifier())
                 Image(player.achievementBadge[player.achievementBadge.count - 1])
                     .resizable()
                     .frame(minWidth: UIScreen.main.bounds.width * 0.08, maxWidth: UIScreen.main.bounds.width * 0.1, minHeight: UIScreen.main.bounds.height * 0.06, maxHeight: UIScreen.main.bounds.height * 0.08)

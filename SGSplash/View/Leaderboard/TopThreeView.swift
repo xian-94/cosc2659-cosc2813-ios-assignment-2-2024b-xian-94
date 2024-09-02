@@ -18,7 +18,7 @@ struct TopThreeView: View {
                     .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.22, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.12)
             Text(player.username)
                 .foregroundColor(.appText)
-                .font(.headline)
+                .modifier(MediumTextSizeModifier())
                 .offset(y: -10)
         }
     }

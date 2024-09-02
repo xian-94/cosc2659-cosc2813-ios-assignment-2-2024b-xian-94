@@ -12,7 +12,7 @@ struct CircleButtonStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
             .foregroundColor(.appText)
-            .font(.title)
+            .font(.system(size: UIScreen.main.bounds.width * 0.04))
             .frame(minWidth: UIScreen.main.bounds.width * 0.1, maxWidth: UIScreen.main.bounds.width * 0.1, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.1)
             .background(Color.background)
             .foregroundStyle(Color.appText)
@@ -26,7 +26,7 @@ struct PrimaryCapsulePButtonStyle: ViewModifier {
         content
             .frame(minWidth: UIScreen.main.bounds.width * 0.4, maxWidth: UIScreen.main.bounds.width * 0.6)
             .foregroundColor(.black)
-            .font(.title)
+            .font(.system(size: UIScreen.main.bounds.width * 0.04))
             .background(Color.appTertiary)
             .clipShape(Capsule())
             .shadow(color: .secondBg, radius: 1, y: 10)
@@ -40,7 +40,7 @@ struct SecondaryCapsulePButtonStyle: ViewModifier {
         content
             .frame(minWidth: UIScreen.main.bounds.width * 0.4, maxWidth: UIScreen.main.bounds.width * 0.6)
             .foregroundColor(.black)
-            .font(.title)
+            .font(.system(size: UIScreen.main.bounds.width * 0.04))
             .background(Color.appPrimary)
             .clipShape(Capsule())
             .shadow(color: .secondBg, radius: 1, y: 10)
@@ -52,7 +52,7 @@ struct SecondaryCapsulePButtonStyle: ViewModifier {
 struct TutorialText: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.title3)
+            .font(.system(size: UIScreen.main.bounds.width * 0.03))
             .frame(maxWidth: UIScreen.main.bounds.width * 0.6)
             .foregroundStyle(Color.appText)
             .padding()
@@ -68,10 +68,31 @@ struct TutorialText: ViewModifier {
 struct TutorialArrow: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.largeTitle)
+            .font(.system(size: UIScreen.main.bounds.width * 0.05))
             .fontWeight(.heavy)
             .foregroundStyle(Color.appPrimary)
             .zIndex(10)
+    }
+}
+
+struct TitleTextSizeModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("Raleway", size: UIScreen.main.bounds.width * 0.05))
+    }
+}
+
+struct MediumTextSizeModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("Raleway", size: UIScreen.main.bounds.width * 0.04))
+    }
+}
+
+struct NormalTextSizeModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("Raleway", size: UIScreen.main.bounds.width * 0.03))
     }
 }
 

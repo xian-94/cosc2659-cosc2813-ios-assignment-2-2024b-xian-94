@@ -10,11 +10,14 @@ struct PlayerScoreLineChart: View {
     private func chosenData(player: String, level: String, score: Int) -> some View {
         VStack(alignment: .center, spacing: 2) {
             Text(player)
+                .modifier(NormalTextSizeModifier())
                 .fontWeight(.bold)
                 .foregroundStyle(.appText)
             Text("Level: \(level)")
+                .modifier(NormalTextSizeModifier())
                 .foregroundStyle(.appText)
             Text("Score: \(score)")
+                .modifier(NormalTextSizeModifier())
                 .foregroundStyle(.appText)
         }
         .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.3, minHeight: UIScreen.main.bounds.height * 0.05, maxHeight: UIScreen.main.bounds.height * 0.1)
@@ -27,7 +30,7 @@ struct PlayerScoreLineChart: View {
         VStack(spacing: 1) {
             // Player picker: Choose a player to render the chart accordingly
             Text("Player's score by Level")
-                .font(.headline)
+                .modifier(MediumTextSizeModifier())
                 .foregroundStyle(Color.appText)
             // Player picker and chosen data in an HStack
             HStack {
@@ -40,6 +43,7 @@ struct PlayerScoreLineChart: View {
                     Picker("Select a Player", selection: $selectedPlayer) {
                         ForEach(players) { player in
                             Text(player.username).tag(player as Player?)
+                                .modifier(NormalTextSizeModifier())
                                 .foregroundColor(.appText)
                         }
                     }
@@ -52,6 +56,7 @@ struct PlayerScoreLineChart: View {
                     chosenData(player: selectedPlayer.username, level: selectedPoint.level, score: selectedPoint.score)
                 } else {
                     Text("Tap a point to view more details")
+                        .modifier(NormalTextSizeModifier())
                         .foregroundColor(.gray)
                         .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.3)
                         .background(Color.secondBg.opacity(0.4))
