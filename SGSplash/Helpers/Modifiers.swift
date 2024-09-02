@@ -49,3 +49,29 @@ struct SecondaryCapsulePButtonStyle: ViewModifier {
     }
 }
 
+struct TutorialText: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.title3)
+            .frame(maxWidth: UIScreen.main.bounds.width * 0.6)
+            .foregroundStyle(Color.appText)
+            .padding()
+            .background(Color.background.opacity(0.8))
+            .cornerRadius(10)
+            .transition(.scale)
+            .zIndex(2)
+            .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height * 0.05)
+            .multilineTextAlignment(.center)
+    }
+}
+
+struct TutorialArrow: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .fontWeight(.heavy)
+            .foregroundStyle(Color.appPrimary)
+            .zIndex(10)
+    }
+}
+

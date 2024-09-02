@@ -33,4 +33,5 @@ func loadLevels(fileName: String) -> [LevelData] {
 var easyLevels = loadLevels(fileName: "easy")
 var medLevels = loadLevels(fileName: "medium")
 var hardLevels = loadLevels(fileName: "hard")
+var tutorial = loadLevels(fileName: "tutorial")
 
