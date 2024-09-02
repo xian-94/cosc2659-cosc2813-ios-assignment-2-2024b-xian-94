@@ -21,30 +21,37 @@ struct LevelComplete: View {
                 .cornerRadius(20)
             VStack(spacing: 20) {
                 Text("Level Complete!")
-                    .font(.title)
+                    .modifier(TitleTextSizeModifier())
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .foregroundStyle(Color.appPrimary)
                 VStack(alignment: .leading, spacing: 10) {
                     HStack(spacing: UIScreen.main.bounds.width * 0.2) {
                         Text("Score")
                             .foregroundStyle(Color.appText)
-                        
+                            .modifier(MediumTextSizeModifier())
                         Text("\(score)")
+                            .modifier(MediumTextSizeModifier())
                             .foregroundStyle(Color.appText)
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     }
                     HStack(spacing: UIScreen.main.bounds.width * 0.2) {
                         Text("Combos")
+                            .modifier(MediumTextSizeModifier())
                             .foregroundStyle(Color.appText)
                         Text("\(combo)")
+                            .modifier(MediumTextSizeModifier())
                             .foregroundStyle(Color.appText)
                             .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     }
                     if !achievements.isEmpty {
                         Text("Achievements")
+                            .foregroundStyle(Color.appText)
+                            .modifier(MediumTextSizeModifier())
                         HStack {
                             ForEach(achievements, id: \.self) { a in
                                 Image("\(a)")
+                                    .resizable()
+                                    .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.3, minHeight: UIScreen.main.bounds.height * 0.1, maxHeight: UIScreen.main.bounds.height * 0.15)
                             }
                         }
                     }
@@ -54,6 +61,7 @@ struct LevelComplete: View {
                     presentationMode.wrappedValue.dismiss()
                 })  {
                     Text("Back to Level")
+                        .modifier(MediumTextSizeModifier())
                         .foregroundStyle(Color.appSecondary)
                 }
             }

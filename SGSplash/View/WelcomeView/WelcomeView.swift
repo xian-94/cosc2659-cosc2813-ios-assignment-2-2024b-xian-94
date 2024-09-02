@@ -20,11 +20,11 @@ struct WelcomeView: View {
     @State private var showResume: Bool = false
     @State private var hasSavedGame: Bool = false
     @State private var savedGame: GameState?
-   
+    
     // Show sheet of Setting view
     @State private var showSetting: Bool = false
     @AppStorage("user_theme") private var theme: Theme = .light
-   
+    
     // Handle registration
     @State private var username: String = ""
     @State private var isExisted: Bool = false
@@ -39,23 +39,23 @@ struct WelcomeView: View {
         showMessage = false
         let newPlayer = Player(username: username, totalScore: 0, scoreByLevel: [:], achievementBadge: [])
         
-            // Not add new player if username exists
-            for player in players {
-                print(player.username)
-                if player.username == newPlayer.username {
-                    print("Username existed \(newPlayer.username)")
-                    isExisted = true
-                    break
-                }
+        // Not add new player if username exists
+        for player in players {
+            print(player.username)
+            if player.username == newPlayer.username {
+                print("Username existed \(newPlayer.username)")
+                isExisted = true
+                break
             }
-            // Add new player
-            if !isExisted {
-                players.append(newPlayer)
-                UserDefaults.standard.setPlayers(players, forKey: "players")
-                // Save to UserDefaults
-                print("Add new player \(newPlayer.username)")
-                newPlayer.saveToUserDefaults()
-            }
+        }
+        // Add new player
+        if !isExisted {
+            players.append(newPlayer)
+            UserDefaults.standard.setPlayers(players, forKey: "players")
+            // Save to UserDefaults
+            print("Add new player \(newPlayer.username)")
+            newPlayer.saveToUserDefaults()
+        }
         
     }
     // Check if there is any current gameplay
@@ -67,9 +67,9 @@ struct WelcomeView: View {
         else {
             hasSavedGame = false
         }
-        }
-
-
+    }
+    
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -80,18 +80,11 @@ struct WelcomeView: View {
                     .ignoresSafeArea(.all)
                 VStack(alignment: .center, spacing: 20)
                 {
-                    Button(action: {
-                        UserDefaults.standard.removeObject(forKey: "savedGame")
-                        UserDefaults.standard.removeObject(forKey: "players")
-                    }) {
-                        Text("Reset")
-                    }
                     
                     // Show username
                     if !username.isEmpty {
                         Text("Hello, \(username)")
                             .foregroundStyle(Color.appText)
-
                     }
                     
                     // Show resume button
@@ -105,13 +98,13 @@ struct WelcomeView: View {
                                 .padding()
                         }
                         .modifier(PrimaryCapsulePButtonStyle())
-                        .navigationDestination(isPresented: $showResume) { 
+                        .navigationDestination(isPresented: $showResume) {
                             if let gameState = savedGame {
                                 GameView(savedGame: gameState, levelNumber: gameState.level)
                             }
                         }
                     }
-                
+                    
                     // Play button
                     Button(action: {
                         UserDefaults.standard.removeObject(forKey: "savedGame")
@@ -179,7 +172,7 @@ struct WelcomeView: View {
                             .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.3)
                         
                         VStack {
-                           
+                            
                             Text("Register username")
                                 .font(.headline)
                                 .padding()
@@ -229,18 +222,21 @@ struct WelcomeView: View {
                             }
                             
                             if showMessage {
-                                    Text("Username existed. Please try another name!")
+                                Text("Username existed. Please try another name!")
                                     .font(.caption)
-                                        .foregroundStyle(Color.red)
+                                    .foregroundStyle(Color.red)
                             }
-                           
+                            
                         }
                     }
                 }
             }
         }
+        // Display setting in sheet 
         .sheet(isPresented: $showSetting) {
             SettingView()
+                .presentationDetents([.medium, .large])
+                .background(Color.background)
         }
         .onAppear {
             checkSavedGame()

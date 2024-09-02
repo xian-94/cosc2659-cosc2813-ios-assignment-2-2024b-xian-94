@@ -11,18 +11,21 @@ struct GameOver: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .frame(width: .infinity, height: UIScreen.main.bounds.height * 0.15)
-                .foregroundColor(Color.secondBg)
-            VStack {
+                .frame(maxWidth: UIScreen.main.bounds.width * 0.5, minHeight: UIScreen.main.bounds.height * 0.2, maxHeight: UIScreen.main.bounds.height * 0.3)
+                .foregroundColor(Color.background)
+                .cornerRadius(20)
+            VStack(spacing: 20) {
                 Text("Game over!")
                     .italic()
-                    .font(.largeTitle)
+                    .modifier(TitleTextSizeModifier())
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                     .foregroundStyle(Color.appText)
                 Button(action: {
                     presentationMode.wrappedValue.dismiss()
                 })  {
-                    /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+                    Text("Back to Level")
+                        .modifier(MediumTextSizeModifier())
+                        .foregroundStyle(Color.appPrimary)
                 }
             }
         }

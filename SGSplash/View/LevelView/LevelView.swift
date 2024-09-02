@@ -29,6 +29,7 @@ struct LevelView: View {
                         VStack {
                             HStack {
                                 Text("Let's begin our adventure, \(username)")
+                                    .modifier(NormalTextSizeModifier())
                                     .foregroundStyle(Color.appText)
                             }
                             ZStack {
@@ -61,7 +62,6 @@ struct LevelView: View {
                 }
             }
         }
-//        .navigationBarBackButtonHidden(true)
         
     }
 }

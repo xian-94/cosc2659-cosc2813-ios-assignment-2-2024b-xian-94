@@ -20,9 +20,9 @@ struct LeaderboardView: View {
                 .opacity(0.5)
             ScrollView {
                 Text("Leaderboard")
-                    .font(.largeTitle)
+                    .modifier(TitleTextSizeModifier())
                     .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
-                    .foregroundStyle(Color.appPrimary)
+                    .foregroundStyle(Color.appAccent)
                     .shadow(radius: 5, y: 5)
                 Tabs(players: $players)
                 

@@ -21,12 +21,13 @@ struct ModePicker: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("Diffculty")
-                .font(.headline)
+                .modifier(NormalTextSizeModifier())
             HStack(spacing: UIScreen.main.bounds.width * 0.1) {
                     // Display the Difficulty modes
                     ForEach(modes, id: \.self) {
                         mode in
                         Text(mode)
+                            .modifier(NormalTextSizeModifier())
                             .padding(.vertical, 10)
                             .foregroundStyle(Color.appText)
                             .frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
@@ -35,7 +36,7 @@ struct ModePicker: View {
                                 ZStack {
                                     if diffMode == mode {
                                         Capsule()
-                                            .fill(Color.background)
+                                            .fill(Color.secondBg)
                                             .matchedGeometryEffect(id: "ACTIVE", in: animation)
                                     }
                                 }
@@ -58,6 +59,7 @@ struct ModePicker: View {
                     .frame(minWidth: UIScreen.main.bounds.width * 0.05, maxWidth: UIScreen.main.bounds.width * 0.1, minHeight: UIScreen.main.bounds.height * 0.03, maxHeight: UIScreen.main.bounds.height * 0.05)
                 Text("Relax and chill while accoplishing one goal for each level.")
                     .foregroundStyle(Color.appText)
+                    .modifier(NormalTextSizeModifier())
                 
             }
             .padding()
@@ -75,6 +77,7 @@ struct ModePicker: View {
                 
                 Text("Get more serious! Beat the level by fulfilling two targets.")
                     .foregroundStyle(Color.appText)
+                    .modifier(NormalTextSizeModifier())
             }
             .padding()
         }
@@ -88,12 +91,13 @@ struct ModePicker: View {
                         .resizable()
                         .frame(minWidth: UIScreen.main.bounds.width * 0.05, maxWidth: UIScreen.main.bounds.width * 0.1, minHeight: UIScreen.main.bounds.height * 0.03, maxHeight: UIScreen.main.bounds.height * 0.05)
                     Image(systemName: "clock.fill")
-                        .font(.title)
+                        .modifier(TitleTextSizeModifier())
                         .foregroundStyle(Color.appPrimary)
                 }
                 
                 Text("Beat the level by fulfilling two targets within time limit")
                     .foregroundStyle(Color.appText)
+                    .modifier(NormalTextSizeModifier())
             }
             .padding()
         }

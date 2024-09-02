@@ -32,14 +32,14 @@ struct HowToPlay: View {
                 .resizable()
                 .ignoresSafeArea(.all)
             if gameManager.isComplete {
-//                LevelComplete()
-//                    .shadow(radius: 10)
-//                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
-//                    .transition(.scale)
-//                    .zIndex(10)
-//                    .onAppear() {
-//                        playSound(name: "level-complete", type: "mp3")
-//                    }
+                LevelComplete(achievements: [], combo: gameManager.level.getCombo(), score: gameManager.gameState.score)
+                    .shadow(radius: 10)
+                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+                    .transition(.scale)
+                    .zIndex(10)
+                    .onAppear() {
+                        playSound(name: "level-complete", type: "mp3")
+                    }
             }
             else if gameManager.isGameOver {
                 GameOver()
@@ -82,11 +82,11 @@ struct HowToPlay: View {
             
             // Overlay for How to Play tutorial
             VStack {
-//                Text("Tap right to continue")
                 // Welcome to tutorial text
                 if currentStep == 0 {
                     Text("Welcome!")
                         .modifier(TutorialText())
+
                 }
                 
                 // Show targets instruction
@@ -126,7 +126,7 @@ struct HowToPlay: View {
                             currentStep -= 1
                     }) {
                         Image(systemName: "arrow.left")
-                            .font(.title2)
+                            .modifier(TitleTextSizeModifier())
                             .foregroundStyle(Color.appText)
                     }
                     .position(x: UIScreen.main.bounds.width * 0.4, y: UIScreen.main.bounds.height * 0.12)
@@ -139,8 +139,7 @@ struct HowToPlay: View {
                             currentStep += 1
                     }) {
                         Image(systemName: "arrow.right")
-
-                            .font(.title2)
+                            .modifier(TitleTextSizeModifier())
                             .foregroundStyle(Color.appText)
                     }
                     .position(x: UIScreen.main.bounds.width * 0.02, y: UIScreen.main.bounds.height * 0.12)

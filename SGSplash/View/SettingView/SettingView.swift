@@ -13,14 +13,22 @@ struct SettingView: View {
     @AppStorage("user_theme") private var theme: Theme = .light
     @State private var isMusicPlaying: Bool = true
     var body: some View {
-        VStack(alignment: .leading) {
-            ToggleThemeView(scheme: scheme)
-            MuteBackgroundMusic(isPlaying: $isMusicPlaying)
-            LanguagePicker()
-            ModePicker()
+        ZStack {
+            // Background color
+            Color.background
+                .ignoresSafeArea(.all)
+            VStack(alignment: .leading) {
+                // Display each part of setting components 
+                ToggleThemeView(scheme: scheme)
+                MuteBackgroundMusic(isPlaying: $isMusicPlaying)
+                LanguagePicker()
+                ModePicker()
+            }
+            .padding()
+            .preferredColorScheme(theme.colorScheme)
+            
         }
-        .padding()
-        .preferredColorScheme(theme.colorScheme)
+        
     }
 }
 

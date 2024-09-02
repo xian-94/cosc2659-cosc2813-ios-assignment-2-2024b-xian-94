@@ -17,15 +17,15 @@ struct TargetBox: View {
                     if gameManager.timeLimit != nil {
                         Image(systemName: "clock.circle")
                             .foregroundColor(.appAccent)
-                            .font(.largeTitle)
+                            .modifier(TitleTextSizeModifier())
                         Text("\(gameManager.gameState.timeRemaining)")
                             .foregroundStyle(Color.appText)
-                            .font(.title2)
+                            .modifier(MediumTextSizeModifier())
                     }
                     Spacer()
                     Text("Score: \(gameManager.gameState.score)")
                         .foregroundColor(.appText)
-                        .font(.title2)
+                        .modifier(MediumTextSizeModifier())
                         .frame(maxWidth: .infinity, alignment: .trailing)
                 }
                 ZStack {
@@ -45,7 +45,7 @@ struct TargetBox: View {
                                         .frame(minWidth: UIScreen.main.bounds.width * 0.2 ,maxWidth: UIScreen.main.bounds.width * 0.3, maxHeight: UIScreen.main.bounds.height * 0.13)
                                     Text("\(gameManager.gameState.movesLeft)")
                                         .foregroundColor(.appText)
-                                        .font(.title)
+                                        .modifier(MediumTextSizeModifier())
                                         .fontWeight(/*@START_MENU_TOKEN@*/.bold/*@END_MENU_TOKEN@*/)
                                 }
                                 ZStack {
@@ -56,7 +56,7 @@ struct TargetBox: View {
                                         .offset(y: -55)
                                     Text("Moves")
                                         .offset(y: -55)
-                                        .font(.title2)
+                                        .modifier(MediumTextSizeModifier())
                                         .foregroundColor(.appText)
                                 }
                             }
@@ -74,7 +74,7 @@ struct TargetBox: View {
                                                 .frame(minWidth: UIScreen.main.bounds.width * 0.06, maxWidth: UIScreen.main.bounds.width * 0.12, minHeight: UIScreen.main.bounds.width * 0.06, maxHeight: UIScreen.main.bounds.height * 0.07)
                                             Text("\(goal.quantity)")
                                                 .foregroundColor(.appText)
-                                                .font(.title2)
+                                                .modifier(MediumTextSizeModifier())
                                         }
                                     }
                                 }
@@ -86,7 +86,7 @@ struct TargetBox: View {
                                         .offset(y: -55)
                                     Text("Goals")
                                         .offset(y: -55)
-                                        .font(.title2)
+                                        .modifier(MediumTextSizeModifier())
                                 }
                             }
                         }

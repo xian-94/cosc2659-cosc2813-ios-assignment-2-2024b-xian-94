@@ -16,6 +16,7 @@ struct BouncingArrow: View {
     // Control the arrow animation
     @State private var isBouncing = false
     var body: some View {
+        // Vertical arrow direction
         if direction == "vertical" {
             Image(systemName: "arrow.up")
                 .modifier(TutorialArrow())
@@ -28,6 +29,7 @@ struct BouncingArrow: View {
                     }
                 }
         }
+        // Horizontal arrow direction 
         else if direction == "horizontal" {
             Image(systemName: "arrow.right")
                 .modifier(TutorialArrow())

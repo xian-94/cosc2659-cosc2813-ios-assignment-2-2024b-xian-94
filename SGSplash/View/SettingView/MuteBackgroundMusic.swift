@@ -13,9 +13,10 @@ struct MuteBackgroundMusic: View {
     var body: some View {
         HStack {
             Text("Music")
-                .font(.headline)
+                .modifier(NormalTextSizeModifier())
             Spacer()
                 .frame(minWidth: UIScreen.main.bounds.width * 0.2, maxWidth: UIScreen.main.bounds.width * 0.25)
+            // Control the music playing 
             Button(action: {
                 isPlaying.toggle()
                 if isPlaying {
@@ -26,7 +27,7 @@ struct MuteBackgroundMusic: View {
                 }
             }) {
                 Image(systemName: isPlaying ?  "speaker.wave.2.fill": "speaker.zzz.fill")
-                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                    .modifier(TitleTextSizeModifier())
                     .foregroundStyle(Color.appPrimary)
             }
         }

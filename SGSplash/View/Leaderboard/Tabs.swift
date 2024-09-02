@@ -20,12 +20,12 @@ struct Tabs: View {
                 // Loop through each title for display
                 ForEach(0..<titles.count, id: \.self) { i in
                     Text(titles[i])
-                        .font(.caption)
+                        .modifier(NormalTextSizeModifier())
                     // Selected title has a different color
                         .foregroundColor(self.selected == i ? Color.appText : Color.appPrimary)
                         .fontWeight(.bold)
                         .padding(.vertical, 10)
-                        .padding(.horizontal, 10)
+                        .padding(.horizontal, UIScreen.main.bounds.width * 0.02)
                     // Selected title has an oustanding background
                         .background(Color.secondary.opacity(self.selected == i ? 1 : 0))
                         .cornerRadius(10)
@@ -40,7 +40,7 @@ struct Tabs: View {
             .background(Color.appSecondary.opacity(0.4))
             .cornerRadius(10)
             .padding(.horizontal)
-            .frame(width: UIScreen.main.bounds.width * 0.5)
+            .frame(minWidth: UIScreen.main.bounds.width * 0.4, maxWidth: UIScreen.main.bounds.width * 0.5)
             
             // Display tabs based on index chosen
             if self.selected == 0 {
