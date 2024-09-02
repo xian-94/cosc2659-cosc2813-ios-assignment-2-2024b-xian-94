@@ -4,10 +4,16 @@
     "%lld" : {
 
     },
+    "Back" : {
+
+    },
     "Beat the level by fulfilling two targets within time limit" : {
 
     },
     "Button" : {
+
+    },
+    "Complete your targets to win!" : {
 
     },
     "Diffculty" : {
@@ -37,6 +43,9 @@
           }
         }
       }
+    },
+    "Here's your first possible swap. Try it out!" : {
+
     },
     "How To Play" : {
 
@@ -85,6 +94,9 @@
     "Music" : {
 
     },
+    "Next" : {
+
+    },
     "Play" : {
 
     },
@@ -118,10 +130,16 @@
     "Setting" : {
 
     },
+    "Start Playing" : {
+
+    },
     "Tap a point to view more details" : {
 
     },
     "Theme" : {
+
+    },
+    "These are your moves. Use them wisely!" : {
 
     },
     "Top 5 players scores" : {

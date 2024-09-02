@@ -67,7 +67,7 @@ class GameScene: SKScene {
     }
     
     // Convert column and row number into CGPoint
-    private func tilePoint(col: Int, row: Int) -> CGPoint {
+     func tilePoint(col: Int, row: Int) -> CGPoint {
         return CGPoint(x: (CGFloat(col) * tileWidth + tileWidth / 2),
                        y: (CGFloat(row) * tileHeight + tileHeight / 2))
     }

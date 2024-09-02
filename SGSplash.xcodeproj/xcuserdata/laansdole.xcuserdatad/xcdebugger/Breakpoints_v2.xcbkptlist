@@ -14,8 +14,8 @@
             filePath = "SGSplash/Model/Level.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "454"
-            endingLineNumber = "454"
+            startingLineNumber = "456"
+            endingLineNumber = "456"
             landmarkName = "calcScore(for:)"
             landmarkType = "7">
          </BreakpointContent>

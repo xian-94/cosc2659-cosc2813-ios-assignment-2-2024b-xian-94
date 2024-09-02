@@ -27,6 +27,8 @@ struct LevelData: Codable {
             return medLevels
         case "hard":
             return hardLevels
+        case "tutorial":
+            return tutorial
         default:
             return []
         }

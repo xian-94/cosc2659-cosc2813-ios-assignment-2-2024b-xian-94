@@ -13,7 +13,6 @@ struct TargetBox: View {
     @ObservedObject var gameManager: GameManager
     var body: some View {
         VStack {
-//            if let gameState = gameManager.gameState {
                 HStack {
                     if gameManager.timeLimit != nil {
                         Image(systemName: "clock.circle")
