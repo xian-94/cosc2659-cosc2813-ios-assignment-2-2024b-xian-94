@@ -12,13 +12,15 @@ struct GameView: View {
     // Initialization with or without saved game 
     init(savedGame: GameState? = nil, levelNumber: Int) {
         let mode = UserDefaults.standard.string(forKey: "diffMode") ?? "easy"
+        let characters = UserDefaults.standard.string(forKey: "characters") ?? "food"
         currentPlayer = Player.loadFromUserDefaults()
             
         _gameManager = StateObject(wrappedValue: GameManager(
                viewSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height),
                mode: mode,
                levelNumber: levelNumber,
-               savedGame: savedGame
+               savedGame: savedGame,
+               characters: characters
            ))
         }
    
@@ -92,12 +94,12 @@ struct GameView: View {
         .navigationBarBackButtonHidden(true)
         .animation(.easeInOut, value: gameManager.isGameOver || gameManager.isComplete)
         .onAppear {
-            if GameManager.loadSavedGame() == nil {
+//            if GameManager.loadSavedGame() == nil {
                 gameManager.startGame()
-            }
-            else {
-                gameManager.resumeGame()
-            }
+//            }
+//            else {
+//                gameManager.resumeGame()
+//            }
         }
         .onDisappear {
             gameManager.saveGame()

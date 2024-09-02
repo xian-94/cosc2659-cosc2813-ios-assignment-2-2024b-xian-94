@@ -11,6 +11,8 @@
 		758B82522C7F2AA1002EB459 /* easy.json in Resources */ = {isa = PBXBuildFile; fileRef = 758B82512C7F2AA1002EB459 /* easy.json */; };
 		758B82542C7F2C75002EB459 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758B82532C7F2C75002EB459 /* Goal.swift */; };
 		758FF0672C6C8018005EB21F /* Swap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 758FF0662C6C8018005EB21F /* Swap.swift */; };
+		7590833A2C85B49D00EE0615 /* Raleway-VariableFont_wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 759083392C85B49D00EE0615 /* Raleway-VariableFont_wght.ttf */; };
+		7590833D2C85D15A00EE0615 /* CharacterSetPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590833C2C85D15A00EE0615 /* CharacterSetPicker.swift */; };
 		7590CDA32C80928E001D19FD /* PlayerScoreLineChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590CDA22C80928E001D19FD /* PlayerScoreLineChart.swift */; };
 		7590CDA52C80D943001D19FD /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7590CDA42C80D943001D19FD /* Tabs.swift */; };
 		75942F792C6A031B00A9527F /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75942F782C6A031B00A9527F /* Element.swift */; };
@@ -47,6 +49,9 @@
 		75A147A12C84666700FE1D44 /* tutorial.json in Resources */ = {isa = PBXBuildFile; fileRef = 75A147A02C84666700FE1D44 /* tutorial.json */; };
 		75A147A42C8466BF00FE1D44 /* HowToPlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A147A32C8466BF00FE1D44 /* HowToPlay.swift */; };
 		75A147A82C847D1F00FE1D44 /* BouncingArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A147A72C847D1F00FE1D44 /* BouncingArrow.swift */; };
+		75A167D02C862FB800CF2686 /* easy-animals.json in Resources */ = {isa = PBXBuildFile; fileRef = 75A167CF2C862FB800CF2686 /* easy-animals.json */; };
+		75A167D42C8631A200CF2686 /* medium-animals.json in Resources */ = {isa = PBXBuildFile; fileRef = 75A167D32C8631A200CF2686 /* medium-animals.json */; };
+		75A167D62C8631EF00CF2686 /* hard-animals.json in Resources */ = {isa = PBXBuildFile; fileRef = 75A167D52C8631EF00CF2686 /* hard-animals.json */; };
 		75A334432C69203600C65070 /* SGSplashApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A334422C69203600C65070 /* SGSplashApp.swift */; };
 		75A334452C69203600C65070 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75A334442C69203600C65070 /* ContentView.swift */; };
 		75A334472C69203B00C65070 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75A334462C69203B00C65070 /* Assets.xcassets */; };
@@ -68,6 +73,9 @@
 		758B82512C7F2AA1002EB459 /* easy.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = easy.json; sourceTree = "<group>"; };
 		758B82532C7F2C75002EB459 /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		758FF0662C6C8018005EB21F /* Swap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swap.swift; sourceTree = "<group>"; };
+		759083392C85B49D00EE0615 /* Raleway-VariableFont_wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Raleway-VariableFont_wght.ttf"; sourceTree = "<group>"; };
+		7590833B2C85B54A00EE0615 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		7590833C2C85D15A00EE0615 /* CharacterSetPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterSetPicker.swift; sourceTree = "<group>"; };
 		7590CDA22C80928E001D19FD /* PlayerScoreLineChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerScoreLineChart.swift; sourceTree = "<group>"; };
 		7590CDA42C80D943001D19FD /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
 		75942F782C6A031B00A9527F /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
@@ -104,6 +112,9 @@
 		75A147A02C84666700FE1D44 /* tutorial.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tutorial.json; sourceTree = "<group>"; };
 		75A147A32C8466BF00FE1D44 /* HowToPlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlay.swift; sourceTree = "<group>"; };
 		75A147A72C847D1F00FE1D44 /* BouncingArrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BouncingArrow.swift; sourceTree = "<group>"; };
+		75A167CF2C862FB800CF2686 /* easy-animals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "easy-animals.json"; sourceTree = "<group>"; };
+		75A167D32C8631A200CF2686 /* medium-animals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "medium-animals.json"; sourceTree = "<group>"; };
+		75A167D52C8631EF00CF2686 /* hard-animals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "hard-animals.json"; sourceTree = "<group>"; };
 		75A3343F2C69203600C65070 /* SGSplash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SGSplash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75A334422C69203600C65070 /* SGSplashApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SGSplashApp.swift; sourceTree = "<group>"; };
 		75A334442C69203600C65070 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -139,6 +150,14 @@
 				7597B3242C78717400049DC0 /* LevelView.swift */,
 			);
 			path = LevelView;
+			sourceTree = "<group>";
+		};
+		759083382C85B48D00EE0615 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				759083392C85B49D00EE0615 /* Raleway-VariableFont_wght.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		75942F732C6A01B100A9527F /* Game */ = {
@@ -186,15 +205,11 @@
 				758B82512C7F2AA1002EB459 /* easy.json */,
 				7597B28F2C7F772C00314ADD /* hard.json */,
 				75A147A02C84666700FE1D44 /* tutorial.json */,
+				75A167CF2C862FB800CF2686 /* easy-animals.json */,
+				75A167D32C8631A200CF2686 /* medium-animals.json */,
+				75A167D52C8631EF00CF2686 /* hard-animals.json */,
 			);
 			path = Data;
-			sourceTree = "<group>";
-		};
-		75942F772C6A01C900A9527F /* Assets */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Assets;
 			sourceTree = "<group>";
 		};
 		75942F822C6A162A00A9527F /* Helpers */ = {
@@ -218,6 +233,7 @@
 				759AD3372C7CEAA0000231E6 /* MuteBackgroundMusic.swift */,
 				759A69862C7DA0C700E28C65 /* ToggleThemeView.swift */,
 				7597B2932C7F85C900314ADD /* ModePicker.swift */,
+				7590833C2C85D15A00EE0615 /* CharacterSetPicker.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -269,9 +285,10 @@
 		75A334412C69203600C65070 /* SGSplash */ = {
 			isa = PBXGroup;
 			children = (
+				7590833B2C85B54A00EE0615 /* Info.plist */,
+				759083382C85B48D00EE0615 /* Fonts */,
 				75ECC5582C78FECA007416EC /* Sounds */,
 				75942F822C6A162A00A9527F /* Helpers */,
-				75942F772C6A01C900A9527F /* Assets */,
 				75942F762C6A01C200A9527F /* Data */,
 				75942F752C6A01BD00A9527F /* View */,
 				75942F742C6A01B800A9527F /* Model */,
@@ -381,11 +398,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				75A147A12C84666700FE1D44 /* tutorial.json in Resources */,
+				7590833A2C85B49D00EE0615 /* Raleway-VariableFont_wght.ttf in Resources */,
 				75ECC5662C79018B007416EC /* invalid-swap.mp3 in Resources */,
+				75A167D62C8631EF00CF2686 /* hard-animals.json in Resources */,
 				75A3344A2C69203B00C65070 /* Preview Assets.xcassets in Resources */,
+				75A167D02C862FB800CF2686 /* easy-animals.json in Resources */,
 				75970A2B2C6B638E005A98E6 /* medium.json in Resources */,
 				75ECC5622C79002B007416EC /* swap.mp3 in Resources */,
 				75B73B972C79914C0011F873 /* tap.wav in Resources */,
+				75A167D42C8631A200CF2686 /* medium-animals.json in Resources */,
 				7597B2902C7F772C00314ADD /* hard.json in Resources */,
 				759AD32D2C7CBF70000231E6 /* Localizable.xcstrings in Resources */,
 				75ECC55F2C79002B007416EC /* level-complete.mp3 in Resources */,
@@ -415,6 +436,7 @@
 				7597C5A62C7A50F800437B5D /* PlayerRow.swift in Sources */,
 				75970A2D2C6B6833005A98E6 /* ModelData.swift in Sources */,
 				759AD4B22C7B93EA002140D1 /* WelcomeView.swift in Sources */,
+				7590833D2C85D15A00EE0615 /* CharacterSetPicker.swift in Sources */,
 				7597B3252C78717400049DC0 /* LevelView.swift in Sources */,
 				7590CDA32C80928E001D19FD /* PlayerScoreLineChart.swift in Sources */,
 				75A01F452C75A1850056EA80 /* Modifiers.swift in Sources */,
@@ -580,6 +602,8 @@
 				DEVELOPMENT_TEAM = FBGLW6Y4VC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SGSplash/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Emotis;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -608,6 +632,8 @@
 				DEVELOPMENT_TEAM = FBGLW6Y4VC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SGSplash/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Emotis;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -22,6 +22,7 @@ struct SettingView: View {
                 ToggleThemeView(scheme: scheme)
                 MuteBackgroundMusic(isPlaying: $isMusicPlaying)
                 LanguagePicker()
+                CharacterSetPicker()
                 ModePicker()
             }
             .padding()

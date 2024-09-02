@@ -20,22 +20,25 @@ class GameManager: ObservableObject {
     // Handle save and resume game
     @Published var gameState: GameState
     private var elements : [[Element?]]
-    // Handle complete level
+    // Handle user preferences
     @Published var mode: String
+    @Published var characters: String
+    
     
     let scene: GameScene
     var level: Level
     
-    init(viewSize: CGSize, mode: String, levelNumber: Int, savedGame: GameState? = nil) {
+    init(viewSize: CGSize, mode: String, levelNumber: Int, savedGame: GameState? = nil, characters: String = "food") {
         self.mode = mode
+        self.characters = characters
         // Initialization
         if let savedGame = savedGame {
             self.gameState = savedGame
-            self.level = Level(levelPack: LevelData.getLevelPack(for: mode), levelNumber: savedGame.level)
+            self.level = Level(levelPack: LevelData.getLevelPack(mode: mode, cSet: characters), levelNumber: savedGame.level, characterSet: characters)
             self.elements =  Array(repeating: Array(repeating: nil, count: 7), count: 7)
             
         } else {
-            self.level = Level(levelPack: LevelData.getLevelPack(for: mode), levelNumber: levelNumber)
+            self.level = Level(levelPack: LevelData.getLevelPack(mode: mode, cSet: characters), levelNumber: levelNumber, characterSet: characters)
             self.gameState = GameState(level: levelNumber, score: 0, movesLeft: self.level.moves, goals: self.level.goals, timeRemaining: self.level.timeLimit ?? 0, elements: level.getElementTypes())
             self.elements = level.getElements()
         }

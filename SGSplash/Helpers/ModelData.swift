@@ -34,4 +34,7 @@ var easyLevels = loadLevels(fileName: "easy")
 var medLevels = loadLevels(fileName: "medium")
 var hardLevels = loadLevels(fileName: "hard")
 var tutorial = loadLevels(fileName: "tutorial")
+var easyAnimalLevels = loadLevels(fileName: "easy-animals")
+var mediumAnimalLevels = loadLevels(fileName: "medium-animals")
+var hardAnimalLevels = loadLevels(fileName: "hard-animals")
 

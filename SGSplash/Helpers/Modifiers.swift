@@ -78,21 +78,21 @@ struct TutorialArrow: ViewModifier {
 struct TitleTextSizeModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.system(size: UIScreen.main.bounds.width * 0.05))
+            .font(.custom("Raleway", size: UIScreen.main.bounds.width * 0.05))
     }
 }
 
 struct MediumTextSizeModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.system(size: UIScreen.main.bounds.width * 0.04))
+            .font(.custom("Raleway", size: UIScreen.main.bounds.width * 0.04))
     }
 }
 
 struct NormalTextSizeModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .font(.system(size: UIScreen.main.bounds.width * 0.03))
+            .font(.custom("Raleway", size: UIScreen.main.bounds.width * 0.03))
     }
 }
 
