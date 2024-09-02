@@ -20,12 +20,14 @@ class GameManager: ObservableObject {
     // Handle save and resume game
     @Published var gameState: GameState
     private var elements : [[Element?]]
+    // Handle complete level
+    @Published var mode: String
     
     let scene: GameScene
     var level: Level
     
     init(viewSize: CGSize, mode: String, levelNumber: Int, savedGame: GameState? = nil) {
-        
+        self.mode = mode
         // Initialization
         if let savedGame = savedGame {
             self.gameState = savedGame
@@ -113,7 +115,6 @@ class GameManager: ObservableObject {
         }
         scene.removeSprites()
         scene.addSprites(for: Set(self.elements.flatMap { $0 }.compactMap { $0 }))
-        scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         // Restart the timer if there's time remaining
         if timeRemaning > 0 {
             startTimer()
@@ -194,6 +195,8 @@ class GameManager: ObservableObject {
         return false
     }
     
+    
+    
     // Update the list of possible swaps before granting player control
     func nextTurn() {
         level.resetCombo()
@@ -219,6 +222,10 @@ class GameManager: ObservableObject {
             isComplete = true
             // Stop timer when complete ahead of time
             timer?.invalidate()
+            // Save player
+            if self.mode != "tutorial" {
+                completeLevel()
+            }
         }
         else if gameState.movesLeft <= 0 {
             isGameOver = true
@@ -260,6 +267,85 @@ class GameManager: ObservableObject {
         gameState = GameState(level: level.number, score: 0, movesLeft: level.moves, goals: level.goals, timeRemaining: level.timeLimit ?? 0, elements: Array(repeating: Array(repeating: nil, count: 7), count: 7))
     }
     
+    // MARK: Handle update achievements based on score and combo
+    // Get the list of achievements in a level
+    func getAchievements(for player: Player) -> [String] {
+        var achievements: [String] = []
+        // First step badge for reaching 1000 points
+        if gameState.score >= 1000 && !player.achievementBadge.contains("firstStep") {
+            achievements.append("firstStep")
+        }
+        // Strategist badge for reaching 2000 points
+        if gameState.score >= 2000 && !player.achievementBadge.contains("strategist") {
+            achievements.append("strategist")
+        }
+        // Conqueror badge for reaching 300
+        if gameState.score >= 3000 && !player.achievementBadge.contains("conqueror") {
+            achievements.append("conqueror")
+        }
+        // Combo King for getting more than 5 combos
+        if self.level.getCombo() > 5 && !player.achievementBadge.contains("comboKing") {
+            achievements.append("comboKing")
+        }
+        
+        return achievements
+    }
+    
+    // Update the achievements in the user defaults
+    private func updateAchievements(player: Player) {
+        var player = player
+        let achievements = getAchievements(for: player)
+        for achievement in achievements {
+            if !player.achievementBadge.contains(achievement) {
+                player.achievementBadge.append(achievement)
+            }
+        }
+        // Save updated player to UserDefaults
+        player.saveToUserDefaults()
+        savePlayer(player: player)
+    }
+    
+    private func savePlayer(player: Player) {
+        var players = UserDefaults.standard.players(forKey: "players") ?? leaderboard
+        // Find the current player's position
+            if let index = players.firstIndex(where: { $0.username == player.username }) {
+                // Save the new player
+                players[index] = player
+                UserDefaults.standard.setPlayers(players, forKey: "players")
+            }
+    }
+    
+    // MARK: Update level score
+    private func updateLevelScore(for player: inout Player, level: Int, newScore: Int) {
+        // Check if the level already has a score
+        if let existingScore = player.scoreByLevel[String(level)] {
+            // Update the score only if the new score is higher
+            if newScore > existingScore {
+                player.scoreByLevel[String(level)] = newScore
+            }
+        } else {
+            // If no score exists for this level, simply add the new score
+            player.scoreByLevel[String(level)] = newScore
+        }
+        
+        // Save updated player to UserDefaults
+        player.saveToUserDefaults()
+        savePlayer(player: player)
+    }
+    
+    // Update player upon completing the level
+    func completeLevel() {
+        if var currentUser = Player.loadFromUserDefaults() {
+            let levelNumber = gameState.level
+            let finalScore = gameState.score
+
+            // Update the player's score for this level
+            updateLevelScore(for: &currentUser, level: levelNumber + 1, newScore: finalScore)
+            
+            // Check for and handle new achievements
+            updateAchievements(player: currentUser)
+        }
+    }
     
     
     

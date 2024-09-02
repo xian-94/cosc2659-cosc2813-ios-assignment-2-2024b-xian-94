@@ -5,12 +5,14 @@ struct GameView: View {
     @AppStorage("user_theme") private var theme: Theme = .light
     @StateObject private var gameManager: GameManager
     @Environment(\.dismiss) var dismiss
+    private var currentPlayer: Player?
 
     let midY = UIScreen.main.bounds.height / 2
     
     // Initialization with or without saved game 
     init(savedGame: GameState? = nil, levelNumber: Int) {
         let mode = UserDefaults.standard.string(forKey: "diffMode") ?? "easy"
+        currentPlayer = Player.loadFromUserDefaults()
             
         _gameManager = StateObject(wrappedValue: GameManager(
                viewSize: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height),
@@ -26,7 +28,7 @@ struct GameView: View {
                 .resizable()
                 .ignoresSafeArea(.all)
             if gameManager.isComplete {
-                LevelComplete()
+                LevelComplete(achievements: gameManager.getAchievements(for: currentPlayer!), combo: gameManager.level.getCombo(), score: gameManager.gameState.score)
                     .shadow(radius: 10)
                     .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
                     .transition(.scale)
@@ -80,7 +82,7 @@ struct GameView: View {
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.5)
                     .ignoresSafeArea(.all)
                 // Prevent user interaction during swapping
-                    .disabled(!gameManager.userInteractionEnabled)
+//                    .disabled(!gameManager.userInteractionEnabled)
                 
             }
 
@@ -98,6 +100,7 @@ struct GameView: View {
         }
         .onDisappear {
             gameManager.saveGame()
+            print("Saving game!")
         }
     }
 }

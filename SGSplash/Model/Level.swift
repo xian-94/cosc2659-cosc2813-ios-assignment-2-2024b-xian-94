@@ -460,5 +460,9 @@ class Level {
         self.combo = 1
     }
     
+    func getCombo() -> Int {
+        return self.combo
+    }
+    
 }
 

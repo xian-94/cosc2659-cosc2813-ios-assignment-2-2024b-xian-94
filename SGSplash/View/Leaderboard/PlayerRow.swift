@@ -16,7 +16,7 @@ struct PlayerRow: View {
         ZStack {
             Rectangle()
                 .cornerRadius(30)
-                .frame(width: .infinity)
+                .frame(maxWidth: UIScreen.main.bounds.width * 0.9)
                 .frame(minHeight: UIScreen.main.bounds.height * 0.05, maxHeight: UIScreen.main.bounds.height * 0.1)
                 .foregroundStyle(Color.background)
                 .opacity(0.3)

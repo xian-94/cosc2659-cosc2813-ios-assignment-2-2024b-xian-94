@@ -32,14 +32,14 @@ struct HowToPlay: View {
                 .resizable()
                 .ignoresSafeArea(.all)
             if gameManager.isComplete {
-                LevelComplete()
-                    .shadow(radius: 10)
-                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
-                    .transition(.scale)
-                    .zIndex(10)
-                    .onAppear() {
-                        playSound(name: "level-complete", type: "mp3")
-                    }
+//                LevelComplete()
+//                    .shadow(radius: 10)
+//                    .position(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2)
+//                    .transition(.scale)
+//                    .zIndex(10)
+//                    .onAppear() {
+//                        playSound(name: "level-complete", type: "mp3")
+//                    }
             }
             else if gameManager.isGameOver {
                 GameOver()

@@ -20,7 +20,7 @@ struct TopPlayerView: View {
                 TopThreeView(player: topPlayers[2], rank: "thirdRank")
                     .offset(x: 20, y: -20)
             }
-            VStack(spacing: -20) {
+            VStack(spacing: 0.5) {
                 if topPlayers.count > 3 {
                     ForEach(3..<min(topPlayers.count, 10), id: \.self) { i in
                         PlayerRow(rank: i + 1, player: topPlayers[i])
