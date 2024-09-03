@@ -421,7 +421,7 @@ class Level {
         for col in 0..<self.columns {
             var arr: [Element] = []
             var r = self.rows - 1
-            while r >= 0 && elements[col][r] == nil {
+            while r >= 0 && elements[col][r] == nil && tiles[col][r] != nil {
                 var newType: ElementType
                 // The newly create element cannot have the same type with the last new element
                 repeat {
@@ -435,13 +435,10 @@ class Level {
                 lastType = newType
                 
                 // Create new element
-                if tiles[col][r] != nil {
                     let newElement = Element(column: col, row: r, type: newType)
                     elements[col][r] = newElement
                     arr.append(newElement)
                     r -= 1
-                }
-                
             }
             if !arr.isEmpty {
                 columns.append(arr)

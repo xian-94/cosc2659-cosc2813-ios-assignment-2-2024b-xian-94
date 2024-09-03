@@ -94,12 +94,12 @@ struct GameView: View {
         .navigationBarBackButtonHidden(true)
         .animation(.easeInOut, value: gameManager.isGameOver || gameManager.isComplete)
         .onAppear {
-//            if GameManager.loadSavedGame() == nil {
+            if GameManager.loadSavedGame() == nil {
                 gameManager.startGame()
-//            }
-//            else {
-//                gameManager.resumeGame()
-//            }
+            }
+            else {
+                gameManager.resumeGame()
+            }
         }
         .onDisappear {
             gameManager.saveGame()

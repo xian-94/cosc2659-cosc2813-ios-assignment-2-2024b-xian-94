@@ -108,14 +108,15 @@ class GameManager: ObservableObject {
         self.moves = gameState.movesLeft
         self.score = gameState.score
         // Recreate the level's tiles from the saved ElementTypes
-        for r in 0..<level.rows {
-            for c in 0..<level.columns {
-                if let type = gameState.elements[c][r] {
+        for (c, column) in gameState.elements.enumerated() {
+            for (r, type) in column.enumerated() {
+                if let type = type {
                     let e = Element(column: c, row: r, type: type)
                     self.elements[c][r] = e
                 }
             }
         }
+
         scene.removeSprites()
         scene.addSprites(for: Set(self.elements.flatMap { $0 }.compactMap { $0 }))
         // Restart the timer if there's time remaining
