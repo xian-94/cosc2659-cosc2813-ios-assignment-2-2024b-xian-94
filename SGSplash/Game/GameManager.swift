@@ -30,12 +30,11 @@ class GameManager: ObservableObject {
     @Published var isGameOver: Bool = false
     @Published var isComplete: Bool = false
     // Manage countdown timer
-    @Published var timeRemaning: Int = 0
+    @Published var timeRemaining: Int = 0
     var timeLimit: Int?
     var timer: Timer?
     // Handle save and resume game
     @Published var gameState: GameState
-    private var elements : [[Element?]]
     // Handle user preferences
     @Published var mode: String
     @Published var characters: String
@@ -51,12 +50,10 @@ class GameManager: ObservableObject {
         if let savedGame = savedGame {
             self.gameState = savedGame
             self.level = Level(levelPack: LevelData.getLevelPack(mode: mode, cSet: characters), levelNumber: savedGame.level, characterSet: characters)
-            self.elements =  Array(repeating: Array(repeating: nil, count: 7), count: 7)
             
         } else {
             self.level = Level(levelPack: LevelData.getLevelPack(mode: mode, cSet: characters), levelNumber: levelNumber, characterSet: characters)
-            self.gameState = GameState(level: levelNumber, score: 0, movesLeft: self.level.moves, goals: self.level.goals, timeRemaining: self.level.timeLimit ?? 0, elements: level.getElementTypes())
-            self.elements = level.getElements()
+            self.gameState = GameState(level: levelNumber, score: 0, movesLeft: self.level.moves, goals: self.level.goals, timeRemaining: self.level.timeLimit ?? 0)
         }
         
         
@@ -78,8 +75,8 @@ class GameManager: ObservableObject {
     // MARK: Timer management
     // Count down the time
     func countdown() {
-        if timeRemaning > 0 {
-            timeRemaning -= 1
+        if self.timeRemaining > 0 {
+            self.timeRemaining -= 1
         }
         else {
             // Game over when the timer stops
@@ -103,11 +100,12 @@ class GameManager: ObservableObject {
         self.goals = level.goals
         self.moves = level.moves
         self.score = 0
-        if let limit = level.timeLimit {
+        if let limit = self.level.timeLimit {
             self.timeLimit = limit
-            self.timeRemaning = limit
+            self.timeRemaining = limit
             startTimer()
         }
+        
         level.resetCombo()
         shuffle()
     }
@@ -119,24 +117,12 @@ class GameManager: ObservableObject {
     }
     
     func resumeGame() {
-        self.timeRemaning = gameState.timeRemaining
+        self.timeRemaining = gameState.timeRemaining
         self.goals = gameState.goals
         self.moves = gameState.movesLeft
         self.score = gameState.score
-        // Recreate the level's tiles from the saved ElementTypes
-        for (c, column) in gameState.elements.enumerated() {
-            for (r, type) in column.enumerated() {
-                if let type = type {
-                    let e = Element(column: c, row: r, type: type)
-                    self.elements[c][r] = e
-                }
-            }
-        }
-
-        scene.removeSprites()
-        scene.addSprites(for: Set(self.elements.flatMap { $0 }.compactMap { $0 }))
         // Restart the timer if there's time remaining
-        if timeRemaning > 0 {
+        if timeRemaining > 0 {
             startTimer()
         }
         
@@ -260,13 +246,6 @@ class GameManager: ObservableObject {
     
     // MARK: Save and load game state
     func saveGame() {
-        // Convert the current level's elements to ElementType
-        let elementTypes = level.getElements().map { column in
-            column.map { element in
-                element?.type
-            }
-        }
-        gameState.elements = elementTypes
         if let encoded = try? JSONEncoder().encode(gameState) {
             UserDefaults.standard.set(encoded, forKey: "savedGame")
             print("Game saved")
@@ -284,7 +263,7 @@ class GameManager: ObservableObject {
     // Remove game state when starting a new game
     func resetGame() {
         UserDefaults.standard.removeObject(forKey: "savedGame")
-        gameState = GameState(level: level.number, score: 0, movesLeft: level.moves, goals: level.goals, timeRemaining: level.timeLimit ?? 0, elements: Array(repeating: Array(repeating: nil, count: 7), count: 7))
+        gameState = GameState(level: level.number, score: 0, movesLeft: level.moves, goals: level.goals, timeRemaining: level.timeLimit ?? 0)
     }
     
     // MARK: Handle update achievements based on score and combo

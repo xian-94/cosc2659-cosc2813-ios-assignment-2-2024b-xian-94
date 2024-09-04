@@ -26,7 +26,7 @@ struct TargetBox: View {
                         Image(systemName: "clock.circle")
                             .foregroundColor(.appAccent)
                             .modifier(TitleTextSizeModifier())
-                        Text("\(gameManager.gameState.timeRemaining)")
+                        Text("\(gameManager.timeRemaining)")
                             .foregroundStyle(Color.appText)
                             .modifier(MediumTextSizeModifier())
                     }

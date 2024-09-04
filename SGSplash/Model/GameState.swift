@@ -21,14 +21,12 @@ struct GameState: Codable {
     var movesLeft: Int
     var goals: [Goal]
     var timeRemaining: Int
-    var elements: [[ElementType?]]
-    init(level: Int = 1, score: Int = 0, movesLeft: Int = 0, goals: [Goal] = [], timeRemaining: Int = 0, elements: [[ElementType?]]) {
+    init(level: Int = 1, score: Int = 0, movesLeft: Int = 0, goals: [Goal] = [], timeRemaining: Int = 0) {
         self.level = level
         self.score = score
         self.movesLeft = movesLeft
         self.goals = goals
         self.timeRemaining = timeRemaining
-        self.elements = elements
     }
 }
 
