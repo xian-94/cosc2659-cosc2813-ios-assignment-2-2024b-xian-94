@@ -2,7 +2,20 @@
 
 **Emotis** is an engaging and adorable puzzle game for iOS that challenges players with various levels of increasing difficulty. The app features several main views, including a Welcome View, Interactive How to Play View, and Game View. Additionally, users can customize their experience with options such as theme selection, character set changes, and language preferences.
 
-## Features
+## Demo
+- Link to Video demo: https://youtu.be/ZEmbLSaAId8
+
+### On iPhone
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2432d32c-3bc4-44bb-bf91-f25411a6d537" width="300" alt="Game view" style="margin-right: 20px;" />
+  <img src="https://github.com/user-attachments/assets/f19ff35b-7dad-4f0d-832b-f5df17d22cdf" width="300" alt="Main view View" />
+</p>
+
+### On iPad
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e48f8fd9-91c3-4f41-a660-598c67e99ed8" width="300" alt="Setting view" style="margin-right: 20px;" />
+  <img src="https://github.com/user-attachments/assets/7d64ec0a-1d68-46bd-a4c7-884887f1cf7f" width="300" alt="Game View" />
+</p>
 
 ### Welcome View
 - **Introduction**: The first screen that users encounter, displaying the application logo and title.
